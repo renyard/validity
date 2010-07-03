@@ -1,11 +1,17 @@
 /**
- *
+ * Validity
+ * Core Module
  */
-(function(validity) {
+window.validity = (function(validity) {
 	var core = {};
 
 	//	Public methods
 
+	/**
+	 * @method
+	 * @public
+	 * @name dispatch
+	 */
 	core.dispatch = function(request, sender, sendResponse) {
 		switch(request) {
 			case 'init':
@@ -19,7 +25,7 @@
 		}
 	};
 
-	//	Private Methods
+	//	Private Functions
 
 	/**
 	* @function
@@ -41,6 +47,6 @@
 	}
 
 	//	Create validity namespace if required
-	validity = validity;
 	validity.core = core;
+	return validity;
 })(validity || {});
