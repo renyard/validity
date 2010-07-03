@@ -8,10 +8,10 @@
 	/**
 	 * @private
 	 * @function
-	 * @name _init
+	 * @name _requestValidation
 	 */
-	function _init() {
-		_attachKeyboardShortcuts();
+	function _requestValidation() {
+		
 	}
 
 	/**
@@ -45,4 +45,16 @@
 			}
 		});
 	}
+
+	/**
+	 * @private
+	 * @function
+	 * @name _init
+	 */
+	function _init() {
+		_attachKeyboardShortcuts();
+	}
+
+	_init();
+
 })();
