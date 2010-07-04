@@ -2,7 +2,7 @@
  * Validity
  * Core Module
  */
-window.validity = (function(validity) {
+var validity = (function(validity) {
 	var core = {};
 
 	//	Public methods
@@ -46,7 +46,6 @@ window.validity = (function(validity) {
 		chrome.extension.onRequest.addListener();
 	}
 
-	//	Create validity namespace if required
 	validity.core = core;
 	return validity;
 })(validity || {});

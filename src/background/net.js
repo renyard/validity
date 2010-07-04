@@ -1,7 +1,7 @@
 /**
  *
  */
-(function() {
+var validity = (function() {
 	var net = {},
 		validator = localStorage['validator'] || 'http://validator.w3.org/check',
 		xhrSource = new XMLHttpRequest(),
@@ -48,10 +48,9 @@
 		//	Open the XHR connection and send data
 		xhrValidator.open('POST', validator);
 		xhrValidator.sendRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhrValidator.send('output=json&fragment='+encodeURIComponent(source));
+		xhrValidator.send('output=soap12&fragment='+encodeURIComponent(source));
 	};
 
-	//	Create validity namespace if required
-	window.validity = window.validity || {};
-	window.validity.net = net;
-})();
+	validity.net = net;
+	return validity;
+})(validity || {});

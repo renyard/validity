@@ -24,3 +24,19 @@ var chrome = {};
 		validity.core.dispatch('init', {}, 'response');
 	});
 })();
+
+(function() {
+	var lifecycle = {setup: function() {}, tearDown: function(){}};
+
+	module('xml', lifecycle);
+
+	test('Valid Document', function() {
+		var parser = new DOMParser(),
+			response,
+			xmlDoc = parser.parseFromString(xmlFixtures.valid, 'text/xml');
+		expect(1);
+
+		response = validity.xml.parseResponse(xmlDoc);
+		same(response, {errorCount: 0, warningCount: 0});
+	});
+})();
