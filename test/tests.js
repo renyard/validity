@@ -34,9 +34,21 @@ var chrome = {};
 		var parser = new DOMParser(),
 			response,
 			xmlDoc = parser.parseFromString(xmlFixtures.valid, 'text/xml');
+
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		same(response, {errorCount: 0, warningCount: 0});
+		same(response, {"url": "http://www.bbc.co.uk/", "messages": [], "source": {"encoding": "utf-8", "type": "text/html"}});
+	});
+
+	test('Invalid Document', function() {
+		var parser = new DOMParser(),
+			response,
+			xmlDoc = parser.parseFromString(xmlFixtures.invalid, 'text/xml');
+
+		expect(1);
+
+		response = validity.xml.parseResponse(xmlDoc);
+		same(response, { "url": "http://www.renyard.net/", "messages": [ { "lastLine": 6, "lastColumn": 53, "message": "Bad value X-UA-Compatible for attribute http-equiv on element meta.", "messageid": "html5", "explanation": " <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>", "type": "error" } ], "source": { "encoding": "utf-8", "type": "text/html" } });
 	});
 })();
