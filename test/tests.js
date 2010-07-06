@@ -6,10 +6,29 @@
 var chrome = {};
 
 (function() {
-	var lifecycle = {setup: mock, tearDown: function(){ok(true)}}
+	var lifecycle = {setup: mock, tearDown: function(){
+				validity.net = _net;
+			}
+		},
+		_net;
 
 	function mock() {
-		chrome = {extension: {onRequest: {addListener: function(){}}}}
+		//	Mock chrome extension API
+		chrome = {extension: {onRequest: {addListener: function(){}}}, tabs: {}};
+
+		//	Create reference to net module
+		_net = validity.net;
+
+		//	Mock net module
+		validity.net = {
+			getSource: function(url, callback) {
+				var source = '<!doctype html><html><head><title></title></head><body></body></html>';
+				callback(source);
+			},
+			submitValidation: function(source, callback) {
+				callback({});
+			}
+		};
 	}
 
 	module('core', lifecycle);
@@ -18,12 +37,26 @@ var chrome = {};
 		expect(1);
 
 		chrome.extension.onRequest.addListener = function(){
-			ok(true);
+			ok(true, 'Fired onRequest.addListener');
 		};
 
 		validity.core.dispatch('init', {}, 'response');
 	});
+
+	test('_validate', function() {
+		expect(1);
+
+		chrome.tabs.sendRequest = function() {
+			ok(true, 'Fired tabs.sendRequest');
+		};
+
+		validity.core._validate({tab:{id:1234, url:'http://www.3doughnuts.com/'}});
+	});
 })();
+
+/**
+ * XML Tests
+ */
 
 (function() {
 	var lifecycle = {setup: function() {}, tearDown: function(){}};

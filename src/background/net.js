@@ -1,5 +1,6 @@
 /**
- *
+ * @namespace
+ * @name validity.net
  */
 var validity = (function() {
 	var net = {},
@@ -19,7 +20,7 @@ var validity = (function() {
 					callback(xhrSource.responseText);
 				}
 				else if (xhrSource.status === 400) {
-					
+					//	TODO: Handle errors
 				}
 			}
 		};
@@ -40,7 +41,7 @@ var validity = (function() {
 					callback(xhrValidator.responseXML);
 				}
 				else if (xhrValidator.status === 400) {
-					
+					//	TODO: Handle errors
 				}
 			}
 		}
@@ -48,7 +49,7 @@ var validity = (function() {
 		//	Open the XHR connection and send data
 		xhrValidator.open('POST', validator);
 		xhrValidator.sendRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhrValidator.send('output=soap12&fragment='+encodeURIComponent(source));
+		xhrValidator.send('output=json&fragment='+encodeURIComponent(source));
 	};
 
 	validity.net = net;

@@ -1,6 +1,6 @@
 /**
- * Validity
- * Core Module
+ * @namespace
+ * @name validity
  */
 var validity = (function(validity) {
 	var core = {};
@@ -18,7 +18,7 @@ var validity = (function(validity) {
 					_init();
 				break;
 			case 'validate':
-					_validate();
+					_validate(sender);
 				break;
 			default:
 				throw 'Empty or invalid request: '  + request;
@@ -31,12 +31,12 @@ var validity = (function(validity) {
 	* @function
 	* @private
 	*/
-	function _validate() {
+	function _validate(sender) {
 		//	Fetch source
 		validity.net.getSource(sender.tab.url, function(source) {
 			//	Submit source to validator
 			validity.net.submitValidation(source, function(messages) {
-				chrome.tabs.sendRequest(tabId, {});
+				chrome.tabs.sendRequest(sender.tab.id, messages);
 			});
 		});
 	}
@@ -45,6 +45,11 @@ var validity = (function(validity) {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener();
 	}
+
+	/*!debug*/
+	//	Expose private functions for testing
+	core._validate = _validate;
+	/*gubed!*/
 
 	validity.core = core;
 	return validity;
