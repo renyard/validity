@@ -12,8 +12,8 @@ var validity = (function(validity) {
 	 * @public
 	 * @name dispatch
 	 */
-	core.dispatch = function(request, sender, sendResponse) {
-		switch(request) {
+	core.dispatch = function(sender) {
+		switch(request['action']) {
 			case 'init':
 					_init();
 				break;
@@ -43,14 +43,18 @@ var validity = (function(validity) {
 
 	function _init() {
 		//	Listen for requests from content script
-		chrome.extension.onRequest.addListener();
-	}
+		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+			/*!debug*/console.info(request);
+			console.info(sender);/*gubed!*/
+			_validate(sender);
+		});
+	}/*!debug*/
 
-	/*!debug*/
 	//	Expose private functions for testing
 	core._validate = _validate;
 	/*gubed!*/
 
+	_init();
 	validity.core = core;
 	return validity;
 })(validity || {});

@@ -1,5 +1,5 @@
 /**
- * Validity
+ * Validity @version@
  */
 (function() {
 	var alt = false,
@@ -11,7 +11,7 @@
 	 * @name _requestValidation
 	 */
 	function _requestValidation() {
-		
+		chrome.extension.sendRequest({'action': 'validate'});
 	}
 
 	/**
@@ -23,10 +23,14 @@
 		//	Set up keyboard shortcuts (Alt + Shift + V)
 		document.addEventListener("keydown", function (e) {
 			if (e.which === 16) {
-				shift = true;
+				shift = true;/*!debug*/
+				console.info('keydown: shift');/*gubed!*/
+				return;
 			}
 			else if (e.which === 18) {
-				alt = true;
+				alt = true;/*!debug*/
+				console.info('keydown: alt');/*gubed!*/
+				return;
 			}
 			else if (e.which === 86) {
 				if (alt && shift) {
