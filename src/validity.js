@@ -53,10 +53,34 @@
 	/**
 	 * @private
 	 * @function
+	 * @name _logMessages
+	 */
+	function _logMessages(response) {
+		var messages = response.messages,
+			toEval = '';
+		if (messages !== undefined) {
+			return;
+		}
+		toEval += 'console.group(\'validation errors\');';
+		for(m in messages) {
+			toEval += 'console.error(\'';
+			toEval += 'line ' + m.lastLine + ': ' + m.message;
+			toEval += '\');';
+		}
+		toEval += 'console.groupEnd();';
+		eval(toEval);
+	}
+
+	/**
+	 * @private
+	 * @function
 	 * @name _init
 	 */
 	function _init() {
 		_attachKeyboardShortcuts();
+		chrome.extension.onRequest.addListener(function(response) {
+			_logMessages(response);
+		});
 	}
 
 	_init();

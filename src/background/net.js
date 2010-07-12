@@ -15,7 +15,8 @@ var validity = (function() {
 	 */
 	net.getSource = function(url, callback) {
 		xhrSource.onreadystatechange = function() {
-			if (xhrSource.readystate === 4) {
+			if (xhrSource.readyState === 4) {
+				console.info(xhrSource);
 				if (xhrSource.status === 200) {
 					callback(xhrSource.responseText);
 				}
@@ -34,11 +35,11 @@ var validity = (function() {
 	 * @public
 	 * @name submitValidation
 	 */
-	net.submitValidation = function(source, callback) {
+	net.submitValidation = function(sender, source, callback) {
 		xhrValidator.onreadystatechange = function() {
-			if (xhrValidator.readystate === 4) {
+			if (xhrValidator.readyState === 4) {
 				if (xhrValidator.status === 200) {
-					callback(xhrValidator.responseXML);
+					callback(sender, xhrValidator.responseText);
 				}
 				else if (xhrValidator.status === 400) {
 					//	TODO: Handle errors
@@ -48,7 +49,7 @@ var validity = (function() {
 
 		//	Open the XHR connection and send data
 		xhrValidator.open('POST', validator);
-		xhrValidator.sendRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhrValidator.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhrValidator.send('output=json&fragment='+encodeURIComponent(source));
 	};
 

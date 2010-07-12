@@ -35,7 +35,7 @@ var validity = (function(validity) {
 		//	Fetch source
 		validity.net.getSource(sender.tab.url, function(source) {
 			//	Submit source to validator
-			validity.net.submitValidation(source, function(messages) {
+			validity.net.submitValidation(sender, source, function(sender, messages) {
 				chrome.tabs.sendRequest(sender.tab.id, messages);
 			});
 		});
@@ -44,12 +44,15 @@ var validity = (function(validity) {
 	function _init() {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-			/*!debug*/console.info(request);
-			console.info(sender);/*gubed!*/
+			/*!debug*/
+			console.info(request);
+			console.info(sender);
+			/*gubed!*/
 			_validate(sender);
 		});
-	}/*!debug*/
+	}
 
+	/*!debug*/
 	//	Expose private functions for testing
 	core._validate = _validate;
 	/*gubed!*/
