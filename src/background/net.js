@@ -37,9 +37,11 @@ var validity = (function() {
 	 */
 	net.submitValidation = function(sender, source, callback) {
 		xhrValidator.onreadystatechange = function() {
+			var response;
 			if (xhrValidator.readyState === 4) {
 				if (xhrValidator.status === 200) {
-					callback(sender, xhrValidator.responseText);
+					response = JSON.parse(xhrValidator.responseText);
+					callback(sender, response);
 				}
 				else if (xhrValidator.status === 400) {
 					//	TODO: Handle errors

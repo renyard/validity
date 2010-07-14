@@ -24,12 +24,15 @@
 		document.addEventListener("keydown", function (e) {
 			if (e.which === 16) {
 				shift = true;/*!debug*/
-				console.info('keydown: shift');/*gubed!*/
+				console.info('keydown: shift');
+				/*gubed!*/
 				return;
 			}
-			else if (e.which === 18) {
+			//	Alt is 18 on it's own or 91 with shift
+			else if (e.which === 18 || e.which === 91) {
 				alt = true;/*!debug*/
-				console.info('keydown: alt');/*gubed!*/
+				console.info('keydown: alt');
+				/*gubed!*/
 				return;
 			}
 			else if (e.which === 86) {
@@ -56,17 +59,25 @@
 	 * @name _logMessages
 	 */
 	function _logMessages(response) {
-		var messages = response.messages,
+		var messages,
+			message,
 			toEval = '';
-		if (messages !== undefined) {
+
+		messages = response.messages;
+
+		if (messages === undefined) {
+			/*!debug*/console.info('No messages returned from validator.');/*gubed!*/
 			return;
 		}
+
 		toEval += 'console.group(\'validation errors\');';
-		for(m in messages) {
+		for(var i in messages) {
+			message = messages[i];
 			toEval += 'console.error(\'';
-			toEval += 'line ' + m.lastLine + ': ' + m.message;
+			toEval += 'line ' + message.lastLine + ': ' + message.message;
 			toEval += '\');';
 		}
+
 		toEval += 'console.groupEnd();';
 		eval(toEval);
 	}

@@ -16,8 +16,6 @@
 	<property name="dist" location="dist/" />
 
 	<target name="init">
-		<!-- Create the time stamp -->
-		<tstamp/>
 		<!-- Create the build directory structure -->
 		<mkdir dir="${build}"/>
 	</target>
