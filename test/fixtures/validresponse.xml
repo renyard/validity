@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope">
+<env:Body>
+<m:markupvalidationresponse env:encodingStyle="http://www.w3.org/2003/05/soap-encoding" xmlns:m="http://www.w3.org/2005/10/markup-validator">
+
+    <m:uri>http://www.bbc.co.uk/</m:uri>
+    <m:checkedby>http://validator.w3.org/</m:checkedby>
+    <m:doctype>-//W3C//DTD XHTML 1.0 Strict//EN</m:doctype>
+    <m:charset>utf-8</m:charset>
+    <m:validity>true</m:validity>
+    <m:errors>
+        <m:errorcount>0</m:errorcount>
+        <m:errorlist>
+
+        </m:errorlist>
+    </m:errors>
+    <m:warnings>
+        <m:warningcount>0</m:warningcount>
+        <m:warninglist>
+
+
+        </m:warninglist>
+    </m:warnings>
+</m:markupvalidationresponse>
+</env:Body>
+</env:Envelope>
