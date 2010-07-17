@@ -1,0 +1,11 @@
+{
+	"name": "Validity",
+	"version": "@version@",/*!debug*/
+	"version": "1.0.0",/*gubed!*/
+	"permissions": ["http://*/*"],
+	"background_page": "background.html",
+	"content_scripts": [{
+			"matches": ["http://*/*"],
+			"js": ["validity.js"]
+	}]
+}
