@@ -2,7 +2,7 @@
  * @namespace
  * @name validity.net
  */
-var validity = (function() {
+var validity = (function(validity) {
 	var net = {},
 		validator = localStorage['validator'] || 'http://validator.w3.org/check',
 		xhrSource = new XMLHttpRequest(),
@@ -40,7 +40,7 @@ var validity = (function() {
 			var response;
 			if (xhrValidator.readyState === 4) {
 				if (xhrValidator.status === 200) {
-					response = JSON.parse(xhrValidator.responseText);
+					response = validity.xml.parseResponse(xhrValidator.responseXML);
 					callback(sender, response);
 				}
 				else if (xhrValidator.status === 400) {
@@ -52,7 +52,7 @@ var validity = (function() {
 		//	Open the XHR connection and send data
 		xhrValidator.open('POST', validator);
 		xhrValidator.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhrValidator.send('output=json&fragment='+encodeURIComponent(source));
+		xhrValidator.send('output=soap12&fragment='+encodeURIComponent(source));
 	};
 
 	validity.net = net;

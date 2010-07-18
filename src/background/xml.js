@@ -1,7 +1,8 @@
 /**
- *
+ * @namespace
+ * @name validity.xml
  */
-(function() {
+var validity = (function(validity) {
 	var xml = {};
 
 	//	Public Methods
@@ -19,7 +20,7 @@
 		response.url = _getFirstTagName(xmlDom, 'uri').textContent;
 		response.source.encoding = _getFirstTagName(xmlDom, 'charset').textContent;
 
-		errorNodes = _getFirstTagName(xmlDom, 'errorlist').childNodes;
+		errorNodes = _getFirstTagName(xmlDom, 'errorlist').getElementsByTagName('error');
 		//	Loop through errors
 		for (var i = 0; i < errorNodes.length; i++) {
 			//	Create object for error
@@ -49,5 +50,6 @@
 		return dom.getElementsByTagName(tagName)[0];
 	}
 
-	window.validity.xml = xml;
-})();
+	validity.xml = xml;
+	return validity;
+})(validity || {});
