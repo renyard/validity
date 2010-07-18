@@ -66,11 +66,13 @@
 		messages = response.messages;
 
 		if (messages === undefined) {
-			/*!debug*/console.info('No messages returned from validator.');/*gubed!*/
+			/*!debug*/
+			console.info('No messages returned from validator.');
+			/*gubed!*/
 			return;
 		}
 
-		toEval += 'console.group(\'validation errors\');';
+		toEval += 'console.group(\'' + response.errorCount + ' validation errors\');';
 		for(var i in messages) {
 			message = messages[i];
 			toEval += 'console.error(\'';

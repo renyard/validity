@@ -13,12 +13,14 @@ var validity = (function(validity) {
 	 * @name parseResponse
 	 */
 	xml.parseResponse = function(xmlDom) {
-		var response = {"url": undefined, "messages": undefined, "source": {"encoding": undefined, "type": "text/html"}},
+		var response = {"url": undefined, "doctype": undefined, "errorCount": undefined, "messages": undefined, "source": {"encoding": undefined, "type": "text/html"}},
 			messages = [],
 			errorNodes;
 
 		response.url = _getFirstTagName(xmlDom, 'uri').textContent;
+		response.doctype = _getFirstTagName(xmlDom, 'doctype').textContent;
 		response.source.encoding = _getFirstTagName(xmlDom, 'charset').textContent;
+		response.errorCount = _getFirstTagName(xmlDom, 'errorcount').textContent;
 
 		errorNodes = _getFirstTagName(xmlDom, 'errorlist').getElementsByTagName('error');
 		//	Loop through errors
