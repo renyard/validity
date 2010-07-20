@@ -35,13 +35,13 @@ var validity = (function(validity) {
 	 * @public
 	 * @name submitValidation
 	 */
-	net.submitValidation = function(sender, source, callback) {
+	net.submitValidation = function(tab, source, callback) {
 		xhrValidator.onreadystatechange = function() {
 			var response;
 			if (xhrValidator.readyState === 4) {
 				if (xhrValidator.status === 200) {
 					response = validity.xml.parseResponse(xhrValidator.responseXML);
-					callback(sender, response);
+					callback(tab, response);
 				}
 				else if (xhrValidator.status === 400) {
 					//	TODO: Handle errors
