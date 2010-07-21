@@ -22,8 +22,8 @@ var validity = (function(validity) {
 				if (xhrSource.status === 200) {
 					callback(xhrSource.responseText);
 				}
-				else if (xhrSource.status === 400) {
-					//	TODO: Handle errors
+				else {
+					validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + xhrValidator.statusText);
 				}
 			}
 		};
@@ -51,8 +51,8 @@ var validity = (function(validity) {
 					}
 					callback(tab, response);
 				}
-				else if (xhrValidator.status === 400) {
-					//	TODO: Handle errors
+				else {
+					validity.ui.setPageAction(tab.id, 'error', 'Could not contact validator: ' + xhrValidator.statusText);
 				}
 			}
 		}
