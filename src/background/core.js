@@ -33,7 +33,7 @@ var validity = (function(validity) {
 	*/
 	core.validate = function(tab) {
 		//	Fetch source
-		validity.net.getSource(tab.url, function(source) {
+		validity.net.getSource(tab, function(source) {
 			//	Submit source to validator
 			validity.net.submitValidation(tab, source, function(tab, messages) {
 				chrome.tabs.sendRequest(tab.id, messages);

@@ -15,7 +15,9 @@ var validity = (function(validity) {
 	ui.setPageAction = function(tabId, icon, text) {
 		chrome.pageAction.show(tabId);
 		chrome.pageAction.setIcon({'tabId': tabId, 'path': icons[icon]});
-		chrome.pageAction.setTitle({'tabId': tabId, 'title': text});
+		if (typeof text === 'string') {
+			chrome.pageAction.setTitle({'tabId': tabId, 'title': text});
+		}
 	}
 
 	function _init() {
