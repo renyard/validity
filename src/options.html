@@ -1,9 +1,54 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Validity Options</title>
-    </head>
-    <body>
-        
-    </body>
+	<head>
+		<title>Validity Options</title>
+		<style type="text/css">
+			body {
+				font-family: "Verdana";
+			}
+			h1 {
+				background: url(/icons/48.png) top left no-repeat;
+				min-height: 48px;
+				padding-left: 52px;
+			}
+			fieldset {
+				border: none;
+			}
+			span.help,
+			div#about {
+				display: block;
+				font-size: 0.8em;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Validity</h1>
+		<form>
+			<fieldset>
+				<p><label>Custom Validator URL</label></p>
+				<input id="validator" type="text" value="" />
+				<input id="save" type="submit" />
+			</fieldset>
+		</form>
+		<div id="about">
+			<p>&copy; 2009 - 2010 Ian Renyard</p>
+			<p>Source code is available at <a href="http://www.github.com/renyard/validity/">http://www.github.com/renyard/validity/</a></p>
+		</div>
+		<script type="text/javascript">
+			(function() {
+				var validator = document.getElementById('validator');
+				//	Load options
+				window.addEventListener('load', function() {
+					if (localStorage['validator'] !== undefined) {
+						validator.value = localStorage['validator'];
+					}
+				}, false);
+
+				//	Save options
+				function saveOptions() {
+					localStorage['validator'] = validator.value;
+				}
+			})();
+		</script>
+	</body>
 </html>
