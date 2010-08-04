@@ -12,13 +12,10 @@ var validity = (function(validity) {
 	 * @public
 	 * @name dispatch
 	 */
-	core.dispatch = function(sender) {
+	core.dispatch = function(request, sender, sendResponse) {
 		switch(request['action']) {
-			case 'init':
-					_init();
-				break;
 			case 'validate':
-					core.validate(sender);
+				core.validate(sender);
 				break;
 			default:
 				throw 'Empty or invalid request: '  + request;
@@ -48,11 +45,20 @@ var validity = (function(validity) {
 			console.info(request);
 			console.info(sender);
 			/*gubed!*/
-			core.validate(sender.tab);
+			//	Pass request to the dispatch method
+			core.dispatch(request, sender, sendResponse);
 		});
+
 		//	Set up page action events
 		chrome.pageAction.onClicked.addListener(function(tab) {
 			core.validate(tab);
+		});
+
+		//	Set up new tab event
+		chrome.tabs.onCreated.addListener(function(tab) {
+			/*!debug*/
+			console.info(tab.url);
+			/*gubed!*/
 		});
 	}
 

@@ -25,20 +25,29 @@
 		<h1>Validity</h1>
 		<form>
 			<fieldset>
-				<p><label>Custom Validator URL</label></p>
+				<p><label for="validateHosts">Automatically Validate (space separated)</label></p>
+				<input id="validateHosts" type="text" value="" />
+
+				<p><label for="validator">Custom Validator URL</label></p>
 				<input id="validator" type="text" value="" />
-				<input id="save" type="submit" />
 			</fieldset>
+			<input id="save" type="submit" value="Save" />
 		</form>
 		<div id="about">
 			<p>&copy; 2009 - 2010 Ian Renyard</p>
-			<p>Source code is available at <a href="http://www.github.com/renyard/validity/">http://www.github.com/renyard/validity/</a></p>
+			<p>Source code is available at <a href="http://github.com/renyard/validity/">http://github.com/renyard/validity/</a></p>
+			<p>Address bar icons by Mark James - <a href="http://www.famfamfam.com/">www.famfamfam.com</a></p>
 		</div>
 		<script type="text/javascript">
 			(function() {
-				var validator = document.getElementById('validator');
+				var validateHosts = document.getElementById('validateHosts'),
+					validator = document.getElementById('validator');
+
 				//	Load options
 				window.addEventListener('load', function() {
+					if (localStorage['validateHosts'] !== undefined) {
+						validateHosts.value = localStorage['validateHosts'];
+					}
 					if (localStorage['validator'] !== undefined) {
 						validator.value = localStorage['validator'];
 					}
@@ -46,6 +55,7 @@
 
 				//	Save options
 				function saveOptions() {
+					localStorage['validateHosts'] = validateHosts.value;
 					localStorage['validator'] = validator.value;
 				}
 			})();
