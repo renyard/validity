@@ -56,9 +56,23 @@ var validity = (function(validity) {
 
 		//	Set up new tab event
 		chrome.tabs.onCreated.addListener(function(tab) {
+			var hosts = [],
+				tabHost;
+
 			/*!debug*/
 			console.info(tab.url);
 			/*gubed!*/
+
+			if (localStorage['validateHosts'] !== undefined) {
+				hosts = localStorage['validateHosts'].split('');
+			}
+
+			tabHost = validity.util.getHost(tab.url);
+
+			//	Auto validate if
+			if (hosts.indexOf(tabHost)) {
+				core.validate(tab);
+			}
 		});
 	}
 
