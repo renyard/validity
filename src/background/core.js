@@ -38,7 +38,7 @@ var validity = (function(validity) {
 		});
 	}
 
-	function _init() {
+	core._init = function() {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 			/*!debug*/
@@ -76,7 +76,6 @@ var validity = (function(validity) {
 		});
 	}
 
-	_init();
 	validity.core = core;
 	return validity;
 })(validity || {});

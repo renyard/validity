@@ -3,7 +3,7 @@
  */
 
 //	Mock Extension API
-var chrome = {};
+var chrome = chrome || {};
 
 (function() {
 	var lifecycle = {setup: mock, tearDown: function(){
@@ -14,7 +14,7 @@ var chrome = {};
 
 	function mock() {
 		//	Mock chrome extension API
-		chrome = {extension: {onRequest: {addListener: function(){}}}, tabs: {}};
+		chrome.extension = {onRequest: {addListener: function(){}}, tabs: {}};
 
 		//	Create reference to net module
 		_net = validity.net;
