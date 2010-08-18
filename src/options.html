@@ -23,7 +23,7 @@
 	</head>
 	<body>
 		<h1>Validity</h1>
-		<form>
+		<form id="optionsForm">
 			<fieldset>
 				<p><label for="validateHosts">Automatically Validate (space separated)</label></p>
 				<input id="validateHosts" type="text" value="" />
@@ -58,6 +58,13 @@
 					localStorage['validateHosts'] = validateHosts.value;
 					localStorage['validator'] = validator.value;
 				}
+
+				//	Save options
+				document.getElementById('optionsForm').addEventListener('submit', function(){
+					saveOptions();
+					window.close();
+					return false;
+				}, false);
 			})();
 		</script>
 	</body>
