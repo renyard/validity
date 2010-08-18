@@ -14,6 +14,9 @@
 			fieldset {
 				border: none;
 			}
+			input[type=text] {
+				width: 300px;
+			}
 			span.help,
 			div#about {
 				display: block;
@@ -30,6 +33,9 @@
 
 				<p><label for="validator">Custom Validator URL</label></p>
 				<input id="validator" type="text" value="" />
+
+				<p><input id="collapse" type="checkbox" />
+				<label for="collapse">Collapse console logged results</label></p>
 			</fieldset>
 			<input id="save" type="submit" value="Save" />
 		</form>
