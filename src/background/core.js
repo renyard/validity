@@ -18,7 +18,7 @@ var validity = (function(validity) {
 				core.validate(sender);
 				break;
 			default:
-				throw 'Empty or invalid request: '  + request;
+				throw 'Empty or invalid request: ' + request['action'];
 		}
 	};
 

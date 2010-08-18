@@ -3,7 +3,8 @@
  */
 
 //	Mock Extension API
-var chrome = chrome || {};
+chrome.tabs = {};
+chrome.extension = {};
 
 (function() {
 	var lifecycle = {setup: mock, tearDown: function(){
@@ -14,6 +15,7 @@ var chrome = chrome || {};
 
 	function mock() {
 		//	Mock chrome extension API
+		chrome.tabs = {};
 		chrome.extension = {onRequest: {addListener: function(){}}, tabs: {}};
 
 		//	Create reference to net module
@@ -25,8 +27,8 @@ var chrome = chrome || {};
 				var source = '<!doctype html><html><head><title></title></head><body></body></html>';
 				callback(source);
 			},
-			submitValidation: function(source, callback) {
-				callback({});
+			submitValidation: function(tab, source, callback) {
+				callback(tab);
 			}
 		};
 	}
@@ -34,13 +36,16 @@ var chrome = chrome || {};
 	module('core', lifecycle);
 
 	test('dispatch', function() {
+		var validate = validity.core.validate;
 		expect(1);
 
-		chrome.extension.onRequest.addListener = function(){
-			ok(true, 'Fired onRequest.addListener');
-		};
+		validity.core.validate = function() {
+			ok(true, 'Fired core.validate');
+		}
 
-		validity.core.dispatch('init', {}, 'response');
+		validity.core.dispatch({action:'validate'}, {}, function() {});
+
+		validity.core.validate = validate;
 	});
 
 	test('_validate', function() {
@@ -50,7 +55,7 @@ var chrome = chrome || {};
 			ok(true, 'Fired tabs.sendRequest');
 		};
 
-		validity.core._validate({tab:{id:1234, url:'http://www.3doughnuts.com/'}});
+		validity.core.validate({tab:{id:1234, url:'http://www.3doughnuts.com/'}});
 	});
 })();
 
@@ -71,7 +76,7 @@ var chrome = chrome || {};
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		same(response, {"url": "http://www.bbc.co.uk/", "messages": [], "source": {"encoding": "utf-8", "type": "text/html"}});
+		same(JSON.stringify(response), '{"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":"0","messages":[],"source":{"encoding":"utf-8","type":"text/html"}}');
 	});
 
 	test('Invalid Document', function() {
@@ -82,6 +87,7 @@ var chrome = chrome || {};
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		same(response, { "url": "http://www.renyard.net/", "messages": [ { "lastLine": 6, "lastColumn": 53, "message": "Bad value X-UA-Compatible for attribute http-equiv on element meta.", "messageid": "html5", "explanation": " <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>", "type": "error" } ], "source": { "encoding": "utf-8", "type": "text/html" } });
+		//console.info(JSON.stringify(response));
+		same(JSON.stringify(response), '{"url":"http://www.renyard.net/","doctype":"HTML5","errorCount":"1","messages":[{"lastLine":6,"lastColumn":53,"message":"Bad value X-UA-Compatible for attribute http-equiv on element meta.","messageid":"html5","explanation":"  <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>","type":"error"}],"source":{"encoding":"utf-8","type":"text/html"}}');
 	});
 })();
