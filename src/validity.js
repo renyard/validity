@@ -72,7 +72,15 @@
 			return;
 		}
 
-		toEval += 'console.group(\'' + response.errorCount + ' validation errors\');';
+		//	Collapse results based on option
+		if (console.groupCollapsed && localStorage['collapseResults'] !== false) {
+			toEval += 'console.groupCollapsed';
+		}
+		else {
+			toEval += 'console.group';
+		}
+
+		toEval += '(\'' + response.errorCount + ' validation errors\');';
 		for(var i in messages) {
 			message = messages[i];
 			toEval += 'console.error(\'';
