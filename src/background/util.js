@@ -15,6 +15,7 @@ var validity = (function(validity) {
 		var host,
 			hostRegExp = new RegExp(/^https?\:\/\/([\.a-zA-Z0-9]+)/);
 
+		//	Host is the first back reference
 		host = hostRegExp.exec(url)[1];
 
 		return host;

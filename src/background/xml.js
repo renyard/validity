@@ -48,7 +48,7 @@ var validity = (function(validity) {
 	 * @function
 	 * @name _getFirstTagName
 	 */
-	function _getFirstTagName(dom ,tagName) {
+	function _getFirstTagName(dom, tagName) {
 		return dom.getElementsByTagName(tagName)[0];
 	}
 

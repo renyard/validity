@@ -2,6 +2,17 @@
  * @namespace
  * @name validity
  */
+
+/**
+ * @const
+ * @name CONTENT_SCRIPT
+ */
+const CONTENT_SCRIPT = '/validity.js';
+
+/**
+ * @namespace
+ * @name validity.core
+ */
 var validity = (function(validity) {
 	var core = {};
 
@@ -22,11 +33,9 @@ var validity = (function(validity) {
 		}
 	};
 
-	//	Private Functions
-
 	/**
 	* @function
-	* @private
+	* @public
 	*/
 	core.validate = function(tab) {
 		//	Fetch source
@@ -38,6 +47,12 @@ var validity = (function(validity) {
 		});
 	}
 
+	//	Private Functions
+
+	/**
+	 * @function
+	 * @private
+	 */
 	core._init = function() {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
@@ -56,22 +71,36 @@ var validity = (function(validity) {
 
 		//	Set up new tab event
 		chrome.tabs.onCreated.addListener(function(tab) {
-			var hosts = [],
-				tabHost;
+			var enableHosts = [],
+				autoValidateHosts = [],
+				tabHost,
+				opts = localStorage;
 
 			/*!debug*/
 			console.info(tab.url);
 			/*gubed!*/
 
-			if (localStorage['validateHosts'] !== undefined) {
-				hosts = localStorage['validateHosts'].split('');
+			//	Split hosts to auto validate into an array
+			if (opts['validateHosts'] !== undefined) {
+				autoValidateHosts = localStorage['validateHosts'].split('');
 			}
 
 			tabHost = validity.util.getHost(tab.url);
 
-			//	Auto validate if
-			if (hosts.indexOf(tabHost)) {
-				core.validate(tab);
+			//	Auto validate if host is set in options
+			if (autoValidateHosts.indexOf(tabHost)) {
+				chrome.tabs.executeScript(tab.id, {
+					file: CONTENT_SCRIPT
+				}, function() {
+					core.validate(tab);
+				});
+			}
+			//	Inject content script if host is set in options
+			//	...or if enableHosts is empty
+			else if (enableHosts.indexOf(tabHost) || enableHosts.length === 0) {
+				chrome.tabs.executeScript(tab.id, {
+					file: CONTENT_SCRIPT
+				});
 			}
 		});
 	}

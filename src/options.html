@@ -28,7 +28,11 @@
 		<h1>Validity</h1>
 		<form id="optionsForm">
 			<fieldset>
-				<p><label for="validateHosts">Automatically Validate (space separated)</label></p>
+				<p><label>Enable for Specified Hosts (space separated)</label></p>
+				<input id="enableHosts" type="text" value="" />
+				<p><label for="validateHosts">
+					Automatically Validate Hosts (space separated)
+				</label></p>
 				<input id="validateHosts" type="text" value="" />
 
 				<p><label for="validator">Custom Validator URL</label></p>
@@ -46,12 +50,16 @@
 		</div>
 		<script type="text/javascript">
 			(function() {
-				var validateHosts = document.getElementById('validateHosts'),
+				var enableHosts = document.getElementById('enableHosts'),
+					validateHosts = document.getElementById('validateHosts'),
 					validator = document.getElementById('validator'),
 					collapsed = document.getElementById('collapse');
 
 				//	Load options
 				window.addEventListener('load', function() {
+					if (localStorage['enableHosts']) {
+						enableHosts.value = localStorage['enableHosts'];
+					}
 					if (localStorage['validateHosts'] !== undefined) {
 						validateHosts.value = localStorage['validateHosts'];
 					}
@@ -69,6 +77,7 @@
 
 				//	Save options
 				function saveOptions() {
+					localStorage['enableHosts'] = enableHosts.value;
 					localStorage['validateHosts'] = validateHosts.value;
 					localStorage['validator'] = validator.value;
 					localStorage['collapseResults'] = collapse.checked;

@@ -13,10 +13,10 @@
 		"tabs"
 	],
 	"background_page": "background.html",
-	"content_scripts": [{
-			"matches": ["http://*/*"],
-			"js": ["validity.js"]
-	}],
+	//"content_scripts": [{
+			//"matches": ["http://*/*"],
+			//"js": ["validity.js"]
+	//}],
 	"page_action": {
 		"default_icon": "img/html_valid.png",
 		"default_title": "Validate Documemt (Alt+Shift+V)"
