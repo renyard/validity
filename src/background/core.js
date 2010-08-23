@@ -4,17 +4,18 @@
  */
 
 /**
- * @const
- * @name CONTENT_SCRIPT
- */
-const CONTENT_SCRIPT = '/validity.js';
-
-/**
  * @namespace
  * @name validity.core
  */
 var validity = (function(validity) {
-	var core = {};
+	/**
+	 * @const
+	 * @name CONTENT_SCRIPT
+	 */
+	const CONTENT_SCRIPT = '/validity.js';
+	var core = {},
+		net = validity.net,
+		ui = validity.ui;
 
 	//	Public methods
 
@@ -53,6 +54,50 @@ var validity = (function(validity) {
 	 * @function
 	 * @private
 	 */
+	core._attachPageActions = function(tab) {
+		var enableHosts = [],
+		autoValidateHosts = [],
+		tabHost,
+		opts = localStorage;
+
+		/*!debug*/
+		console.info(tab.url);
+		/*gubed!*/
+
+		//	Split hosts to auto validate into an array
+		if (opts['validateHosts'] !== undefined) {
+			autoValidateHosts = localStorage['validateHosts'].split('');
+		}
+
+		tabHost = validity.util.getHost(tab.url);
+
+		//	Auto validate if host is set in options
+		if (autoValidateHosts.indexOf(tabHost) > 0) {
+			//	Set up Page Action
+			validity.ui.init(tab.id);
+
+			chrome.tabs.executeScript(tab.id, {
+				file: CONTENT_SCRIPT
+			}, function() {
+				core.validate(tab);
+			});
+		}
+		//	Inject content script if host is set in options
+		//	...or if enableHosts is empty
+		else if (enableHosts.indexOf(tabHost) > 0 || enableHosts.length === 0) {
+			//	Set up Page Action
+			validity.ui.init(tab.id);
+
+			chrome.tabs.executeScript(tab.id, {
+				file: CONTENT_SCRIPT
+			});
+		}
+	}
+
+	/**
+	 * @function
+	 * @private
+	 */
 	core._init = function() {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
@@ -70,36 +115,14 @@ var validity = (function(validity) {
 		});
 
 		//	Set up new tab event
-		chrome.tabs.onCreated.addListener(function(tab) {
-			var enableHosts = [],
-				autoValidateHosts = [],
-				tabHost,
-				opts = localStorage;
-
+		chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 			/*!debug*/
-			console.info(tab.url);
-			/*gubed!*/
+			console.info(changeInfo);
+			/*gubed*/
 
-			//	Split hosts to auto validate into an array
-			if (opts['validateHosts'] !== undefined) {
-				autoValidateHosts = localStorage['validateHosts'].split('');
-			}
-
-			tabHost = validity.util.getHost(tab.url);
-
-			//	Auto validate if host is set in options
-			if (autoValidateHosts.indexOf(tabHost)) {
-				chrome.tabs.executeScript(tab.id, {
-					file: CONTENT_SCRIPT
-				}, function() {
-					core.validate(tab);
-				});
-			}
-			//	Inject content script if host is set in options
-			//	...or if enableHosts is empty
-			else if (enableHosts.indexOf(tabHost) || enableHosts.length === 0) {
-				chrome.tabs.executeScript(tab.id, {
-					file: CONTENT_SCRIPT
+			if (changeInfo.status === 'loading') {
+				chrome.tabs.get(tabId, function(tab) {
+					core._attachPageActions(tab);
 				});
 			}
 		});

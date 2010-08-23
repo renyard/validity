@@ -12,15 +12,7 @@ var validity = (function(validity) {
 			'error': 'img/exclamation.png'
 		};
 
-	ui.setPageAction = function(tabId, icon, text) {
-		chrome.pageAction.show(tabId);
-		chrome.pageAction.setIcon({'tabId': tabId, 'path': icons[icon]});
-		if (typeof text === 'string') {
-			chrome.pageAction.setTitle({'tabId': tabId, 'title': text});
-		}
-	}
-
-	function _init() {
+	ui.init = function(tabId) {
 		//	Set up page action on new tabs
 		chrome.tabs.onUpdated.addListener(function(tabId, change) {
 			if (change.status === 'complete') {
@@ -29,7 +21,24 @@ var validity = (function(validity) {
 		});
 	}
 
-	_init();
+	ui.setPageAction = function(tabId, icon, text) {
+		chrome.pageAction.show(tabId);
+		chrome.pageAction.setIcon({'tabId': tabId, 'path': icons[icon]});
+		if (typeof text === 'string') {
+			chrome.pageAction.setTitle({'tabId': tabId, 'title': text});
+		}
+	}
+
+	/*function _init() {
+		//	Set up page action on new tabs
+		chrome.tabs.onUpdated.addListener(function(tabId, change) {
+			if (change.status === 'complete') {
+				ui.setPageAction(tabId, 'default', 'Validate Document (Alt+Shift+V)');
+			}
+		});
+	}
+
+	_init();*/
 	validity.ui = ui;
 	return validity;
 })(validity || {});
