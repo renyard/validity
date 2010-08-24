@@ -27,10 +27,12 @@ var validity = (function(validity) {
 	core.dispatch = function(request, sender, sendResponse) {
 		switch(request['action']) {
 			case 'validate':
-				core.validate(sender);
+				core.validate(sender.tab);
 				break;
 			default:
+				/*!debug*/
 				throw 'Empty or invalid request: ' + request['action'];
+				/*gubed!*/
 		}
 	};
 
@@ -105,6 +107,7 @@ var validity = (function(validity) {
 			console.info(request);
 			console.info(sender);
 			/*gubed!*/
+
 			//	Pass request to the dispatch method
 			core.dispatch(request, sender, sendResponse);
 		});

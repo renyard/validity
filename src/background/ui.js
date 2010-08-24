@@ -29,16 +29,6 @@ var validity = (function(validity) {
 		}
 	}
 
-	/*function _init() {
-		//	Set up page action on new tabs
-		chrome.tabs.onUpdated.addListener(function(tabId, change) {
-			if (change.status === 'complete') {
-				ui.setPageAction(tabId, 'default', 'Validate Document (Alt+Shift+V)');
-			}
-		});
-	}
-
-	_init();*/
 	validity.ui = ui;
 	return validity;
 })(validity || {});

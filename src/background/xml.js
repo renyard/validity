@@ -33,6 +33,7 @@ var validity = (function(validity) {
 			messages[i].message = _getFirstTagName(errorNodes[i], 'message').textContent;
 			messages[i].messageid = _getFirstTagName(errorNodes[i], 'messageid').textContent;
 			messages[i].explanation = _getFirstTagName(errorNodes[i], 'explanation').textContent;
+			//	TODO: Add error/warning/info
 			messages[i].type = 'error';
 		}
 
