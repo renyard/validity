@@ -98,21 +98,36 @@ chrome.pageAction = {};
  */
 
 (function() {
-	var lifecycle = {setup: function(){}, tearDown: function(){}};
+	var lifecycle = {setup: mock, tearDown: function(){}};
 
 	//	Mock pageAction API
 	function mock(){
 		chrome.pageAction = {
-			show: function() {},
-			setIcon: function(){}
+			tabs: {},
+			show: function(tabId) {
+				this.tabs[tabId] = this.tabs[tabId] || {};
+				this.tabs[tabId].visible = true;
+			},
+			setIcon: function(opts){
+				var tabId = opts.tabId;
+				this.tabs[tabId] = this.tabs[tabId] || {};
+				this.tabs[tabId].icon = opts.path;
+			},
+			setTitle: function(opts){
+				var tabId = opts.tabId;
+				this.tabs[tabId] = this.tabs[tabId] || {};
+				this.tabs[tabId].title = opts.title;
+			}
 		}
 	}
 
-	module('UI', lifecycle);
+	module('ui', lifecycle);
 
 	test('setPageAction', function() {
-		expect(1);
+		expect(2);
 
-		validity.ui.setPageAction();
+		validity.ui.setPageAction('0', 'default', 'Validity');
+		equal('Validity', chrome.pageAction.tabs['0'].title, 'Title was set correctly');
+		equal('img/html_valid.png', chrome.pageAction.tabs['0'].icon, 'Icon was set correctly');
 	});
 })();
