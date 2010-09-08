@@ -3,8 +3,12 @@
  * @name validity.net
  */
 var validity = (function(validity) {
+	/**
+	 * @const
+	 * @name DEFAULT_VALIDATOR
+	 */
+	const DEFAULT_VALIDATOR = 'http://validator.w3.org/check';
 	var net = {},
-		validator = localStorage['validator'] || 'http://validator.w3.org/check',
 		xhrSource = new XMLHttpRequest(),
 		xhrValidator = new XMLHttpRequest();
 
@@ -38,6 +42,11 @@ var validity = (function(validity) {
 	 * @name submitValidation
 	 */
 	net.submitValidation = function(tab, source, callback) {
+		var validator;
+
+		//	Set validator URL
+		validator = localStorage['validator'] || DEFAULT_VALIDATOR;
+
 		xhrValidator.onreadystatechange = function() {
 			var response;
 			if (xhrValidator.readyState === 4) {
