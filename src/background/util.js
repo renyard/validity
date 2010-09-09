@@ -13,14 +13,14 @@ var validity = (function(validity) {
 	 */
 	util.getHost = function(url) {
 		var host,
-			backRefs,
+			backRefs = [],
 			hostRegExp = new RegExp(/^https?\:\/\/([\.a-zA-Z0-9]+)/);
 
 		//	Host is the first back reference
-		backRefs = hostRegExp.exec(url)[1];
+		backRefs = hostRegExp.exec(url);
 
 		//	No matches for non-http URLs e.g. chrome://, file://
-		if (backRefs.length > 1) {
+		if (backRefs !== null && backRefs.length > 1) {
 			host = backRefs[1];
 		}
 		//	Return empty string if no matches

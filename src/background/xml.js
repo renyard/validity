@@ -50,7 +50,8 @@ var validity = (function(validity) {
 	 * @name _getFirstTagName
 	 */
 	function _getFirstTagName(dom, tagName) {
-		return dom.getElementsByTagName(tagName)[0];
+		var result = dom.getElementsByTagName(tagName)[0];
+		return result || '';
 	}
 
 	validity.xml = xml;
