@@ -83,8 +83,9 @@
 		toEval += '(\'' + response.errorCount + ' validation errors\');';
 		for(var i in messages) {
 			message = messages[i];
-			toEval += 'console.error(\'';
-			toEval += 'line ' + message.lastLine + ': ' + message.message;
+			toEval += 'console.';
+			toEval += message.type;
+			toEval += '(\'line ' + message.lastLine + ': ' + message.message;
 			toEval += '\');';
 		}
 
