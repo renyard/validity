@@ -130,3 +130,25 @@ chrome.pageAction = {};
 		equal('img/html_valid.png', chrome.pageAction.tabs['0'].icon, 'Icon was set correctly');
 	});
 })();
+
+/**
+ * Util Tests
+ */
+
+(function() {
+	var lifecycle = {setup: function(){}, tearDown: function(){}};
+
+	module('util', lifecycle);
+
+	test('getHost (http url)', function() {
+		expect(1);
+
+		equal('www.3doughnuts.com', validity.util.getHost('http://www.3doughnuts.com/'));
+	});
+
+	test('getHost (chrome url)', function(){
+		expect(1);
+
+		equal('', validity.util.getHost('chrome://extensions/'));
+	});
+})();
