@@ -72,24 +72,30 @@
 			return;
 		}
 
-		//	Collapse results based on option
-		if (console.groupCollapsed && localStorage['collapseResults'] !== false) {
-			toEval += 'console.groupCollapsed';
+		if (response.errorCount > 0) {
+			//	Collapse results based on option
+			if (console.groupCollapsed && localStorage['collapseResults'] !== false) {
+				toEval += 'console.groupCollapsed';
+			}
+			else {
+				toEval += 'console.group';
+			}
+
+			toEval += '(\'' + response.errorCount + ' validation errors\');';
+			for(var i in messages) {
+				message = messages[i];
+				toEval += 'console.';
+				toEval += message.type;
+				toEval += '(\'line ' + message.lastLine + ': ' + message.message;
+				toEval += '\');';
+			}
+
+			toEval += 'console.groupEnd();';
 		}
 		else {
-			toEval += 'console.group';
+			toEval += 'console.info(\'Document is valid ("' + response.doctype + '")\')';
 		}
 
-		toEval += '(\'' + response.errorCount + ' validation errors\');';
-		for(var i in messages) {
-			message = messages[i];
-			toEval += 'console.';
-			toEval += message.type;
-			toEval += '(\'line ' + message.lastLine + ': ' + message.message;
-			toEval += '\');';
-		}
-
-		toEval += 'console.groupEnd();';
 		eval(toEval);
 	}
 
