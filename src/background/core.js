@@ -15,7 +15,8 @@ var validity = (function(validity) {
 	const CONTENT_SCRIPT = '/validity.js';
 	var core = {},
 		net = validity.net,
-		ui = validity.ui;
+		ui = validity.ui,
+		util = validity.util;
 
 	//	Public methods
 
@@ -37,7 +38,7 @@ var validity = (function(validity) {
 	};
 
 	/**
-	* @function
+	* @method
 	* @public
 	*/
 	core.validate = function(tab) {
@@ -53,7 +54,7 @@ var validity = (function(validity) {
 	//	Private Functions
 
 	/**
-	 * @function
+	 * @method
 	 * @private
 	 */
 	core._attachPageActions = function(tab) {
@@ -67,14 +68,20 @@ var validity = (function(validity) {
 		/*gubed!*/
 
 		//	Split hosts to auto validate into an array
-		if (opts['validateHosts'] !== undefined) {
-			autoValidateHosts = localStorage['validateHosts'].split('');
+		/*if (opts['validateHosts'] !== undefined) {
+			autoValidateHosts = localStorage['validateHosts'];
 		}
+		else {
+			autoValidateHosts = '';
+		}*/
 
 		tabHost = validity.util.getHost(tab.url);
 
 		//	Auto validate if host is set in options
-		if (autoValidateHosts.indexOf(tabHost) > 0) {
+		if (util.containsHost(tabHost, autoValidateHosts)) {
+
+		}
+		if (autoValidateHosts.indexOf(tabHost) > -1) {
 			//	Set up Page Action
 			validity.ui.init(tab.id);
 
@@ -97,7 +104,7 @@ var validity = (function(validity) {
 	}
 
 	/**
-	 * @function
+	 * @method
 	 * @private
 	 */
 	core._init = function() {

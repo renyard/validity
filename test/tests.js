@@ -151,4 +151,10 @@ chrome.pageAction = {};
 
 		equal('', validity.util.getHost('chrome://extensions/'));
 	});
+
+	test('containsHost', function() {
+		expect(1);
+
+		ok(validity.util.containsHost('http://www.renyard.net/', 'www.renyard.net www.bbc.co.uk'));
+	});
 })();

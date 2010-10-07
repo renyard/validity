@@ -1,5 +1,7 @@
 /**
  * Validity @version@
+ * Copyright 2010 Ian Renyard
+ * http://github.com/renyard/validity
  */
 (function() {
 	var alt = false,

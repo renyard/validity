@@ -8,7 +8,7 @@ var validity = (function(validity) {
 	//	Public Methods
 
 	/**
-	 * @function
+	 * @method
 	 * @name getHost
 	 */
 	util.getHost = function(url) {
@@ -29,6 +29,26 @@ var validity = (function(validity) {
 		}
 
 		return host;
+	}
+
+	/**
+	 * @method
+	 * @name containsHost
+	 */
+	util.containsHost = function(url, validHosts) {
+		var hosts,
+			currentHost;
+		hosts = validHosts.split(' ');
+
+		currentHost = util.getHost(url);
+
+		console.info(hosts.indexOf(currentHost));
+		if (hosts.indexOf(currentHost) > -1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	validity.util = util;
