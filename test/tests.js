@@ -155,12 +155,12 @@ chrome.pageAction = {};
 	test('containsHost (true)', function() {
 		expect(1);
 
-		ok(validity.util.containsHost('http://www.renyard.net/', 'www.renyard.net www.bbc.co.uk'));
+		ok(validity.util.containsHost('www.renyard.net', 'www.renyard.net www.bbc.co.uk'));
 	});
 
 	test('containsHost (false)', function() {
 		expect(1);
 
-		ok(!validity.util.containsHost('http://www.3doughnuts.com/', 'www.renyard.net www.bbc.co.uk'));
+		ok(!validity.util.containsHost('3doughnuts.com', 'www.renyard.net www.bbc.co.uk'));
 	});
 })();

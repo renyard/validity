@@ -58,8 +58,8 @@ var validity = (function(validity) {
 	 * @private
 	 */
 	core._attachPageActions = function(tab) {
-		var enableHosts = [],
-		autoValidateHosts = [],
+		var enableHosts = localStorage['enableHosts'] || '',
+		autoValidateHosts = localStorage['validateHosts'] || '',
 		tabHost,
 		opts = localStorage;
 
@@ -67,23 +67,13 @@ var validity = (function(validity) {
 		console.info(tab.url);
 		/*gubed!*/
 
-		//	Split hosts to auto validate into an array
-		/*if (opts['validateHosts'] !== undefined) {
-			autoValidateHosts = localStorage['validateHosts'];
-		}
-		else {
-			autoValidateHosts = '';
-		}*/
-
+		//	Extract host from URL
 		tabHost = validity.util.getHost(tab.url);
 
 		//	Auto validate if host is set in options
-		if (util.containsHost(tabHost, autoValidateHosts)) {
-
-		}
-		if (autoValidateHosts.indexOf(tabHost) > -1) {
+		if (validity.util.containsHost(tabHost, autoValidateHosts)) {
 			//	Set up Page Action
-			validity.ui.init(tab.id);
+			//validity.ui.init(tab.id);
 
 			chrome.tabs.executeScript(tab.id, {
 				file: CONTENT_SCRIPT
@@ -91,9 +81,10 @@ var validity = (function(validity) {
 				core.validate(tab);
 			});
 		}
+
 		//	Inject content script if host is set in options
 		//	...or if enableHosts is empty
-		else if (enableHosts.indexOf(tabHost) > 0 || enableHosts.length === 0) {
+		else if (validity.util.containsHost(tabHost, enableHosts) || enableHosts.length === 0) {
 			//	Set up Page Action
 			validity.ui.init(tab.id);
 

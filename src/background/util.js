@@ -35,15 +35,17 @@ var validity = (function(validity) {
 	 * @method
 	 * @name containsHost
 	 */
-	util.containsHost = function(url, validHosts) {
-		var hosts,
-			currentHost;
+	util.containsHost = function(host, validHosts) {
+		var hosts;
+
+		//	Split hosts into array
 		hosts = validHosts.split(' ');
 
-		currentHost = util.getHost(url);
+		/*!debug*/
+		console.info(hosts.indexOf(host));
+		/*gubed!*/
 
-		console.info(hosts.indexOf(currentHost));
-		if (hosts.indexOf(currentHost) > -1) {
+		if (hosts.indexOf(host) > -1) {
 			return true;
 		}
 		else {
