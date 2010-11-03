@@ -38,6 +38,10 @@ var validity = (function(validity) {
 	util.containsHost = function(host, validHosts) {
 		var hosts;
 
+		if (typeof validHosts !== 'string') {
+			return false;
+		}
+
 		//	Split hosts into array
 		hosts = validHosts.split(' ');
 

@@ -117,15 +117,27 @@ var validity = (function(validity) {
 
 		//	Set up new tab event
 		chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
-			/*!debug*/
-			console.info(changeInfo);
-			/*gubed*/
 
-			if (changeInfo.status === 'loading') {
-				chrome.tabs.get(tabId, function(tab) {
-					core._attachPageActions(tab);
-				});
-			}
+			chrome.tabs.get(tabId, function(tab) {
+				var host,
+					auto,
+					validateHosts = localStorage['validateHosts'] || '';
+
+				/*!debug*/
+				console.info(changeInfo);
+				/*gubed*/
+
+				host = validity.util.containsHost(tab.url);
+				auto = validity.util.containsHost(host, validateHosts);
+
+				if (changeInfo.status === 'loading' && auto === false) {
+					chrome.tabs.get(tabId, function(tab) {
+						core._attachPageActions(tab);
+					});
+				}
+			});
+
+
 		});
 	}
 
