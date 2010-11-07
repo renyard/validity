@@ -33,6 +33,20 @@ var validity = (function(validity) {
 
 	/**
 	 * @method
+	 * @name validProtocol
+	 */
+	util.validProtocol = function(url) {
+		var valid,
+			backRefs = [],
+			protocolRegExp = new RegExp(/^(https?)/);
+
+		valid = protocolRegExp.test(url);
+
+		return valid;
+	}
+
+	/**
+	 * @method
 	 * @name containsHost
 	 */
 	util.containsHost = function(host, validHosts) {

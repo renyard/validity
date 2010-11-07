@@ -63,6 +63,11 @@ var validity = (function(validity) {
 		tabHost,
 		opts = localStorage;
 
+		//	Stop if we're not on an http or https URL
+		if (!validity.util.validProtocol(tab.url)) {
+			return;
+		}
+
 		/*!debug*/
 		console.info(tab.url);
 		/*gubed!*/
