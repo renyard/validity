@@ -130,7 +130,7 @@ var validity = (function(validity) {
 
 				/*!debug*/
 				console.info(changeInfo);
-				/*gubed*/
+				/*gubed!*/
 
 				host = validity.util.containsHost(tab.url);
 				auto = validity.util.containsHost(host, validateHosts);

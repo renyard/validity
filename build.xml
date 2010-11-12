@@ -7,10 +7,7 @@
 
 		Validity also gives you the option to use your own installation of the W3C Validation Service.  (For more information on installing the W3C Validation Service see the documentation at http://validator.w3.org/docs/install.html).
 	</description>
-	<tstamp>
-		<format property="DATE" pattern="yyMMdd" timezone="GMT" locale="en,UK" />
-	</tstamp>
-	<property name="version" value="1.0.0.${DATE}" />
+	<property name="version" value="1.0.0" />
 	<property name="src" location="src/" />
 	<property name="build" location="build/" />
 	<property name="dist" location="dist/" />
@@ -21,13 +18,12 @@
 	</target>
 
 	<target name="dist">
-		<!--<copydir src="${src}" dest="${dist}" />-->
 		<copy todir="${dist}">
 			<fileset dir="${src}" />
 		</copy>
 		<replace dir="${dist}" token="@version@" value="${version}" />
 		<replaceregexp match="/\*!debug\*/.*?/\*gubed!\*/" flags="gs" replace="">
-			<fileset dir="${dist}" includes="**/*.js" />
+			<fileset dir="${dist}" includes="**/*.js, **/*.json" />
 		</replaceregexp>
 		<zip destfile="validity-${version}.zip">
 			<zipfileset dir="${dist}" />
