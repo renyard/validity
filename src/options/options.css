@@ -1,0 +1,19 @@
+body {
+	font-family: "Verdana";
+}
+h1 {
+	background: url(/icons/48.png) top left no-repeat;
+	min-height: 48px;
+	padding-left: 52px;
+}
+fieldset {
+	border: none;
+}
+input[type=text] {
+	width: 300px;
+}
+span.help,
+div#about {
+	display: block;
+	font-size: 0.8em;
+}
