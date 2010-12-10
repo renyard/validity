@@ -3,6 +3,7 @@
  * @name validity.xml
  */
 var validity = (function(validity) {
+	const XSL_URL = 'xslt/validator.xslt';
 	var xml = {};
 
 	//	Public Methods
@@ -13,36 +14,44 @@ var validity = (function(validity) {
 	 * @name parseResponse
 	 */
 	xml.parseResponse = function(xmlDom) {
-		var response = {"url": undefined, "doctype": undefined, "errorCount": undefined, "messages": undefined, "source": {"encoding": undefined, "type": "text/html"}},
-			messages = [],
-			errorNodes;
+		var xsltProcessor = new XSLTProcessor(),
+			xslDoc,
+			jsonDoc;
 
-		response.url = _getFirstTagName(xmlDom, 'uri').textContent;
-		response.doctype = _getFirstTagName(xmlDom, 'doctype').textContent;
-		response.source.encoding = _getFirstTagName(xmlDom, 'charset').textContent;
-		response.errorCount = _getFirstTagName(xmlDom, 'errorcount').textContent;
+		xslDoc = _getXsl(XSL_URL);
 
-		errorNodes = _getFirstTagName(xmlDom, 'errorlist').getElementsByTagName('error');
-		//	Loop through errors
-		for (var i = 0; i < errorNodes.length; i++) {
-			//	Create object for error
-			messages[i] = {};
+		xsltProcessor.importStylesheet(xslDoc);
 
-			messages[i].lastLine = parseInt(_getFirstTagName(errorNodes[i], 'line').textContent, 10);
-			messages[i].lastColumn = parseInt(_getFirstTagName(errorNodes[i], 'col').textContent, 10);
-			messages[i].message = _getFirstTagName(errorNodes[i], 'message').textContent;
-			messages[i].messageid = _getFirstTagName(errorNodes[i], 'messageid').textContent;
-			messages[i].explanation = _getFirstTagName(errorNodes[i], 'explanation').textContent;
-			//	TODO: Add error/warning/info
-			messages[i].type = 'error';
-		}
+		jsonDoc = xsltProcessor.transformToFragment(xmlDom, document);
+		console.info(jsonDoc);
 
-		response.messages = messages;
-
-		return response;
+		return jsonDoc.textContent;
 	}
 
 	//	Private Functions
+
+	/**
+	 * @private
+	 * @function
+	 * @name _getXsl
+	 */
+	function _getXsl(url) {
+		var request = new XMLHttpRequest();
+
+		/*!debug*/
+		console.info(url);
+		/*gubed!*/
+
+		//	Synchronous request
+		request.open('GET', url, false);
+		request.send();
+
+		/*!debug*/
+		console.info(request);
+		/*gubed!*/
+
+		return request.responseXML;
+	}
 
 	/**
 	 * @private
