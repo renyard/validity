@@ -13,7 +13,10 @@
 				<p><label for="validateHosts">
 					Automatically Validate Hosts (space separated)
 				</label></p>
-				<input id="validateHosts" type="text" value="" />
+				<!--<input id="validateHosts" type="text" value="" />-->
+				<select id="validateHosts" size="2"></select>
+				<input type="button" id="validateAdd" value="Add" />
+				<input type="button" id="validateRemove" value="Remove" />
 
 				<p><label for="validator">Custom Validator URL</label></p>
 				<input id="validator" type="text" value="" />
@@ -22,6 +25,7 @@
 				<label for="collapse">Collapse console logged results</label></p>
 			</fieldset>
 			<input id="save" type="submit" value="Save" />
+			<input id="apply" type="button" value="Apply" />
 		</form>
 		<div id="about">
 			<p>&copy; 2009 - 2010 Ian Renyard</p>

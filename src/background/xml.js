@@ -56,10 +56,8 @@ var validity = (function(validity) {
 
 		//	Concatenate errors and warnings onto messages array
 		messages = messages.concat(errors, warnings);
-		console.info(messages);
 
 		//	Sort messages by line
-		//	TODO: Columns should be used as a secondary sort criteria
 		messages.sort(function(a, b) {
 			if (a.lastLine > b.lastLine) {
 				return 1;

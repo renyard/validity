@@ -9,7 +9,8 @@ h1 {
 fieldset {
 	border: none;
 }
-input[type=text] {
+input[type=text],
+select {
 	width: 300px;
 }
 span.help,
