@@ -105,7 +105,9 @@
 		//	Attach add and remove events for select boxes
 		$('enableAdd').addEventListener('click', function() {
 			var textArea = $('enableHost');
-			addOptionToSelect(textArea.value, enableHostsElm);
+			if (textArea.value !== '') {
+				addOptionToSelect(textArea.value, enableHostsElm);
+			}
 			textArea.value = '';
 		});
 
@@ -113,9 +115,20 @@
 			removeOptionsFromSelect(enableHostsElm);
 		});
 
+		//	Add host on enter keypress
+		$('enableHost').addEventListener('keypress', function(e) {
+			if (e.which === 13) {
+				//	Cancel submit
+				e.preventDefault();
+				$('enableAdd').click();
+			}
+		});
+
 		$('validateAdd').addEventListener('click', function() {
 			var textArea = $('validateHost');
-			addOptionToSelect(textArea.value, validateHostsElm);
+			if (textArea.value !== '') {
+				addOptionToSelect(textArea.value, validateHostsElm);
+			}
 			textArea.value = '';
 		});
 
@@ -123,12 +136,21 @@
 			removeOptionsFromSelect(validateHostsElm);
 		});
 
+		//	Add host on enter keypress
+		$('validateHost').addEventListener('keypress', function(e) {
+			if (e.which === 13) {
+				//	Cancel submit
+				e.preventDefault();
+				$('validateAdd').click();
+			}
+		});
+
 		//	Attach save and apply events
 		$('apply').addEventListener('click', function() {
 			saveOptions();
 		});
 
-		$('optionsForm').addEventListener('submit', function() {
+		$('optionsForm').addEventListener('submit', function(e) {
 			saveOptions();
 			window.close();
 			return false;
