@@ -3,20 +3,27 @@
 	<head>
 		<title>Validity Options</title>
 		<link href="options/options.css" rel="stylesheet" type="text/css" />
+		<script src="options/options.js"></script>
 	</head>
 	<body>
 		<h1>Validity</h1>
 		<form id="optionsForm">
 			<fieldset>
-				<p><label>Enable for Specified Hosts (space separated)</label></p>
-				<input id="enableHosts" type="text" value="" />
+				<p><label>Enable for Specified Hosts</label></p>
+				<!--<input id="enableHosts" type="text" value="" />-->
+				<select id="enableHosts" size="2"></select>
+				<input type="button" id="enableRemove" value="Remove" /><br />
+				<input type="text" id="enableHost" value="" />
+				<input type="button" id="enableAdd" value="Add" />
+
 				<p><label for="validateHosts">
-					Automatically Validate Hosts (space separated)
+					Automatically Validate Hosts
 				</label></p>
 				<!--<input id="validateHosts" type="text" value="" />-->
 				<select id="validateHosts" size="2"></select>
+				<input type="button" id="validateRemove" value="Remove" /><br />
+				<input type="text" id="validateHost" value="" />
 				<input type="button" id="validateAdd" value="Add" />
-				<input type="button" id="validateRemove" value="Remove" />
 
 				<p><label for="validator">Custom Validator URL</label></p>
 				<input id="validator" type="text" value="" />
@@ -28,10 +35,9 @@
 			<input id="apply" type="button" value="Apply" />
 		</form>
 		<div id="about">
-			<p>&copy; 2009 - 2010 Ian Renyard</p>
-			<p>Source code is available at <a href="http://github.com/renyard/validity/">http://github.com/renyard/validity/</a></p>
+			<p>&copy; 2009 - 2011 Ian Renyard</p>
+			<p>Source code is available at <a href="http://github.com/renyard/validity">http://github.com/renyard/validity</a></p>
 			<p>Address bar icons by Mark James - <a href="http://www.famfamfam.com/">www.famfamfam.com</a></p>
 		</div>
-		<script src="options/options.js"></script>
 	</body>
 </html>
