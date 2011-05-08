@@ -11,6 +11,7 @@
     },
 	"permissions": [
 		"http://*/*",
+		"https://*/*",
 		"tabs"
 	],
 	"background_page": "background.html",
