@@ -1,5 +1,5 @@
 /**
- * Core Tests
+ * Controller Tests
  */
 
 //	Mock Extension API
@@ -34,19 +34,19 @@ chrome.pageAction = {};
 		};
 	}
 
-	module('core', lifecycle);
+	module('controller', lifecycle);
 
 	test('dispatch', function() {
-		var validate = validity.core.validate;
+		var validate = validity.controller.validate;
 		expect(1);
 
-		validity.core.validate = function() {
-			ok(true, 'Fired core.validate');
+		validity.controller.validate = function() {
+			ok(true, 'Fired controller.validate');
 		}
 
-		validity.core.dispatch({action:'validate'}, {}, function() {});
+		validity.controller.dispatch({action:'validate'}, {}, function() {});
 
-		validity.core.validate = validate;
+		validity.controller.validate = validate;
 	});
 
 	test('validate', function() {
@@ -56,7 +56,7 @@ chrome.pageAction = {};
 			ok(true, 'Fired tabs.sendRequest');
 		};
 
-		validity.core.validate({tab:{id:1234, url:'http://www.3doughnuts.com/'}});
+		validity.controller.validate({tab:{id:1234, url:'http://www.3doughnuts.com/'}});
 	});
 })();
 
