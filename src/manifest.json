@@ -14,6 +14,10 @@
 		"https://*/*",
 		"tabs"
 	],
+	"content_scripts": [{
+		"matches": ["*://*/*"],
+		"js": ["validity.js"]
+	}],
 	"background_page": "background.html",
 	"page_action": {
 		"default_icon": "img/html_valid.png",

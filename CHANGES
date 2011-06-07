@@ -1,3 +1,9 @@
+1.2.0:
+
+* HTTPS pages are now supported.
+* More improvements to the Options UI.
+* Reduced memory and CPU footprint.
+
 1.1.0:
 
 * Validator warnings are now displayed with errors in the console.
@@ -7,7 +13,7 @@
 
 * Complete rewrite.
 * Supports installs of legacy versions of the W3C Validator commonly found in software repositories.
-* Source code is now hosted on GitHub (https://github.com/renyard/validity)
+* Source code is now hosted on GitHub (https://github.com/renyard/validity).
 
 0.3:
 * Pages are now sent to the validator as a fragment, meaning that pages are not required to be accessible to the validator.

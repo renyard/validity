@@ -107,9 +107,13 @@
 	 * @name _init
 	 */
 	function _init() {
-		_attachKeyboardShortcuts();
-		chrome.extension.onRequest.addListener(function(response) {
-			_logMessages(response);
+		chrome.extension.sendRequest({'action': 'init'}, function(response) {
+			if (response.attatchActions === true) {
+				_attachKeyboardShortcuts();
+				chrome.extension.onRequest.addListener(function(results) {
+					_logMessages(results);
+				});	
+			}
 		});
 	}
 

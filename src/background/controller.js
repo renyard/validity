@@ -8,15 +8,18 @@
  * @name validity.controller
  */
 var validity = (function(validity) {
-	/**
-	 * @const
-	 * @name CONTENT_SCRIPT
-	 */
-	const CONTENT_SCRIPT = '/validity.js';
 	var controller = {},
 		net = validity.net,
 		ui = validity.ui,
-		util = validity.util;
+		util = validity.util,
+		enableHosts,
+		autoValidateHosts,
+		tabHost,
+		tabUrls = {};
+
+	controller.dispatch = function() {};
+
+	console.log(controller);
 
 	//	Public methods
 
@@ -25,16 +28,30 @@ var validity = (function(validity) {
 	 * @public
 	 * @name dispatch
 	 */
-	controller.dispatch = function(request, sender, sendResponse) {
+	controller.dispatch = function(request, sender) {
+		var tabHost,
+			response = {};
+		
 		switch(request['action']) {
 			case 'validate':
 				controller.validate(sender.tab);
+				break;
+			case 'init':
+				enableHosts = localStorage['enableHosts'];
+				tabHost = validity.util.getHost(sender.tab.url);
+				
+				if (validity.util.containsHost(tabHost, enableHosts)) {
+					controller._attachPageActions(sender.tab);
+					response.attatchActions = true;
+				}
 				break;
 			default:
 				/*!debug*/
 				throw 'Empty or invalid request: ' + request['action'];
 				/*gubed!*/
 		}
+		
+		return response;
 	};
 
 	/**
@@ -49,7 +66,7 @@ var validity = (function(validity) {
 				chrome.tabs.sendRequest(tab.id, messages);
 			});
 		});
-	}
+	};
 
 	//	Private Functions
 
@@ -57,16 +74,15 @@ var validity = (function(validity) {
 	 * @method
 	 * @private
 	 */
-	controller._attachPageActions = function(tab) {
-		var enableHosts = localStorage['enableHosts'] || '',
-		autoValidateHosts = localStorage['validateHosts'] || '',
-		tabHost,
-		opts = localStorage;
-
+	controller._attachPageActions = function(tab, validate) {
 		//	Stop if we're not on an http or https URL
 		if (!validity.util.validProtocol(tab.url)) {
 			return;
 		}
+
+		//	Read options here in case they've been changed since last time
+		enableHosts = localStorage['enableHosts'] || '';
+		autoValidateHosts = localStorage['validateHosts'] || '';
 
 		/*!debug*/
 		console.info(tab.url);
@@ -75,29 +91,14 @@ var validity = (function(validity) {
 		//	Extract host from URL
 		tabHost = validity.util.getHost(tab.url);
 
+		//	Set up Page Action
+		validity.ui.init(tab.id);
+
 		//	Auto validate if host is set in options
-		if (validity.util.containsHost(tabHost, autoValidateHosts)) {
-			//	Set up Page Action
-			//validity.ui.init(tab.id);
-
-			chrome.tabs.executeScript(tab.id, {
-				file: CONTENT_SCRIPT
-			}, function() {
-				controller.validate(tab);
-			});
+		if (validate) {
+			controller.validate(tab);
 		}
-
-		//	Inject content script if host is set in options
-		//	...or if enableHosts is empty
-		else if (validity.util.containsHost(tabHost, enableHosts) || enableHosts.length === 0) {
-			//	Set up Page Action
-			validity.ui.init(tab.id);
-
-			chrome.tabs.executeScript(tab.id, {
-				file: CONTENT_SCRIPT
-			});
-		}
-	}
+	};
 
 	/**
 	 * @method
@@ -106,13 +107,17 @@ var validity = (function(validity) {
 	controller._init = function() {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+			var response;
+			
 			/*!debug*/
 			console.info(request);
 			console.info(sender);
 			/*gubed!*/
 
 			//	Pass request to the dispatch method
-			controller.dispatch(request, sender, sendResponse);
+			response = controller.dispatch(request, sender);
+			
+			sendResponse(response);
 		});
 
 		//	Set up page action events
@@ -121,16 +126,12 @@ var validity = (function(validity) {
 		});
 
 		//	Set up new tab event
-		chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+		/*chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 
 			chrome.tabs.get(tabId, function(tab) {
 				var host,
 					auto,
 					validateHosts = localStorage['validateHosts'] || '';
-
-				/*!debug*/
-				console.info(changeInfo);
-				/*gubed!*/
 
 				host = validity.util.containsHost(tab.url);
 				auto = validity.util.containsHost(host, validateHosts);
@@ -142,9 +143,8 @@ var validity = (function(validity) {
 				}
 			});
 
-
-		});
-	}
+		});*/
+	};
 
 	validity.controller = controller;
 	return validity;

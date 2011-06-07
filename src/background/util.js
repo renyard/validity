@@ -52,8 +52,12 @@ var validity = (function(validity) {
 	util.containsHost = function(host, validHosts) {
 		var hosts;
 
+		//	Will be undefined if it's never been set
 		if (typeof validHosts !== 'string') {
 			return false;
+		}
+		else if (validHosts === '') {
+			return true;
 		}
 
 		//	Split hosts into array

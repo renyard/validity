@@ -14,11 +14,7 @@ var validity = (function(validity) {
 
 	ui.init = function(tabId) {
 		//	Set up page action on new tabs
-		chrome.tabs.onUpdated.addListener(function(tabId, change) {
-			if (change.status === 'complete') {
-				ui.setPageAction(tabId, 'default', 'Validate Document (Alt+Shift+V)');
-			}
-		});
+		ui.setPageAction(tabId, 'default', 'Validate Document (Alt+Shift+V)');
 	}
 
 	ui.setPageAction = function(tabId, icon, text) {
