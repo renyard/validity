@@ -8,9 +8,7 @@ var validity = (function(validity) {
 	 * @name DEFAULT_VALIDATOR
 	 */
 	const DEFAULT_VALIDATOR = 'http://validator.w3.org/check';
-	var net = {},
-		xhrSource = new XMLHttpRequest(),
-		xhrValidator = new XMLHttpRequest();
+	var net = {};
 
 	/**
 	 * @function
@@ -18,6 +16,7 @@ var validity = (function(validity) {
 	 * @name getSource
 	 */
 	net.getSource = function(tab, callback) {
+		var xhrSource = new XMLHttpRequest();
 		//	Update page action icon
 		validity.ui.setPageAction(tab.id, 'connecting', 'Contacting validator...');
 		xhrSource.onreadystatechange = function() {
@@ -42,7 +41,8 @@ var validity = (function(validity) {
 	 * @name submitValidation
 	 */
 	net.submitValidation = function(tab, source, callback) {
-		var validator;
+		var validator,
+			xhrValidator = new XMLHttpRequest();
 
 		//	Set validator URL
 		validator = localStorage['validator'] || DEFAULT_VALIDATOR;
