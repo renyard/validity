@@ -38,11 +38,19 @@ var validity = (function(validity) {
 				break;
 			case 'init':
 				enableHosts = localStorage['enableHosts'];
+				autoValidateHosts = localStorage['validateHosts'];
 				tabHost = validity.util.getHost(sender.tab.url);
 				
-				if (validity.util.containsHost(tabHost, enableHosts)) {
+				enabledForHost = validity.util.containsHost(tabHost, enableHosts);
+				autoValidateForHost = validity.util.containsHost(tabHost, autoValidateHosts);
+				
+				if (enabledForHost || autoValidateForHost) {
 					controller._attachPageActions(sender.tab);
 					response.attatchActions = true;
+				}
+				
+				if (autoValidateForHost) {
+					controller.validate(sender.tab);
 				}
 				break;
 			default:

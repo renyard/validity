@@ -61,6 +61,40 @@ chrome.pageAction = {};
 })();
 
 /**
+ * Net Tests
+ */
+
+/*(function() {
+	var _XMLHttpRequest,
+		lifecycle = {
+			setup: function() {
+				_XMLHttpRequest = window.XMLHttpRequest;
+				
+				//	Mock XMLHttpRequest
+				window.XMLHttpRequest = function() {
+					var that = this;
+
+					this.readyState = 0;
+					this.onreadystatechange = function() {
+						
+					};
+
+					window.setTimeout(this.onreadystatechange, 500);
+				}
+			},
+			tearDown: function() {
+				window.XMLHttpRequest = _XMLHttpRequest;
+			}
+		};
+
+	module('net', lifecycle);
+
+	asyncTest('', function() {
+		
+	});
+})();*/
+
+/**
  * XML Tests
  */
 
