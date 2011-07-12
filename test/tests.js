@@ -1,3 +1,18 @@
+var _controller,
+	_net,
+	_xml,
+	_ui,
+	_util;
+
+//	Store real modules while mocks are in use
+(function() {
+	_controller = validity.controller;
+	_net = validity.net;
+	_xml = validity.xml;
+	_ui = validity.ui;
+	_xml = validity.xml;
+})();
+
 /**
  * Controller Tests
  */
@@ -61,40 +76,6 @@ chrome.pageAction = {};
 })();
 
 /**
- * Net Tests
- */
-
-/*(function() {
-	var _XMLHttpRequest,
-		lifecycle = {
-			setup: function() {
-				_XMLHttpRequest = window.XMLHttpRequest;
-				
-				//	Mock XMLHttpRequest
-				window.XMLHttpRequest = function() {
-					var that = this;
-
-					this.readyState = 0;
-					this.onreadystatechange = function() {
-						
-					};
-
-					window.setTimeout(this.onreadystatechange, 500);
-				}
-			},
-			tearDown: function() {
-				window.XMLHttpRequest = _XMLHttpRequest;
-			}
-		};
-
-	module('net', lifecycle);
-
-	asyncTest('', function() {
-		
-	});
-})();*/
-
-/**
  * XML Tests
  */
 
@@ -136,7 +117,9 @@ chrome.pageAction = {};
 	//	Mock pageAction API
 	function mock(){
 		chrome.pageAction = {
-			tabs: {},
+			tabs: {
+				'0': {}
+			},
 			show: function(tabId) {
 				this.tabs[tabId] = this.tabs[tabId] || {};
 				this.tabs[tabId].visible = true;
@@ -160,8 +143,93 @@ chrome.pageAction = {};
 		expect(2);
 
 		validity.ui.setPageAction('0', 'default', 'Validity');
-		equal('Validity', chrome.pageAction.tabs['0'].title, 'Title was set correctly');
-		equal('img/html_valid.png', chrome.pageAction.tabs['0'].icon, 'Icon was set correctly');
+		equal(chrome.pageAction.tabs['0'].title, 'Validity', 'Title was set correctly');
+		equal(chrome.pageAction.tabs['0'].icon, 'img/html_valid.png', 'Icon was set correctly');
+	});
+})();
+
+/**
+ * Net Tests
+ */
+
+(function() {
+	var _XMLHttpRequest,
+		_ui,
+		lifecycle = {
+			setup: function() {
+				_XMLHttpRequest = window.XMLHttpRequest;
+				
+				//	Mock XMLHttpRequest
+				window.XMLHttpRequest = function() {
+					var self = this;
+
+					this.readyState = 0;
+					this.onreadystatechange = function() {
+						
+					};
+					this.open = function() {
+						
+					};
+					this.send = function() {
+						
+					};
+					this.setRequestHeader = function() {
+						
+					};
+
+					window.setTimeout(function() {
+						self.readyState = 4;
+						self.status = 200;
+						self.responseText = '<!doctype html><html><head><title></title></head><body></body></html>';
+						self.onreadystatechange();
+					}, 500);
+				}
+				
+				_ui = window.validity.ui;
+				//	Mock ui functionality
+				window.validity.ui = {
+					setPageAction: function() {
+						
+					}
+				}
+			},
+			tearDown: function() {
+				window.XMLHttpRequest = _XMLHttpRequest;
+				window.validity.ui = _ui;
+			}
+		};
+
+	module('net', lifecycle);
+
+	asyncTest('getSource', function() {
+		var mockTab = {
+			id: '1',
+			url: 'http://not.used'
+		}
+		
+		expect(1);
+		
+		_net.getSource(mockTab, function(source) {
+			//ok(true);
+			equal(source, '<!doctype html><html><head><title></title></head><body></body></html>', 'Fetched source code for page');
+			start();
+		});
+		
+	});
+
+	asyncTest('submitValidation', function() {
+		var mockTab = {
+			id: '2',
+			'url': 'http://not.used'
+		};
+		
+		expect(1);
+		
+		_net.submitValidation(mockTab, function() {
+			ok(true, 'Submitted validation');
+		});
+		
+		start();
 	});
 })();
 
