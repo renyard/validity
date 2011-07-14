@@ -4,7 +4,7 @@ var _controller,
 	_ui,
 	_util;
 
-//	Store real modules while mocks are in use
+//	Store real modules while mocks are in use.
 (function() {
 	_controller = validity.controller;
 	_net = validity.net;
@@ -181,6 +181,7 @@ chrome.pageAction = {};
 						self.readyState = 4;
 						self.status = 200;
 						self.responseText = '<!doctype html><html><head><title></title></head><body></body></html>';
+						self.responseXML = document.createDocumentFragment('<uri>http://not.used</uri>');
 						self.onreadystatechange();
 					}, 500);
 				}

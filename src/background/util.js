@@ -56,9 +56,9 @@ var validity = (function(validity) {
 		if (typeof validHosts !== 'string') {
 			return false;
 		}
-		else if (validHosts === '') {
+		/*else if (validHosts === '') {
 			return true;
-		}
+		}*/
 
 		//	Split hosts into array
 		hosts = validHosts.split(' ');

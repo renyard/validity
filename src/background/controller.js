@@ -41,7 +41,14 @@ var validity = (function(validity) {
 				autoValidateHosts = localStorage['validateHosts'];
 				tabHost = validity.util.getHost(sender.tab.url);
 				
-				enabledForHost = validity.util.containsHost(tabHost, enableHosts);
+				//	Enable if no hosts are set.
+				if (typeof enableHosts !== 'string' || enableHosts === '') {
+					enabledForHost = true;
+				}
+				else {
+					enabledForHost = validity.util.containsHost(tabHost, enableHosts);
+				}
+				
 				autoValidateForHost = validity.util.containsHost(tabHost, autoValidateHosts);
 				
 				if (enabledForHost || autoValidateForHost) {
@@ -81,6 +88,7 @@ var validity = (function(validity) {
 	/**
 	 * @method
 	 * @private
+	 * @param Tab Tab object on which to attach actions.
 	 */
 	controller._attachPageActions = function(tab, validate) {
 		//	Stop if we're not on an http or https URL
@@ -103,9 +111,9 @@ var validity = (function(validity) {
 		validity.ui.init(tab.id);
 
 		//	Auto validate if host is set in options
-		if (validate) {
+		/*if (validate) {
 			controller.validate(tab);
-		}
+		}*/
 	};
 
 	/**
