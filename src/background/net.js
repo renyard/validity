@@ -43,10 +43,10 @@ var validity = (function(validity) {
 	net.submitValidation = function(tab, source, callback) {
 		var validator,
 			xhrValidator = new XMLHttpRequest();
-
+		
 		//	Set validator URL
 		validator = localStorage['validator'] || DEFAULT_VALIDATOR;
-
+		
 		xhrValidator.onreadystatechange = function() {
 			var response;
 			if (xhrValidator.readyState === 4) {
@@ -58,7 +58,10 @@ var validity = (function(validity) {
 					else {
 						validity.ui.setPageAction(tab.id, 'valid', 'Page is valid.');
 					}
-					callback(tab, response);
+					
+					if (typeof callback === 'function') {
+						callback(tab, response);
+					}
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not contact validator: ' + xhrValidator.statusText);

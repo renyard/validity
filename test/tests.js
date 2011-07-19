@@ -182,6 +182,41 @@ chrome.pageAction = {};
 						self.status = 200;
 						self.responseText = '<!doctype html><html><head><title></title></head><body></body></html>';
 						self.responseXML = document.createDocumentFragment('<uri>http://not.used</uri>');
+						self.responseXML.getElementsByTagName = function(tagName) {
+							var mockNode = {};
+							
+							switch (tagName) {
+								case 'uri':
+									mockNode.textContent = 'http://not.used';
+									break;
+								case 'errorcount':
+									mockNode.textContent = '0';
+								case 'doctype' || 'charset':
+									mockNode.textContent = '';
+									break;
+								case 'errorlist':
+									mockNode.length = '0';
+									mockNode[0] = {
+										'getElementsByTagName': function() {
+											return [];
+										}
+									};
+									break;
+								case 'warninglist':
+									mockNode.length = '0';
+									mockNode[0] = {
+										'getElementsByTagName': function() {
+											return [];
+										}
+									};
+									break;
+								default:
+									break;
+							}
+							
+							return mockNode;
+
+						}
 						self.onreadystatechange();
 					}, 500);
 				}
@@ -226,11 +261,11 @@ chrome.pageAction = {};
 		
 		expect(1);
 		
-		_net.submitValidation(mockTab, function() {
+		_net.submitValidation(mockTab, '', function() {
 			ok(true, 'Submitted validation');
+			start();
 		});
 		
-		start();
 	});
 })();
 
