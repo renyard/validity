@@ -1,15 +1,20 @@
-1.2.0:
+1.2.1 (17/09/2011):
+
+* Fixed a bug where domains with hyphens were not recognised for auto validation and enabling for specific hosts.
+  (Thanks to Luke Armstrong - https://github.com/lukearmstrong)
+
+1.2.0 (19/07/2011):
 
 * HTTPS pages are now supported.
 * More improvements to the Options UI.
 * Reduced memory and CPU footprint.
 
-1.1.0:
+1.1.0 (23/01/2011):
 
 * Validator warnings are now displayed with errors in the console.
 * Improvements to the options UI.
 
-1.0.0:
+1.0.0 (13/11/2010):
 
 * Complete rewrite.
 * Supports installs of legacy versions of the W3C Validator commonly found in software repositories.
