@@ -281,25 +281,37 @@ chrome.pageAction = {};
 	test('getHost (http url)', function() {
 		expect(1);
 
-		equal('www.3doughnuts.com', validity.util.getHost('http://www.3doughnuts.com/'));
+		equal(validity.util.getHost('http://www.3doughnuts.com/'), 'www.3doughnuts.com');
 	});
 
-	test('getHost (chrome url)', function(){
+	test('getHost (Hyphen in host)', function() {
 		expect(1);
 
-		equal('', validity.util.getHost('chrome://extensions/'));
+		equal(validity.util.getHost('http://www.hyphen-example.com/'), 'www.hyphen-example.com');
+	});
+
+	test('getHost (localhost)', function() {
+		expect(1);
+
+		equal(validity.util.getHost('http://localhost/index'), 'localhost');
+	});
+
+	test('getHost (chrome url)', function() {
+		expect(1);
+
+		equal(validity.util.getHost('chrome://extensions/'), '');
 	});
 
 	test('containsHost (true)', function() {
 		expect(1);
 
-		equal(true, validity.util.containsHost('www.renyard.net', 'www.renyard.net www.bbc.co.uk'));
+		equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net www.bbc.co.uk'), true);
 	});
 
 	test('containsHost (false)', function() {
 		expect(1);
 
-		equal(false, validity.util.containsHost('3doughnuts.com', 'www.renyard.net www.bbc.co.uk'));
+		equal(validity.util.containsHost('3doughnuts.com', 'www.renyard.net www.bbc.co.uk'), false);
 	});
 
 	test('validProtocol (http)', function() {
