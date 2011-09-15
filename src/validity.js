@@ -88,7 +88,8 @@
 				message = messages[i];
 				toEval += 'console.';
 				toEval += message.type;
-				toEval += '(\'line ' + message.lastLine + ': ' + message.message;
+				toEval += '(\'line ' + message.lastLine;
+				toEval += ': ' + message.message.replace(/\r\n|\n|\r/g, '');
 				toEval += '\');';
 			}
 
