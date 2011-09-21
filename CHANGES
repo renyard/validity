@@ -1,3 +1,9 @@
+1.2.2
+* No line is given when an error is not specific to a line.
+* When one error is found, console output is no longer plural.
+* An error is no longer thrown when a message contains a line break.
+  (Thanks to Mathieu Turcotte - https://github.com/MathieuTurcotte)
+
 1.2.1 (17/09/2011):
 
 * Fixed a bug where domains with hyphens were not recognised for auto validation and enabling for specific hosts.
