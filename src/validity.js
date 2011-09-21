@@ -63,6 +63,8 @@
 	function _logMessages(response) {
 		var messages,
 			message,
+			line,
+			errorCount = response.errorCount,
 			toEval = '';
 
 		messages = response.messages;
@@ -74,7 +76,7 @@
 			return;
 		}
 
-		if (response.errorCount > 0) {
+		if (errorCount > 0) {
 			//	Collapse results based on option
 			if (console.groupCollapsed && localStorage['collapseResults'] !== false) {
 				toEval += 'console.groupCollapsed';
@@ -83,14 +85,22 @@
 				toEval += 'console.group';
 			}
 
-			toEval += '(\'' + response.errorCount + ' validation errors\');';
+			toEval += '(\'' + errorCount + ' validation error' +
+				//	Add s for plural
+				(errorCount > 1?'s':'') +
+				'\');';
+
 			for(var i in messages) {
 				message = messages[i];
-				toEval += 'console.';
-				toEval += message.type;
-				toEval += '(\'line ' + message.lastLine;
-				toEval += ': ' + message.message.replace(/\r\n|\n|\r/g, '');
-				toEval += '\');';
+				line = message.lastLine;
+
+				toEval += 'console.' +
+					message.type + '(\'' +
+					//	Write line number if available
+					(line > 0?'line ' + line + ': ':'') +
+					//	Remove line breaks from message
+					message.message.replace(/\r\n|\n|\r/g, '') +
+					'\');';
 			}
 
 			toEval += 'console.groupEnd();';
