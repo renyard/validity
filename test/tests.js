@@ -2,7 +2,8 @@ var _controller,
 	_net,
 	_xml,
 	_ui,
-	_util;
+	_util,
+	_options;
 
 //	Store real modules while mocks are in use.
 (function() {
@@ -11,11 +12,12 @@ var _controller,
 	_xml = validity.xml;
 	_ui = validity.ui;
 	_xml = validity.xml;
+	_options = validity.options;
 })();
 
 /**
- * Controller Tests
- */
+* Controller Tests
+*/
 
 //	Mock Extension API
 chrome.tabs = {};
@@ -57,7 +59,7 @@ chrome.pageAction = {};
 
 		validity.controller.validate = function() {
 			ok(true, 'Fired controller.validate');
-		}
+		};
 
 		validity.controller.dispatch({action:'validate'}, {}, function() {});
 
@@ -76,8 +78,8 @@ chrome.pageAction = {};
 })();
 
 /**
- * XML Tests
- */
+* XML Tests
+*/
 
 (function() {
 	var lifecycle = {setup: function() {}, tearDown: function(){}};
@@ -108,8 +110,8 @@ chrome.pageAction = {};
 })();
 
 /**
- * UI Tests
- */
+* UI Tests
+*/
 
 (function() {
 	var lifecycle = {setup: mock, tearDown: function(){}};
@@ -134,7 +136,7 @@ chrome.pageAction = {};
 				this.tabs[tabId] = this.tabs[tabId] || {};
 				this.tabs[tabId].title = opts.title;
 			}
-		}
+		};
 	}
 
 	module('ui', lifecycle);
@@ -149,8 +151,8 @@ chrome.pageAction = {};
 })();
 
 /**
- * Net Tests
- */
+* Net Tests
+*/
 
 (function() {
 	var _XMLHttpRequest,
@@ -191,6 +193,7 @@ chrome.pageAction = {};
 									break;
 								case 'errorcount':
 									mockNode.textContent = '0';
+									break;
 								case 'doctype' || 'charset':
 									mockNode.textContent = '';
 									break;
@@ -216,10 +219,10 @@ chrome.pageAction = {};
 							
 							return mockNode;
 
-						}
+						};
 						self.onreadystatechange();
 					}, 500);
-				}
+				};
 				
 				_ui = window.validity.ui;
 				//	Mock ui functionality
@@ -227,7 +230,7 @@ chrome.pageAction = {};
 					setPageAction: function() {
 						
 					}
-				}
+				};
 			},
 			tearDown: function() {
 				window.XMLHttpRequest = _XMLHttpRequest;
@@ -241,16 +244,14 @@ chrome.pageAction = {};
 		var mockTab = {
 			id: '1',
 			url: 'http://not.used'
-		}
+		};
 		
 		expect(1);
 		
 		_net.getSource(mockTab, function(source) {
-			//ok(true);
 			equal(source, '<!doctype html><html><head><title></title></head><body></body></html>', 'Fetched source code for page');
 			start();
 		});
-		
 	});
 
 	asyncTest('submitValidation', function() {
@@ -270,65 +271,83 @@ chrome.pageAction = {};
 })();
 
 /**
- * Util Tests
- */
+* Util Tests
+*/
 
 (function() {
 	var lifecycle = {setup: function(){}, tearDown: function(){}};
 
 	module('util', lifecycle);
 
-	test('getHost (http url)', function() {
-		expect(1);
+	test('getHost', function() {
+		expect(4);
 
-		equal(validity.util.getHost('http://www.3doughnuts.com/'), 'www.3doughnuts.com');
+		equal(validity.util.getHost('http://www.3doughnuts.com/'), 'www.3doughnuts.com', 'HTTP');
+		equal(validity.util.getHost('http://www.hyphen-example.com/'), 'www.hyphen-example.com', 'hyphen');
+		equal(validity.util.getHost('http://localhost/index'), 'localhost', 'localhost');
+		equal(validity.util.getHost('chrome://extensions/'), '', 'chrome');
 	});
 
-	test('getHost (Hyphen in host)', function() {
-		expect(1);
+	test('containsHost', function() {
+		expect(4);
 
-		equal(validity.util.getHost('http://www.hyphen-example.com/'), 'www.hyphen-example.com');
-	});
-
-	test('getHost (localhost)', function() {
-		expect(1);
-
-		equal(validity.util.getHost('http://localhost/index'), 'localhost');
-	});
-
-	test('getHost (chrome url)', function() {
-		expect(1);
-
-		equal(validity.util.getHost('chrome://extensions/'), '');
-	});
-
-	test('containsHost (true)', function() {
-		expect(1);
-
+		equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net'), true);
 		equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net www.bbc.co.uk'), true);
-	});
-
-	test('containsHost (false)', function() {
-		expect(1);
-
 		equal(validity.util.containsHost('3doughnuts.com', 'www.renyard.net www.bbc.co.uk'), false);
+		equal(validity.util.containsHost('3doughnuts.com', ''), false);
 	});
 
-	test('validProtocol (http)', function() {
-		expect(1);
+	test('validProtocol', function() {
+		expect(3);
 
-		equal(true, validity.util.validProtocol('http://www.renyard.net/'));
+		equal(validity.util.validProtocol('http://www.renyard.net/'), true, 'HTTP');
+		equal(validity.util.validProtocol('https://www.bbc.co.uk/'), true, 'HTTPS');
+		equal(validity.util.validProtocol('chrome://extensions'), false, 'chrome');
+	});
+})();
+
+/**
+* Options Tests
+*/
+
+(function() {
+	var lifecycle = {setup: function(){}, tearDown: function(){}};
+
+	module('options', lifecycle);
+
+	test('toBool', function() {
+		expect(6);
+
+		equal(validity.options.toBool(true), true);
+		equal(validity.options.toBool(false), false);
+		equal(validity.options.toBool('true'), true);
+		equal(validity.options.toBool('false'), false);
+		equal(validity.options.toBool('foo'), false);
+		equal(validity.options.toBool(''), false);
 	});
 
-	test('validProtocol (https)', function() {
-		expect(1);
+	test('addOptionToSelect/removeOptionsFromSelect', function() {
+		var select = document.createElement('select'),
+			body = document.body;
 
-		equal(true, validity.util.validProtocol('https://www.bbc.co.uk/'));
-	});
+		//	Create select element with options.
+		body.appendChild(select);
+		validity.options.addOptionToSelect('foo', select);
+		validity.options.addOptionToSelect('bar', select);
 
-	test('validProtocol (chrome)', function() {
-		expect(1);
+		expect(5);
 
-		equal(false, validity.util.validProtocol('chrome://extensions'));
+		equal(select.length, 2);
+		equal(select.getElementsByTagName('option')[0].innerText, 'foo');
+		equal(select.getElementsByTagName('option')[1].innerText, 'bar');
+
+		//	Select & remove first element.
+		select.getElementsByTagName('option')[0].selected = true;
+		validity.options.removeOptionsFromSelect(select);
+
+		equal(select.length, 1);
+		equal(select.getElementsByTagName('option')[0].innerText, 'bar');
+
+		body.removeChild(select);
 	});
 })();

@@ -1,12 +1,12 @@
 /**
- * @namespace
- * @name validity
- */
+* @namespace
+* @name validity
+*/
 
 /**
- * @namespace
- * @name validity.controller
- */
+* @namespace
+* @name validity.controller
+*/
 var validity = (function(validity) {
 	var controller = {},
 		net = validity.net,
@@ -19,15 +19,13 @@ var validity = (function(validity) {
 
 	controller.dispatch = function() {};
 
-	console.log(controller);
-
 	//	Public methods
 
 	/**
-	 * @method
-	 * @public
-	 * @name dispatch
-	 */
+	* @method
+	* @public
+	* @name dispatch
+	*/
 	controller.dispatch = function(request, sender) {
 		var tabHost,
 			response = {};
@@ -86,10 +84,10 @@ var validity = (function(validity) {
 	//	Private Functions
 
 	/**
-	 * @method
-	 * @private
-	 * @param Tab Tab object on which to attach actions.
-	 */
+	* @method
+	* @private
+	* @param Tab Tab object on which to attach actions.
+	*/
 	controller._attachPageActions = function(tab, validate) {
 		//	Stop if we're not on an http or https URL
 		if (!validity.util.validProtocol(tab.url)) {
@@ -117,9 +115,9 @@ var validity = (function(validity) {
 	};
 
 	/**
-	 * @method
-	 * @private
-	 */
+	* @method
+	* @private
+	*/
 	controller._init = function() {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {

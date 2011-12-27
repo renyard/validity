@@ -10,7 +10,6 @@
 		<form id="optionsForm">
 			<fieldset>
 				<p><label>Enable for Specified Hosts</label></p>
-				<!--<input id="enableHosts" type="text" value="" />-->
 				<select id="enableHosts" size="2"></select>
 				<input type="button" id="enableRemove" value="Remove" /><br />
 				<input type="text" id="enableHost" value="" placeholder="e.g. www.google.com" />
@@ -19,7 +18,6 @@
 				<p><label for="validateHosts">
 					Automatically Validate Hosts
 				</label></p>
-				<!--<input id="validateHosts" type="text" value="" />-->
 				<select id="validateHosts" size="2"></select>
 				<input type="button" id="validateRemove" value="Remove" /><br />
 				<input type="text" id="validateHost" value="" placeholder="e.g. www.google.com" />
@@ -39,5 +37,8 @@
 			<p>Source code is available at <a href="http://github.com/renyard/validity">http://github.com/renyard/validity</a></p>
 			<p>Address bar icons by Mark James - <a href="http://www.famfamfam.com/">www.famfamfam.com</a></p>
 		</div>
+		<script>
+			validity.options.init();
+		</script>
 	</body>
 </html>

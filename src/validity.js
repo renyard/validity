@@ -78,7 +78,7 @@
 
 		if (errorCount > 0) {
 			//	Collapse results based on option
-			if (console.groupCollapsed && localStorage['collapseResults'] !== false) {
+			if (console.groupCollapsed && localStorage['collapseResults'] !== 'false') {
 				toEval += 'console.groupCollapsed';
 			}
 			else {

@@ -1,5 +1,8 @@
-(function() {
-	var $ = function(id) {return document.getElementById(id)},
+var validity = (function(validity) {
+	var options = {},
+		$ = function(id) {
+			return document.getElementById(id);
+		},
 		enableHostsElm,
 		validateHostsElm,
 		validateHost;
@@ -9,7 +12,7 @@
 			hostOpt,
 			validator = $('validator'),
 			collapsed = $('collapse');
-	
+
 		//	Load options
 		window.addEventListener('load', function() {
 			var enableHosts = [],
@@ -40,34 +43,13 @@
 			}
 
 			if (localStorage['collapseResults'] !== undefined) {
-				collapsed.checked = localStorage['collapseResults'];
+				collapsed.checked = options.toBool(localStorage['collapseResults']);
 			}
 			else {
 				//	Defaults to true
 				collapsed.checked = true;
 			}
 		});
-	}
-
-	//	Edit hosts
-	function addOptionToSelect(optionText, select) {
-		var option = document.createElement('option');
-
-		option.textContent = optionText;
-		select.appendChild(option);
-
-		return option;
-	}
-
-	function removeOptionsFromSelect(select) {
-		var option;
-
-		for (var i = 0; i < select.childNodes.length; i++) {
-			option = select.childNodes[i];
-			if (option.selected === true) {
-				select.removeChild(option);
-			}
-		}
 	}
 
 	//	Save options
@@ -90,12 +72,39 @@
 		localStorage['enableHosts'] = enableHosts.join(' ');
 		localStorage['validateHosts'] = validateHosts.join(' ');
 		localStorage['validator'] = validator.value;
-		localStorage['collapseResults'] = collapse.checked;
+		localStorage['collapseResults'] = collapse.checked.toString();
 	}
 
-	//	DOM Ready
-	document.addEventListener('DOMContentLoaded', function() {
-		enableHostsElm = $('enableHosts')
+	//	Edit hosts
+	options.addOptionToSelect = function(optionText, select) {
+		var option = document.createElement('option');
+
+		option.textContent = optionText;
+		select.appendChild(option);
+
+		return option;
+	};
+
+	options.removeOptionsFromSelect = function(select) {
+		var option;
+
+		for (var i = 0; i < select.childNodes.length; i++) {
+			option = select.childNodes[i];
+			if (option.selected === true) {
+				select.removeChild(option);
+			}
+		}
+	};
+
+	options.toBool = function(input) {
+		if (typeof input === 'string') {
+			return input.toLowerCase() === 'true';
+		}
+		return !!input;
+	};
+
+	options.init = function() {
+		enableHostsElm = $('enableHosts');
 		validateHostsElm = $('validateHosts');
 		//validateHost = $('validateHost');
 
@@ -106,13 +115,13 @@
 		$('enableAdd').addEventListener('click', function() {
 			var textArea = $('enableHost');
 			if (textArea.value !== '') {
-				addOptionToSelect(textArea.value, enableHostsElm);
+				options.addOptionToSelect(textArea.value, enableHostsElm);
 			}
 			textArea.value = '';
 		});
 
 		$('enableRemove').addEventListener('click', function() {
-			removeOptionsFromSelect(enableHostsElm);
+			options.removeOptionsFromSelect(enableHostsElm);
 		});
 
 		//	Add host on enter keypress
@@ -127,13 +136,13 @@
 		$('validateAdd').addEventListener('click', function() {
 			var textArea = $('validateHost');
 			if (textArea.value !== '') {
-				addOptionToSelect(textArea.value, validateHostsElm);
+				options.addOptionToSelect(textArea.value, validateHostsElm);
 			}
 			textArea.value = '';
 		});
 
 		$('validateRemove').addEventListener('click', function() {
-			removeOptionsFromSelect(validateHostsElm);
+			options.removeOptionsFromSelect(validateHostsElm);
 		});
 
 		//	Add host on enter keypress
@@ -155,5 +164,8 @@
 			window.close();
 			return false;
 		});
-	});
-})();
+	};
+
+	validity.options = options;
+	return validity;
+})(validity || {});
