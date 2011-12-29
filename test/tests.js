@@ -304,6 +304,17 @@ chrome.pageAction = {};
 		equal(validity.util.validProtocol('https://www.bbc.co.uk/'), true, 'HTTPS');
 		equal(validity.util.validProtocol('chrome://extensions'), false, 'chrome');
 	});
+
+	test('toBool', function() {
+		expect(6);
+
+		equal(validity.util.toBool(true), true);
+		equal(validity.util.toBool(false), false);
+		equal(validity.util.toBool('true'), true);
+		equal(validity.util.toBool('false'), false);
+		equal(validity.util.toBool('foo'), false);
+		equal(validity.util.toBool(''), false);
+	});
 })();
 
 /**
@@ -314,17 +325,6 @@ chrome.pageAction = {};
 	var lifecycle = {setup: function(){}, tearDown: function(){}};
 
 	module('options', lifecycle);
-
-	test('toBool', function() {
-		expect(6);
-
-		equal(validity.options.toBool(true), true);
-		equal(validity.options.toBool(false), false);
-		equal(validity.options.toBool('true'), true);
-		equal(validity.options.toBool('false'), false);
-		equal(validity.options.toBool('foo'), false);
-		equal(validity.options.toBool(''), false);
-	});
 
 	test('addOptionToSelect/removeOptionsFromSelect', function() {
 		var select = document.createElement('select'),

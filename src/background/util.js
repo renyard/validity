@@ -7,10 +7,21 @@ var validity = (function(validity) {
 
 	//	Public Methods
 
+	/*
+	* @method
+	* @name toBool
+	*/
+	util.toBool = function(input) {
+		if (typeof input === 'string') {
+			return input.toLowerCase() === 'true';
+		}
+		return !!input;
+	};
+
 	/**
-	 * @method
-	 * @name getHost
-	 */
+	* @method
+	* @name getHost
+	*/
 	util.getHost = function(url) {
 		var host,
 			backRefs = [],
@@ -29,12 +40,12 @@ var validity = (function(validity) {
 		}
 
 		return host;
-	}
+	};
 
 	/**
-	 * @method
-	 * @name validProtocol
-	 */
+	* @method
+	* @name validProtocol
+	*/
 	util.validProtocol = function(url) {
 		var valid,
 			backRefs = [],
@@ -43,12 +54,12 @@ var validity = (function(validity) {
 		valid = protocolRegExp.test(url);
 
 		return valid;
-	}
+	};
 
 	/**
-	 * @method
-	 * @name containsHost
-	 */
+	* @method
+	* @name containsHost
+	*/
 	util.containsHost = function(host, validHosts) {
 		var hosts;
 
@@ -73,7 +84,7 @@ var validity = (function(validity) {
 		else {
 			return false;
 		}
-	}
+	};
 
 	validity.util = util;
 	return validity;
