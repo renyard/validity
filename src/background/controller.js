@@ -17,8 +17,6 @@ var validity = (function(validity) {
 		tabHost,
 		tabUrls = {};
 
-	controller.dispatch = function() {};
-
 	//	Public methods
 
 	/**
@@ -58,10 +56,14 @@ var validity = (function(validity) {
 					controller.validate(sender.tab);
 				}
 				break;
+			case 'options':
+				response = {'collapseResults': validity.util.toBool(localStorage['collapseResults'])};
+				break;
 			default:
 				/*!debug*/
-				throw 'Empty or invalid request: ' + request['action'];
+				throw 'Empty or invalid request.';
 				/*gubed!*/
+				break;
 		}
 		
 		return response;
