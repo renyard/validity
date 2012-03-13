@@ -1,3 +1,6 @@
+1.2.3 (14/03/2012)
+* Collapse results option is now honoured.
+
 1.2.2 (22/09/2011)
 * No line is given when an error is not specific to a line.
 * When one error is found, console output is no longer plural.
