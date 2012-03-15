@@ -1,3 +1,5 @@
+"use strict";
+
 /**
 * @namespace
 * @name validity
@@ -26,6 +28,8 @@ var validity = (function(validity) {
 	*/
 	controller.dispatch = function(request, sender) {
 		var tabHost,
+			enabledForHost,
+			autoValidateForHost,
 			response = {};
 		
 		switch(request['action']) {
@@ -165,3 +169,5 @@ var validity = (function(validity) {
 	validity.controller = controller;
 	return validity;
 })(validity || {});
+
+document.addEventListener('DOMContentLoaded', validity.controller._init, false);

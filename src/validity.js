@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Validity @version@
  * Copyright 2009 - 2012 Ian Renyard

@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * @namespace
  * @name validity.net
@@ -7,8 +9,8 @@ var validity = (function(validity) {
 	 * @const
 	 * @name DEFAULT_VALIDATOR
 	 */
-	const DEFAULT_VALIDATOR = 'http://validator.w3.org/check';
-	var net = {};
+	var DEFAULT_VALIDATOR = 'http://validator.w3.org/check',
+		net = {};
 
 	/**
 	 * @function
