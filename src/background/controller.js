@@ -104,10 +104,6 @@ var validity = (function(validity) {
 		enableHosts = localStorage['enableHosts'] || '';
 		autoValidateHosts = localStorage['validateHosts'] || '';
 
-		/*!debug*/
-		console.info(tab.url);
-		/*gubed!*/
-
 		//	Extract host from URL
 		tabHost = validity.util.getHost(tab.url);
 
@@ -128,11 +124,6 @@ var validity = (function(validity) {
 		//	Listen for requests from content script
 		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 			var response;
-			
-			/*!debug*/
-			console.info(request);
-			console.info(sender);
-			/*gubed!*/
 
 			//	Pass request to the dispatch method
 			response = controller.dispatch(request, sender);
@@ -144,26 +135,6 @@ var validity = (function(validity) {
 		chrome.pageAction.onClicked.addListener(function(tab) {
 			controller.validate(tab);
 		});
-
-		//	Set up new tab event
-		/*chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
-
-			chrome.tabs.get(tabId, function(tab) {
-				var host,
-					auto,
-					validateHosts = localStorage['validateHosts'] || '';
-
-				host = validity.util.containsHost(tab.url);
-				auto = validity.util.containsHost(host, validateHosts);
-
-				if (changeInfo.status === 'loading' && auto === false) {
-					chrome.tabs.get(tabId, function(tab) {
-						controller._attachPageActions(tab);
-					});
-				}
-			});
-
-		});*/
 	};
 
 	validity.controller = controller;

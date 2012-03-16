@@ -76,10 +76,6 @@ var validity = (function(validity) {
 		//	Split hosts into array
 		hosts = validHosts.split(' ');
 
-		/*!debug*/
-		console.info(hosts.indexOf(host));
-		/*gubed!*/
-
 		if (hosts.indexOf(host) > -1) {
 			return true;
 		}

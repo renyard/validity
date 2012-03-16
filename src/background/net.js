@@ -23,7 +23,6 @@ var validity = (function(validity) {
 		validity.ui.setPageAction(tab.id, 'connecting', 'Contacting validator...');
 		xhrSource.onreadystatechange = function() {
 			if (xhrSource.readyState === 4) {
-				console.info(xhrSource);
 				if (xhrSource.status === 200) {
 					callback(xhrSource.responseText);
 				}
