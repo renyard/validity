@@ -14,7 +14,7 @@
 		"https://*/*",
 		"tabs"
 	],
-	//"content_security_policy": "",
+	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 	"content_scripts": [{
 		"matches": ["*://*/*"],
 		"js": ["validity.js"]
@@ -25,7 +25,8 @@
 			"background/net.js",
 			"background/xml.js",
 			"background/ui.js",
-			"background/util.js"
+			"background/util.js",
+			"background/analytics.js"
 		]
 	},
 	"page_action": {
