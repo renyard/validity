@@ -318,6 +318,32 @@ chrome.pageAction = {};
 })();
 
 /**
+* opts Tests
+*/
+
+(function() {
+	var lifecycle = {
+		setup: function(){
+			validity.opts.storage({
+				'collapseResults': 'true',
+				'enableHosts': 'www.renyard.net www.bbc.co.uk'
+			});
+		},
+		tearDown: function(){}};
+
+	module('opts', lifecycle);
+
+	test('option', function() {
+		expect(4);
+
+		equal(validity.opts.option('collapseResults'), true);
+		equal(validity.opts.option('undef'), undefined);
+		equal(validity.opts.option('enableHosts'), 'www.renyard.net www.bbc.co.uk');
+		equal(validity.opts.option('collapseResults', false), false);
+	});
+})();
+
+/**
 * Options Tests
 */
 
