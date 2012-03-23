@@ -14,7 +14,7 @@
 	 * @name _requestValidation
 	 */
 	function _requestValidation() {
-		chrome.extension.sendRequest({'action': 'options'});
+		chrome.extension.sendRequest({'action': 'validate'});
 	}
 
 	/**
