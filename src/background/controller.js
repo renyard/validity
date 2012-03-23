@@ -26,7 +26,8 @@ var validity = (function(validity) {
 	*/
 	controller.dispatch = function(request, sender) {
 		var tabHost,
-			response = {};
+			response = {},
+			opts = {};
 		
 		switch(request['action']) {
 			case 'validate':
@@ -57,7 +58,13 @@ var validity = (function(validity) {
 				}
 				break;
 			case 'options':
-				response = {'collapseResults': validity.util.toBool(localStorage['collapseResults'])};
+				if (localStorage['collapseResults'] !== undefined) {
+					opts['collapseResults'] = validity.util.toBool(localStorage['collapseResults'])
+				}
+				else {
+					opts['collapseResults'] = true;
+				}
+				response = opts;
 				break;
 			default:
 				/*!debug*/

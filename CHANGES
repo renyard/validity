@@ -1,5 +1,6 @@
 1.2.4 (23/03/2012)
 * Fixed bug with keyboard shortcut, introduced in 1.2.3.
+* Restored default of true to collapse result option.
 
 1.2.3 (14/03/2012)
 * Collapse results option is now honoured.
