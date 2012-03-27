@@ -1,3 +1,5 @@
+"use strict";
+
 var _controller,
 	_net,
 	_xml,
@@ -6,23 +8,19 @@ var _controller,
 	_options;
 
 //	Store real modules while mocks are in use.
-(function() {
-	_controller = validity.controller;
-	_net = validity.net;
-	_xml = validity.xml;
-	_ui = validity.ui;
-	_xml = validity.xml;
-	_options = validity.options;
-})();
+_controller = validity.controller;
+_net = validity.net;
+_xml = validity.xml;
+_ui = validity.ui;
+_xml = validity.xml;
+_options = validity.options;
+
+//	Disable Analytics
+validity.opts.option('disableAnalytics', true);
 
 /**
 * Controller Tests
 */
-
-//	Mock Extension API
-chrome.tabs = {};
-chrome.extension = {};
-chrome.pageAction = {};
 
 (function() {
 	var lifecycle = {setup: mock, tearDown: function(){
@@ -32,10 +30,6 @@ chrome.pageAction = {};
 		_net;
 
 	function mock() {
-		//	Mock chrome extension API
-		chrome.tabs = {};
-		chrome.extension = {onRequest: {addListener: function(){}}, tabs: {}};
-
 		//	Create reference to net module
 		_net = validity.net;
 
@@ -340,6 +334,29 @@ chrome.pageAction = {};
 		equal(validity.opts.option('undef'), undefined);
 		equal(validity.opts.option('enableHosts'), 'www.renyard.net www.bbc.co.uk');
 		equal(validity.opts.option('collapseResults', false), false);
+	});
+})();
+
+/**
+* Analytics Tests
+*/
+
+(function() {
+	var lifecycle = {setup: function(){
+		validity.opts.option('disableAnalytics', false);
+		window._gaq = [];
+	}, tearDown: function() {
+		validity.opts.option('disableAnalytics', true);
+	}};
+
+	module('analytics', lifecycle);
+
+	test('track', function() {
+		expect(2);
+
+		validity.stats.track('category', 'action', 'label', 'title');
+		deepEqual(_gaq[0], ['_trackEvent', 'category', 'action', 'label', 'title']);
+		equal(_gaq.length, 1);
 	});
 })();
 
