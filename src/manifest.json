@@ -2,7 +2,7 @@
 	"name": "Validity",
 	"version": "@version@",/*!debug*/
 	"version": "0.0.0",/*gubed!*/
-	"description": "Click the icon in the address bar or press Ctrl+Alt+V to validate the current page.  Results can be seen in Chrome's JS console.",
+	"description": "Click the icon in the address bar or press Alt+Shift+V to validate the current page.  Results can be seen in Chrome's JS console.",
 	"icons": {
 		"16": "icons/16.png",
 		"32": "icons/32.png",
