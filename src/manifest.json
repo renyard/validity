@@ -27,7 +27,7 @@
 			"background/ui.js",
 			"background/util.js",
 			"background/opts.js",
-			"background/analytics.js"
+			"background/stats.js"
 		]
 	},
 	"page_action": {
