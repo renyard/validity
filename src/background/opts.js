@@ -7,6 +7,7 @@
 
 var validity = (function (validity) {
 	var opts = {},
+		options = {},
 		storage,
 		bools = [
 			"collapseResults"
@@ -53,6 +54,14 @@ var validity = (function (validity) {
 
 		return storage;
 	};
+
+	function _load() {
+		options = JSON.parse(opts.storage()['options']);
+	}
+
+	function _save() {
+		opts.storage()['options'] = JSON.stringify(options);
+	}
 
 	validity.opts = opts;
 	return validity;
