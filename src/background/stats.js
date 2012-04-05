@@ -15,7 +15,7 @@ var _gaq = _gaq || [];
 
 var validity = (function(validity) {
 	_gaq.push(['_setAccount', '@gaid@']);
-	_gaq.push(['_trackPageview']);
+	_gaq.push(['_trackPageview', '/validity/@version@']);
 
 	//	Load Google Analytics Script
 	(function() {

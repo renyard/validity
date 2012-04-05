@@ -21,13 +21,13 @@
 	}],
 	"background": {
 		"scripts": [
+			"background/stats.js",
 			"background/controller.js",
 			"background/net.js",
 			"background/xml.js",
 			"background/ui.js",
 			"background/util.js",
-			"background/opts.js",
-			"background/stats.js"
+			"background/opts.js"
 		]
 	},
 	"page_action": {
