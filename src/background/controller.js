@@ -63,7 +63,7 @@ var validity = (function(validity) {
 				break;
 			case 'options':
 				if (localStorage['collapseResults'] !== undefined) {
-					opts['collapseResults'] = validity.util.toBool(localStorage['collapseResults'])
+					opts['collapseResults'] = validity.util.toBool(localStorage['collapseResults']);
 				}
 				else {
 					opts['collapseResults'] = true;

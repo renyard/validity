@@ -112,7 +112,7 @@ validity.opts.option('disableAnalytics', true);
 
 	//	Mock pageAction API
 	function mock(){
-		chrome.pageAction = {
+		window.chrome.pageAction = {
 			tabs: {
 				'0': {}
 			},
@@ -392,5 +392,73 @@ validity.opts.option('disableAnalytics', true);
 		equal(select.getElementsByTagName('option')[0].innerText, 'bar');
 
 		body.removeChild(select);
+	});
+})();
+
+/**
+* Upgrade Tests
+*/
+
+(function() {
+	var _localStorage,
+		lifecycle = {setup: function() {
+			//	Clear localStorage
+			window.localStorage.clear();
+			//	Mock localStorage.
+			_localStorage = localStorage;
+
+			//	Populate localStorage
+			localStorage['collapseResults'] = 'true';
+			localStorage['enableHosts'] = 'www.renyard.net www.amazon.com localhost';
+			localStorage['validateHosts'] = 'www.amazon.com www.bbc.co.uk www.renyard.net';
+			localStorage['validator'] = '';
+		}, tearDown: function() {
+			//	Reinstate real localStorage.
+			window.localStorage = _localStorage;
+		}};
+
+	module('upgrade', lifecycle);
+
+	test('explodeVersion', function() {
+		var v1_2_3 = validity.upgrade.explodeVersion('1.2.3'),
+			v2_10_0 = validity.upgrade.explodeVersion('2.10.0');
+
+		expect(2);
+
+		deepEqual(v1_2_3, [1, 2, 3]);
+		deepEqual(v2_10_0, [2, 10, 0]);
+	});
+
+	test('isNewVersion', function() {
+		expect(3);
+
+		equal(validity.upgrade.isNewVersion('2.0.0', '1.2.4'), true);
+		equal(validity.upgrade.isNewVersion('2.0.0', '2.0.0'), false);
+		equal(validity.upgrade.isNewVersion('1.2.4', '2.0.0'), false);
+	});
+
+	test('Migrate 1.x to 2.x', function() {
+		var migrated = validity.upgrade.migrate('2.0.0', '2.0.0');
+
+		expect(2);
+
+		equal(migrated, false);
+
+		validity.upgrade.migrate('2.0.0', '1.2.4');
+
+		deepEqual(JSON.parse(window.localStorage['options']), {
+			'collapseResults': true,
+			'enableHosts': [
+				'www.renyard.net',
+				'www.amazon.com',
+				'localhost'
+			],
+			'validateHosts': [
+				'www.amazon.com',
+				'www.bbc.co.uk',
+				'www.renyard.net'
+			],
+			'validator': ''
+		});
 	});
 })();

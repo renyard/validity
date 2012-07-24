@@ -9,6 +9,7 @@
 
 	<!-- Mock Chrome Extension API -->
 	<script type="text/javascript">
+		window.chrome = {};
 		chrome.tabs = {};
 		chrome.extension = {};
 		chrome.pageAction = {};
@@ -24,6 +25,7 @@
 	<script type="text/javascript" src="../src/background/util.js"></script>
 	<script type="text/javascript" src="../src/background/opts.js"></script>
 	<script type="text/javascript" src="../src/background/stats.js"></script>
+	<script type="text/javascript" src="../src/background/upgrade.js"></script>
 	<script type="text/javascript" src="../src/options/options.js"></script>
 
 	<!-- Fixtures -->

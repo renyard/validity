@@ -167,5 +167,13 @@ var validity = (function(validity) {
 	};
 
 	validity.options = options;
+
+	//	Run init() if we're on the options page.
+	if ($('validity-options')) {
+		document.addEventListener('DOMContentLoaded', function() {
+			validity.options.init();
+		});
+	}
+
 	return validity;
 })(validity || {});
