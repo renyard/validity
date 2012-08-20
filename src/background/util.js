@@ -78,13 +78,35 @@ var validity = (function(validity) {
 		console.info(hosts.indexOf(host));
 		/*gubed!*/
 
-		if (hosts.indexOf(host) > -1) {
-			return true;
+		// For each host in our validHosts string...
+		for (var i = 0; i < hosts.length; i++) {
+			// Lets build a regex to test if this host matches the test string:
+			//  * Quote regex characters in the test string, so nothing crazy happens
+			//  * Turn stars in the test string back to 'anything goes' (.*)
+			//  * Wrap it with ^ and $ so the test string has to match the entire host
+			//  * Make it a regex!
+			var testRegex = new RegExp("^" + util.quoteRegex(hosts[i]).replace(/\\\*/g, ".*") + "$");
+
+			if (testRegex.test(host)) { // If it matches, we've found our host.
+				return true;
+			}
 		}
-		else {
-			return false;
-		}
+
+		// .. Huh. We've tried all the valid hosts. I guess the host isn't here.
+		return false;
+
 	};
+
+	/**
+	 * Makes a string safe for use in a regex by escaping special characters.
+	 * Source: http://stackoverflow.com/questions/2593637/how-to-escape-regular-expression-in-javascript#answer-2593661
+	 *
+	 * @method
+	 * @name quoteRegex
+	 */
+	util.quoteRegex = function (stringToQuote) {
+		return (stringToQuote+'').replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+	}
 
 	validity.util = util;
 	return validity;
