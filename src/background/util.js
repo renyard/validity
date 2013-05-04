@@ -63,26 +63,35 @@ var validity = (function(validity) {
 	* @name containsHost
 	*/
 	util.containsHost = function(host, validHosts) {
-		var hosts;
+		var match = validHosts.some(function(element) {
+			//	Create a new regexp from valid host.
+			var hostRegExp;
 
-		//	Will be undefined if it's never been set
-		if (typeof validHosts !== 'string') {
-			return false;
-		}
-		/*else if (validHosts === '') {
-			return true;
-		}*/
+			//	Test if host should be treated as a RegExp
+			if (!/^\/.*?\/$/.test(element)) {
+				//	Not a RegExp, convert to one.
+				element = util.escapeHostRegExp(element);
+			}
 
-		//	Split hosts into array
-		hosts = validHosts.split(' ');
+			hostRegExp = new RegExp(element);
 
-		if (hosts.indexOf(host) > -1) {
-			return true;
+			return hostRegExp.test(host);
+		});
+
+		return match;
+	}
+
+	/**
+	* @method
+	* @name escapeHostRegExp
+	*/
+	util.escapeHostRegExp = function(string) {
+		if (string === '') {
+			//	Match an empty string.
+			return /^$/;
 		}
-		else {
-			return false;
-		}
-	};
+		return string.replace(/[-.]/g, '\\$&');
+	}
 
 	validity.util = util;
 	return validity;

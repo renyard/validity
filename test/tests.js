@@ -282,13 +282,25 @@ validity.opts.option('disableAnalytics', true);
 		equal(validity.util.getHost('chrome://extensions/'), '', 'chrome');
 	});
 
-	test('containsHost', function() {
-		expect(4);
+	test('escapeHostRegExp', function () {
+		expect(1);
 
-		equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net'), true);
+		equal(validity.util.escapeHostRegExp('www.renyard.net'), 'www\\.renyard\\.net');
+	});
+
+	test('containsHost', function() {
+		expect(5);
+
+		/*equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net'), true);
 		equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net www.bbc.co.uk'), true);
 		equal(validity.util.containsHost('3doughnuts.com', 'www.renyard.net www.bbc.co.uk'), false);
-		equal(validity.util.containsHost('3doughnuts.com', ''), false);
+		equal(validity.util.containsHost('3doughnuts.com', ''), false);*/
+		
+		equal(validity.util.containsHost('www.renyard.net', ['www.renyard.net']), true);
+		equal(validity.util.containsHost('www.renyard.net', ['www.renyard.net', 'www.bbc.co.uk']), true);
+		equal(validity.util.containsHost('3doughnuts.com', ['www.renyard.net', 'www.bbc.co.uk']), false);
+		equal(validity.util.containsHost('3doughnuts.com', []), false);
+		equal(validity.util.containsHost('3doughnuts.com', ['']), false);
 	});
 
 	test('validProtocol', function() {
