@@ -289,12 +289,14 @@ chrome.pageAction = {};
 	});
 
 	test('containsHost', function() {
-		expect(4);
+		expect(6);
 
 		equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net'), true);
 		equal(validity.util.containsHost('www.renyard.net', 'www.renyard.net www.bbc.co.uk'), true);
 		equal(validity.util.containsHost('3doughnuts.com', 'www.renyard.net www.bbc.co.uk'), false);
 		equal(validity.util.containsHost('3doughnuts.com', ''), false);
+		equal(validity.util.containsHost('sub.domain.com', '*.domain.com'), true);
+		equal(validity.util.containsHost('second.sub.domain.com', '*.domain.com'), true);
 	});
 
 	test('validProtocol', function() {
@@ -314,6 +316,34 @@ chrome.pageAction = {};
 		equal(validity.util.toBool('false'), false);
 		equal(validity.util.toBool('foo'), false);
 		equal(validity.util.toBool(''), false);
+	});
+
+	test('createRegExp', function() {
+		deepEqual(validity.util.createRegExp('/^www\\.renyard\\.net$/'), /^www\.renyard\.net$/);
+		deepEqual(validity.util.createRegExp('/^www\\.foo\\-bar\\.com$/'), /^www\.foo\-bar\.com$/);
+		deepEqual(validity.util.createRegExp('/^[\\w.]*\\.foo\\-bar\\.com$/'), /^[\w.]*\.foo\-bar\.com$/);
+	});
+
+	test('isRegExp', function() {
+		expect(5);
+
+		equal(validity.util.isRegExp('/^www.renyard.net$/'), true);
+		equal(validity.util.isRegExp('/^[\\w.]*.renyard.net$/'), true);
+		equal(validity.util.isRegExp('/^www.foo-bar.com$/'), true);
+		equal(validity.util.isRegExp('www.renyard.net'), false);
+		equal(validity.util.isRegExp('/^$/'), true);
+	});
+
+	test('escapeHostRegExp', function() {
+		expect(7);
+
+		equal(validity.util.escapeHostRegExp('www.renyard.net'), '/^www\\.renyard\\.net$/');
+		equal(validity.util.escapeHostRegExp('www.foo-bar.com'), '/^www\\.foo\\-bar\\.com$/');
+		equal(validity.util.escapeHostRegExp('localhost'), '/^localhost$/');
+		equal(validity.util.escapeHostRegExp('*.renyard.net'), '/^[\\w\\.]*\\.renyard\\.net$/');
+		equal(validity.util.escapeHostRegExp('*.foo-bar.*'), '/^[\\w\\.]*\\.foo\\-bar\\.[\\w\\.]*$/');
+		equal(validity.util.escapeHostRegExp(' '), '/^ $/');
+		equal(validity.util.escapeHostRegExp('  '), '/^  $/');
 	});
 })();
 

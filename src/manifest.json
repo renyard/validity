@@ -1,4 +1,5 @@
 {
+	"manifest_version": 2,
 	"name": "Validity",
 	"version": "@version@",/*!debug*/
 	"version": "0.0.0",/*gubed!*/
@@ -14,11 +15,19 @@
 		"https://*/*",
 		"tabs"
 	],
+	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 	"content_scripts": [{
 		"matches": ["*://*/*"],
 		"js": ["validity.js"]
 	}],
-	"background_page": "background.html",
+	"background": {
+		"scripts": [
+			"background/controller.js",
+			"background/net.js",
+			"background/util.js",
+			"background/xml.js"
+		]
+	},
 	"page_action": {
 		"default_icon": "img/html_valid.png",
 		"default_title": "Validate Documemt (Alt+Shift+V)"
