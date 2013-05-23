@@ -18,12 +18,14 @@
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 	"content_scripts": [{
 		"matches": ["*://*/*"],
-		"js": ["validity.js"]
+		"js": ["validity.js"],
+		"run_at": "document_end"
 	}],
 	"background": {
 		"scripts": [
 			"background/controller.js",
 			"background/net.js",
+			"background/ui.js",
 			"background/util.js",
 			"background/xml.js"
 		]

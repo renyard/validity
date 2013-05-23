@@ -163,5 +163,8 @@ var validity = (function(validity) {
 	};
 
 	validity.controller = controller;
+
+	document.addEventListener('DOMContentLoaded', validity.controller._init, false);
+
 	return validity;
 })(validity || {});

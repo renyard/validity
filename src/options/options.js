@@ -167,5 +167,9 @@ var validity = (function(validity) {
 	};
 
 	validity.options = options;
+
+	//	Call init on DOM ready.
+	document.addEventListener('DOMContentLoaded', validity.options.init, false);
+
 	return validity;
 })(validity || {});

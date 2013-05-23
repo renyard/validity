@@ -86,13 +86,6 @@ var validity = (function(validity) {
 		}
 
 		return false;
-
-		/*if (hosts.indexOf(host) > -1) {
-			return true;
-		}
-		else {
-			return false;
-		}*/
 	};
 
 	/**
@@ -130,7 +123,8 @@ var validity = (function(validity) {
 
 		//	If the string is a regular expression already, just return it.
 		if (util.isRegExp(string)) {
-			return string;
+			//	Disabled until the feature is planned out.
+			//return string;
 		}
 
 		//	Shouldn't ever be an empty string, but just in case...
@@ -140,7 +134,6 @@ var validity = (function(validity) {
 		}
 
 		//	Escape special characters.
-		//regexp = string.replace(/[-.]/g, '\\$&');
 		regexp = string.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
 
 		//	Allow wildcards, replace with non-whitespace.
