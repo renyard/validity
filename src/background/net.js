@@ -25,9 +25,11 @@ var validity = (function(validity) {
 			if (xhrSource.readyState === 4) {
 				if (xhrSource.status === 200) {
 					callback(xhrSource.responseText);
+					validity.stats.track('net', 'source', 'success', response.statusText);
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + xhrValidator.statusText);
+					validity.stats.track('net', 'source', 'error', response.statusText);
 				}
 			}
 		};
@@ -63,9 +65,11 @@ var validity = (function(validity) {
 					if (typeof callback === 'function') {
 						callback(tab, response);
 					}
+					validity.stats.track('net', 'validate', 'success', response.statusText);
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not contact validator: ' + xhrValidator.statusText);
+					validity.stats.track('net', 'validate', 'error', response.statusText);
 				}
 			}
 		}

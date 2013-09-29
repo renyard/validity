@@ -5,9 +5,34 @@
  * @name validity.util
  */
 var validity = (function(validity) {
-	var util = {};
+	var util = {},
+		readyQueue = [];
 
 	//	Public Methods
+
+	/*
+	* @method
+	* @name ready
+	*/
+	util.ready = function(func) {
+		//	If document is ready, run the function immediatly.
+		if (document.readyState === 'complete') {
+			func();
+		} else {
+			readyQueue.push(func);
+		}
+	}
+
+	/*
+	* @method
+	* @name _init
+	*/
+	util._init = function() {
+		//	Loop over readyQueue, executing each function.
+		for (var i = 0; i < readyQueue.length; i++) {
+			readyQueue[i]();
+		}
+	}
 
 	/*
 	* @method
@@ -92,6 +117,8 @@ var validity = (function(validity) {
 		}
 		return string.replace(/[-.]/g, '\\$&');
 	}
+
+	util._init();
 
 	validity.util = util;
 	return validity;

@@ -17,6 +17,7 @@ _options = validity.options;
 
 //	Disable Analytics
 validity.opts.option('disableAnalytics', true);
+validity.stats.disableAnalytics();
 
 /**
 * Controller Tests
@@ -356,6 +357,7 @@ validity.opts.option('disableAnalytics', true);
 (function() {
 	var lifecycle = {setup: function(){
 		validity.opts.option('disableAnalytics', false);
+		validity.stat.disableAnalytics();
 		window._gaq = [];
 	}, tearDown: function() {
 		validity.opts.option('disableAnalytics', true);
