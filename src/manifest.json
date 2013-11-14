@@ -1,8 +1,9 @@
 {
-	"name": "Validity",
+	"name": "__MSG_extn_name__",
 	"version": "@version@",/*!debug*/
 	"version": "0.0.0",/*gubed!*/
-	"description": "Click the icon in the address bar or press Alt+Shift+V to validate the current page.  Results can be seen in Chrome's JS console.",
+	"default_locale": "en_GB",
+	"description": "__MSG_extn_description__",
 	"icons": {
 		"16": "icons/16.png",
 		"32": "icons/32.png",
@@ -33,7 +34,7 @@
 	},
 	"page_action": {
 		"default_icon": "img/html_valid.png",
-		"default_title": "Validate Documemt (Alt+Shift+V)"
+		"default_title": "__MSG_page_action_title__"
 	},
 	"options_page": "options.html",
 	"manifest_version": 2
