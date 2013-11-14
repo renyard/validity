@@ -21,9 +21,10 @@
 	}],
 	"background": {
 		"scripts": [
-			"background/stats.js",
 			"background/controller.js",
+			"background/i18n.js",
 			"background/net.js",
+			"background/stats.js",
 			"background/xml.js",
 			"background/ui.js",
 			"background/util.js",

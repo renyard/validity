@@ -5,10 +5,12 @@ var _controller,
 	_xml,
 	_ui,
 	_util,
-	_options;
+	_options,
+	_i18n;
 
 //	Store real modules while mocks are in use.
 _controller = validity.controller;
+_i18n = validity.i18n;
 _net = validity.net;
 _xml = validity.xml;
 _ui = validity.ui;
@@ -17,6 +19,7 @@ _options = validity.options;
 
 //	Disable Analytics
 validity.opts.option('disableAnalytics', true);
+validity.stats.disableAnalytics();
 
 /**
 * Controller Tests
@@ -68,6 +71,29 @@ validity.opts.option('disableAnalytics', true);
 		};
 
 		validity.controller.validate({tab:{id:1234, url:'http://www.3doughnuts.com/'}});
+	});
+})();
+
+/**
+* i18n Tests
+*/
+
+(function() {
+	var _navigator = window.navigator,
+		lifecycle = {
+			setup: function() {}, tearDown: function() {
+				window.navigator = _navigator;
+			}
+		};
+
+	module('i18n', lifecycle);
+
+	test('_getLocale', function() {
+		window.navigator = {'language': 'en-GB'};
+		deepEqual(validity.i18n._getLocale(), ['en', 'GB']);
+
+		window.navigator = {'language': 'en'};
+		deepEqual(validity.i18n._getLocale(), ['en', undefined]);
 	});
 })();
 
@@ -356,6 +382,7 @@ validity.opts.option('disableAnalytics', true);
 (function() {
 	var lifecycle = {setup: function(){
 		validity.opts.option('disableAnalytics', false);
+		validity.stat.disableAnalytics();
 		window._gaq = [];
 	}, tearDown: function() {
 		validity.opts.option('disableAnalytics', true);
