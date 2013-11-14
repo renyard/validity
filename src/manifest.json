@@ -23,7 +23,6 @@
 	"background": {
 		"scripts": [
 			"background/controller.js",
-			"background/i18n.js",
 			"background/net.js",
 			"background/stats.js",
 			"background/xml.js",
