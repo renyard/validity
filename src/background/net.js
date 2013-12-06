@@ -25,11 +25,11 @@ var validity = (function(validity) {
 			if (xhrSource.readyState === 4) {
 				if (xhrSource.status === 200) {
 					callback(xhrSource.responseText);
-					validity.stats.track('net', 'source', 'success', response.statusText);
+					validity.stats.track('net', 'source', 'success', xhrSource.statusText);
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + xhrValidator.statusText);
-					validity.stats.track('net', 'source', 'error', response.statusText);
+					validity.stats.track('net', 'source', 'error', xhrSource.statusText);
 				}
 			}
 		};

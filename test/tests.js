@@ -5,12 +5,10 @@ var _controller,
 	_xml,
 	_ui,
 	_util,
-	_options,
-	_i18n;
+	_options;
 
 //	Store real modules while mocks are in use.
 _controller = validity.controller;
-_i18n = validity.i18n;
 _net = validity.net;
 _xml = validity.xml;
 _ui = validity.ui;
@@ -75,29 +73,6 @@ validity.stats.disableAnalytics();
 })();
 
 /**
-* i18n Tests
-*/
-
-(function() {
-	var _navigator = window.navigator,
-		lifecycle = {
-			setup: function() {}, tearDown: function() {
-				window.navigator = _navigator;
-			}
-		};
-
-	module('i18n', lifecycle);
-
-	test('_getLocale', function() {
-		window.navigator = {'language': 'en-GB'};
-		deepEqual(validity.i18n._getLocale(), ['en', 'GB']);
-
-		window.navigator = {'language': 'en'};
-		deepEqual(validity.i18n._getLocale(), ['en', undefined]);
-	});
-})();
-
-/**
 * XML Tests
 */
 
@@ -114,7 +89,7 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		same(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":"0","messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":"0","messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 
 	test('Invalid Document', function() {
@@ -125,7 +100,7 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		same(response, {"url":"http://www.renyard.net/","doctype":"HTML5","errorCount":"1","messages":[{"lastLine":6,"lastColumn":53,"message":"Bad value X-UA-Compatible for attribute http-equiv on element meta.","messageid":"html5","explanation":"  <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>","type":"error"}],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {"url":"http://www.renyard.net/","doctype":"HTML5","errorCount":"1","messages":[{"lastLine":6,"lastColumn":53,"message":"Bad value X-UA-Compatible for attribute http-equiv on element meta.","messageid":"html5","explanation":"  <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>","type":"error"}],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 })();
 
@@ -379,10 +354,10 @@ validity.stats.disableAnalytics();
 * Analytics Tests
 */
 
-(function() {
+/*(function() {
 	var lifecycle = {setup: function(){
 		validity.opts.option('disableAnalytics', false);
-		validity.stat.disableAnalytics();
+		validity.stats.disableAnalytics();
 		window._gaq = [];
 	}, tearDown: function() {
 		validity.opts.option('disableAnalytics', true);
@@ -397,7 +372,7 @@ validity.stats.disableAnalytics();
 		deepEqual(_gaq[0], ['_trackEvent', 'category', 'action', 'label', 'title']);
 		equal(_gaq.length, 1);
 	});
-})();
+})();*/
 
 /**
 * Options Tests

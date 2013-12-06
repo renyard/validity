@@ -3,8 +3,23 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		copy: {
+			main: {
+				files: [
+					{
+						expand: true,
+						cwd: 'src/',
+						src: ['**'],
+						dest: 'dist/'
+					}
+				]
+			}
+		},
+		/*replace: {
+			
+		},*/
 		jshint: {
-			all: ['src/**/*.js']
+			all: ['dist/**/*.js']
 		},
 		qunit: {
 			all: ['test/*.html']
@@ -19,7 +34,7 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						src: ['**/*'],
-						cwd: 'src/',
+						cwd: 'dist/',
 						dest: '/'
 					}
 				]
@@ -27,9 +42,11 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 
-	grunt.registerTask('default', ['jshint', 'qunit', 'compress']);
+	grunt.registerTask('default', ['copy', 'qunit', 'compress']);
 }
