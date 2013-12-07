@@ -1,3 +1,5 @@
 .DS_Store
 test/lib/qunit
 node_modules/
+dist/
+*.zip
