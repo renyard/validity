@@ -1,5 +1,3 @@
-"use strict";
-
 /*
 	TODO:
 	* Start up vs. Up-time.
@@ -14,6 +12,7 @@
 var _gaq = _gaq || [];
 
 var validity = (function(validity) {
+	"use strict";
 	var stats = {},
 		ga_elm,
 		purge_timeout,
@@ -71,7 +70,7 @@ var validity = (function(validity) {
 		*/
 		window.clearTimeout(purge_timeout);
 		window['ag-disable-@gaid@'] = false;
-	}
+	};
 
 	stats._purgeTrackingQueue = function() {
 		//	Remove only page and events from queue.
@@ -80,14 +79,14 @@ var validity = (function(validity) {
 				_gaq.splice(i, 1);
 			}
 		}
-	}
+	};
 
 	stats.track = function(category, action, label, value) {
 		var trackingEnabled = !validity.opts.option('disableAnalytics');
 		if (trackingEnabled) {
 			stats.track(category, action, label, value);
 		}
-	}
+	};
 
 	stats._track = function(category, action, label, value) {
 		//	Don't track if analytics are disabled.

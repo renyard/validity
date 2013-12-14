@@ -1,13 +1,12 @@
-"use strict";
-
 /*
 * @description Migrates data from previous versions of Validity.
 */
 
 var validity = (function(validity) {
+	"use strict";
 	var upgrade = {},
 		version = '@version@',
-		prevVersion = parseFloat(localStorage['version']) || 0;
+		prevVersion = parseFloat(localStorage.version) || 0;
 
 		//	Expand major.minor.bugfix version number to array.
 		upgrade.explodeVersion = function(versionString) {
@@ -19,7 +18,7 @@ var validity = (function(validity) {
 			});
 
 			return version;
-		}
+		};
 
 		upgrade.isNewVersion = function(newVersion, oldVersion) {
 			var returnValue = false;
@@ -43,7 +42,7 @@ var validity = (function(validity) {
 			});
 
 			return returnValue;
-		}
+		};
 
 		//	Migrate options from localStorage strings to JSON.
 		upgrade.migrate = function(version, prevVersion) {
@@ -52,7 +51,7 @@ var validity = (function(validity) {
 
 			//	If this isn't the first run of a new version
 			//	or we already have localStorage['options'], return early.
-			if (upgrade.isNewVersion(version, prevVersion) === false || window.localStorage['options']) {
+			if (upgrade.isNewVersion(version, prevVersion) === false || window.localStorage.options) {
 				return false;
 			}
 
@@ -76,8 +75,8 @@ var validity = (function(validity) {
 
 			//	Migrate array type options.
 			dataTypes.array.forEach(function(element, index, array) {
-				var array = window.localStorage[element].split(' ');
-				options[element] = array;
+				var arr = window.localStorage[element].split(' ');
+				options[element] = arr;
 			});
 
 			//	Migrate boolean type options.
@@ -87,12 +86,12 @@ var validity = (function(validity) {
 
 			//	Store version number of new version in localStorage.
 			if (version) {
-				window.localStorage['version'] = version;
+				window.localStorage.version = version;
 			}
 
-			window.localStorage['options'] = JSON.stringify(options);
+			window.localStorage.options = JSON.stringify(options);
 			return options;
-		}
+		};
 
 		validity.upgrade = upgrade;
 		return validity;

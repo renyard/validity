@@ -1,10 +1,9 @@
-"use strict";
-
 /**
  * @namespace
  * @name validity.net
  */
 var validity = (function(validity) {
+	"use strict";
 	/**
 	 * @const
 	 * @name DEFAULT_VALIDATOR
@@ -48,7 +47,7 @@ var validity = (function(validity) {
 			xhrValidator = new XMLHttpRequest();
 		
 		//	Set validator URL
-		validator = localStorage['validator'] || DEFAULT_VALIDATOR;
+		validator = localStorage.validator || DEFAULT_VALIDATOR;
 		
 		xhrValidator.onreadystatechange = function() {
 			var response;
@@ -72,7 +71,7 @@ var validity = (function(validity) {
 					validity.stats.track('net', 'validate', 'error', response.statusText);
 				}
 			}
-		}
+		};
 
 		//	Open the XHR connection and send data
 		xhrValidator.open('POST', validator);

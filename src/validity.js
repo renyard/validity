@@ -1,11 +1,10 @@
-"use strict";
-
 /**
  * Validity @version@
  * Copyright 2009 - 2012 Ian Renyard
  * http://github.com/renyard/validity
  */
 (function() {
+	"use strict";
 	var alt = false,
 		shift = false,
 		opts = {};
@@ -32,7 +31,7 @@
 			//	If a callback was passed in, call it, passing in object returned from controller.
 			if (typeof callback === 'function') {
 				callback(opts);
-			};
+			}
 		});
 	}
 
@@ -94,7 +93,7 @@
 
 		if (errorCount > 0) {
 			//	Collapse results based on option
-			if (console.groupCollapsed && opts['collapseResults']) {
+			if (console.groupCollapsed && opts.collapseResults) {
 				toEval += 'console.groupCollapsed';
 			}
 			else {

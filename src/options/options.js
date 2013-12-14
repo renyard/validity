@@ -1,4 +1,5 @@
 var validity = (function(validity) {
+	"use strict";
 	var options = {},
 		$ = function(id) {
 			return document.getElementById(id);
@@ -19,8 +20,8 @@ var validity = (function(validity) {
 				validateHosts = [];
 
 			//	TODO: abstract select box population into function
-			if (localStorage['enableHosts']) {
-				enableHosts = localStorage['enableHosts'].split(' ');
+			if (localStorage.enableHosts) {
+				enableHosts = localStorage.enableHosts.split(' ');
 				for (var i = 0; i < enableHosts.length; i++) {
 					hostOpt = document.createElement('option');
 					hostOpt.textContent = enableHosts[i];
@@ -28,8 +29,8 @@ var validity = (function(validity) {
 				}
 			}
 
-			if (localStorage['validateHosts'] !== undefined) {
-				validateHosts = localStorage['validateHosts'].split(' ');
+			if (localStorage.validateHosts !== undefined) {
+				validateHosts = localStorage.validateHosts.split(' ');
 				//	Loop through hosts to populate select box
 				for (var j = 0; j < validateHosts.length; j++) {
 					hostOpt = document.createElement('option');
@@ -38,12 +39,12 @@ var validity = (function(validity) {
 				}
 			}
 
-			if (localStorage['validator'] !== undefined) {
-				validator.value = localStorage['validator'];
+			if (localStorage.validator !== undefined) {
+				validator.value = localStorage.validator;
 			}
 
-			if (localStorage['collapseResults'] !== undefined) {
-				collapsed.checked = options.toBool(localStorage['collapseResults']);
+			if (localStorage.collapseResults !== undefined) {
+				collapsed.checked = options.toBool(localStorage.collapseResults);
 			}
 			else {
 				//	Defaults to true
@@ -69,10 +70,10 @@ var validity = (function(validity) {
 		enableHosts.sort();
 		validateHosts.sort();
 
-		localStorage['enableHosts'] = enableHosts.join(' ');
-		localStorage['validateHosts'] = validateHosts.join(' ');
-		localStorage['validator'] = validator.value;
-		localStorage['collapseResults'] = collapse.checked.toString();
+		localStorage.enableHosts = enableHosts.join(' ');
+		localStorage.validateHosts = validateHosts.join(' ');
+		localStorage.validator = validator.value;
+		localStorage.collapseResults = collapse.checked.toString();
 	}
 
 	//	Edit hosts

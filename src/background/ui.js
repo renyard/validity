@@ -1,10 +1,9 @@
-"use strict";
-
 /**
  * @namespace
  * @name validity.ui
  */
 var validity = (function(validity) {
+	"use strict";
 	var ui = {},
 		icons = {
 			'default': 'img/html_valid.png',
@@ -17,7 +16,7 @@ var validity = (function(validity) {
 	ui.init = function(tabId) {
 		//	Set up page action on new tabs
 		ui.setPageAction(tabId, 'default', 'Validate Document (Alt+Shift+V)');
-	}
+	};
 
 	ui.setPageAction = function(tabId, icon, text) {
 		chrome.pageAction.show(tabId);
@@ -25,7 +24,7 @@ var validity = (function(validity) {
 		if (typeof text === 'string') {
 			chrome.pageAction.setTitle({'tabId': tabId, 'title': text});
 		}
-	}
+	};
 
 	validity.ui = ui;
 	return validity;

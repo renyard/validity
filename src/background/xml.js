@@ -1,10 +1,9 @@
-"use strict";
-
 /**
  * @namespace
  * @name validity.xml
  */
 var validity = (function(validity) {
+	"use strict";
 	var xml = {};
 
 	//	Public Methods
@@ -82,7 +81,7 @@ var validity = (function(validity) {
 		response.messages = messages;
 
 		return response;
-	}
+	};
 
 	//	Private Functions
 

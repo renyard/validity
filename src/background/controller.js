@@ -1,5 +1,3 @@
-"use strict";
-
 /**
 * @namespace
 * @name validity
@@ -10,6 +8,7 @@
 * @name validity.controller
 */
 var validity = (function(validity) {
+	"use strict";
 	var controller = {},
 		net = validity.net,
 		ui = validity.ui,
@@ -33,13 +32,13 @@ var validity = (function(validity) {
 			response = {},
 			opts = {};
 
-		switch(request['action']) {
+		switch(request.action) {
 			case 'validate':
 				controller.validate(sender.tab);
 				break;
 			case 'init':
-				enableHosts = localStorage['enableHosts'];
-				autoValidateHosts = localStorage['validateHosts'];
+				enableHosts = localStorage.enableHosts;
+				autoValidateHosts = localStorage.validateHosts;
 				tabHost = validity.util.getHost(sender.tab.url);
 				
 				//	Enable if no hosts are set.
@@ -62,19 +61,16 @@ var validity = (function(validity) {
 				}
 				break;
 			case 'options':
-				if (localStorage['collapseResults'] !== undefined) {
-					opts['collapseResults'] = validity.util.toBool(localStorage['collapseResults']);
+				if (localStorage.collapseResults !== undefined) {
+					opts.collapseResults = validity.util.toBool(localStorage.collapseResults);
 				}
 				else {
-					opts['collapseResults'] = true;
+					opts.collapseResults = true;
 				}
 				response = opts;
 				break;
 			default:
-				/*!debug*/
 				throw 'Empty or invalid request.';
-				/*gubed!*/
-				break;
 		}
 		
 		return response;
@@ -108,8 +104,8 @@ var validity = (function(validity) {
 		}
 
 		//	Read options here in case they've been changed since last time
-		enableHosts = localStorage['enableHosts'] || '';
-		autoValidateHosts = localStorage['validateHosts'] || '';
+		enableHosts = localStorage.enableHosts || '';
+		autoValidateHosts = localStorage.validateHosts || '';
 
 		//	Extract host from URL
 		tabHost = validity.util.getHost(tab.url);

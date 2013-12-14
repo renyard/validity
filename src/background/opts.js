@@ -1,11 +1,10 @@
-"use strict";
-
 /**
 * @namespace
 * @name validity.opts
 */
 
 var validity = (function (validity) {
+	"use strict";
 	var opts = {},
 		options = {},
 		storage,
@@ -56,11 +55,11 @@ var validity = (function (validity) {
 	};
 
 	function _load() {
-		options = JSON.parse(opts.storage()['options']);
+		options = JSON.parse(opts.storage().options);
 	}
 
 	function _save() {
-		opts.storage()['options'] = JSON.stringify(options);
+		opts.storage().options = JSON.stringify(options);
 	}
 
 	validity.opts = opts;

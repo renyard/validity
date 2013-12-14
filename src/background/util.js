@@ -1,10 +1,9 @@
-"use strict";
-
 /**
  * @namespace
  * @name validity.util
  */
 var validity = (function(validity) {
+	"use strict";
 	var util = {},
 		readyQueue = [];
 
@@ -21,7 +20,7 @@ var validity = (function(validity) {
 		} else {
 			readyQueue.push(func);
 		}
-	}
+	};
 
 	/*
 	* @method
@@ -32,7 +31,7 @@ var validity = (function(validity) {
 		for (var i = 0; i < readyQueue.length; i++) {
 			readyQueue[i]();
 		}
-	}
+	};
 
 	/*
 	* @method
@@ -104,7 +103,7 @@ var validity = (function(validity) {
 		});
 
 		return match;
-	}
+	};
 
 	/**
 	* @method
@@ -113,10 +112,10 @@ var validity = (function(validity) {
 	util.escapeHostRegExp = function(string) {
 		if (string === '') {
 			//	Match an empty string.
-			return /^$/;
+			return (/^$/);
 		}
 		return string.replace(/[-.]/g, '\\$&');
-	}
+	};
 
 	util._init();
 

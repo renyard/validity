@@ -19,7 +19,18 @@ module.exports = function(grunt) {
 			
 		},*/
 		jshint: {
-			all: ['dist/**/*.js']
+			all: ['dist/**/*.js'],
+			options: {
+				globals: {
+					document: true,
+					window: true,
+					XMLHttpRequest: true,
+					console: true,
+					localStorage: true,
+					chrome: true
+				},
+				evil: true
+			}
 		},
 		qunit: {
 			all: ['test/*.html']
@@ -48,5 +59,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 
-	grunt.registerTask('default', ['copy', 'qunit', 'compress']);
+	grunt.registerTask('default', ['copy', 'jshint', 'qunit', 'compress']);
 }
