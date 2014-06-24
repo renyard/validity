@@ -1,8 +1,27 @@
 module.exports = function(grunt) {
 	"use strict";
 
+	var merge = require('merge'),
+		config = {},
+		pkg = grunt.file.readJSON('package.json');
+
+	// Load the config file if one exists.
+	try {
+		config = grunt.file.readJSON('config.json');
+	}
+	catch(e) {
+
+	}
+
+	// Merge config defaults.
+	merge(config, {
+		version: '0.0.0',
+		copyright: 'Copyright 2009 - ' + (new Date()).getFullYear() + ' Ian Renyard',
+		gaid: 'UA-XXXXXX-X'
+	});
+
 	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
+		pkg: pkg,
 		copy: {
 			main: {
 				files: [
@@ -15,9 +34,39 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-		/*replace: {
-			
-		},*/
+		replace: {
+			dist: {
+				options: {
+					patterns: [
+						{
+							match: '@version@',
+							replacement: pkg.version
+						},
+						{
+							match: '@copyright@',
+							replacement: config.copyright
+						},
+						{
+							match: '@gaid@',
+							replacement: config.gaid
+						},
+						{
+							match: /\/\*!debug\*\/.*?\/\*gubed!\*\//,
+							replacement: ''
+						}
+					],
+					prefix: ''
+				},
+				files: [
+					{
+						expand: true,
+						cwd: 'dist/',
+						src: ['**/*'],
+						dest: 'dist/'
+					}
+				]
+			},
+		},
 		jshint: {
 			all: ['dist/**/*.js'],
 			options: {
@@ -59,5 +108,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 
-	grunt.registerTask('default', ['copy', 'jshint', 'qunit', 'compress']);
+	grunt.registerTask('default', ['copy', 'replace', 'jshint', 'qunit', 'compress']);
 }
