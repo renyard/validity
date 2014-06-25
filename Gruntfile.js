@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 							replacement: config.gaid
 						},
 						{
-							match: /\/\*!debug\*\/.*?\/\*gubed!\*\//,
+							match: /\/\*!debug\*\/[\s\S]*?\/\*gubed!\*\/[\s\n]*/g,
 							replacement: ''
 						}
 					],
