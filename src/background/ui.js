@@ -6,11 +6,26 @@ var validity = (function(validity) {
 	"use strict";
 	var ui = {},
 		icons = {
-			'default': 'img/html_valid.png',
-			'connecting': 'img/connect.png',
-			'valid': 'img/accept.png',
-			'invalid': 'img/html_delete.png',
-			'error': 'img/exclamation.png'
+			'default': {
+				'19': 'icons/19.png',
+				'38': 'icons/38.png'
+			},
+			'connecting': {
+				'19': 'img/connecting/19.png',
+				'38': 'img/connecting/38.png'
+			},
+			'valid': {
+				'19': 'img/valid/19.png',
+				'38': 'img/valid/38.png'
+			},
+			'invalid': {
+				'19': 'img/invalid/19.png',
+				'38': 'img/invalid/38.png'
+			},
+			'error': {
+				'19': 'img/error/19.png',
+				'38': 'img/error/38.png'
+			}
 		};
 
 	ui.init = function(tabId) {
