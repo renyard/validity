@@ -22,6 +22,13 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: pkg,
+		clean: {
+			main: {
+				files: {
+					src: ['dist/']
+				}
+			}
+		},
 		copy: {
 			main: {
 				files: [
@@ -102,11 +109,12 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 
-	grunt.registerTask('default', ['copy', 'replace', 'jshint', 'qunit', 'compress']);
+	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'qunit', 'compress']);
 }
