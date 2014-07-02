@@ -1,6 +1,6 @@
 /**
  * Validity @version@
- * Copyright 2009 - 2012 Ian Renyard
+ * @copyright@
  * http://github.com/renyard/validity
  */
 (function() {
