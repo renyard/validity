@@ -38,7 +38,7 @@ var validity = (function(validity) {
 				break;
 			case 'init':
 				enableHosts = localStorage.enableHosts;
-				autoValidateHosts = localStorage.validateHosts;
+				autoValidateHosts = localStorage.validateHosts || [];
 				tabHost = validity.util.getHost(sender.tab.url);
 				
 				//	Enable if no hosts are set.
