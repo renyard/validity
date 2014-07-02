@@ -83,14 +83,9 @@ var validity = (function(validity) {
 
 	stats.track = function(category, action, label, value) {
 		var trackingEnabled = !validity.opts.option('disableAnalytics');
-		if (trackingEnabled) {
-			stats.track(category, action, label, value);
-		}
-	};
 
-	stats._track = function(category, action, label, value) {
 		//	Don't track if analytics are disabled.
-		if (validity.opts.option('disableAnalytics') !== true) {
+		if (trackingEnabled) {
 			_gaq.push(['_trackEvent', category, action, label, value]);
 		}
 	};
