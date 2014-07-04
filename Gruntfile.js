@@ -23,14 +23,14 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: pkg,
 		clean: {
-			main: {
+			dist: {
 				files: {
 					src: ['dist/']
 				}
 			}
 		},
 		copy: {
-			main: {
+			src: {
 				files: [
 					{
 						expand: true,
@@ -92,7 +92,7 @@ module.exports = function(grunt) {
 			all: ['test/*.html']
 		},
 		compress: {
-			main: {
+			dist: {
 				options: {
 					mode: 'zip',
 					archive: 'validity-<%= pkg.version %>.zip'
@@ -116,5 +116,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 
+	grunt.registerTask('build', ['clean', 'copy', 'replace']);
+	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'qunit']);
 	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'qunit', 'compress']);
 }
