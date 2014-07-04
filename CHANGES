@@ -1,3 +1,9 @@
+2.0.0
+* Now available for Opera as well as Chrome.
+* Support for Retina & high dpi displays.
+* Options are now synced via your Google or Opera Sync account.
+* Rewrote the build script to use Grunt and include unit tests and linting.
+
 1.2.4 (23/03/2012)
 * Fixed bug with keyboard shortcut, introduced in 1.2.3.
 * Restored default of true to collapse result option.
