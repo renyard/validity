@@ -7,35 +7,36 @@ var validity = (function (validity) {
 	"use strict";
 	var opts = {},
 		options = {},
-		storage,
-		bools = [
-			"collapseResults"
-		];
+		backend,
+		storage;
 
 	opts.option = function(opt, value) {
-		var bools = [
-				"collapseResults"
-			],
-			storage = opts.storage();
+		var returnVal;
 
-		if (value === undefined) {
-			//	Return option's value.
-			value = storage[opt];
-
-			for (var i = 0; i < bools.length; i++) {
-				if (opt === bools[i]) {
-					//	Cast to boolean.
-					value = validity.util.toBool(value);
-				}
-			}
-		}
-		else {
+		if (value !== undefined) {
 			//	Set option to value.
-			storage[opt] = value;
-
-			value = storage[opt];
+			opts._set(opt, value);
 		}
+		returnVal = opts._get(opt);
 
+		return returnVal;
+	};
+
+	/**
+	* @method
+	* @name _get
+	*/
+	opts._get = function(key) {
+		return options[key];
+	};
+
+	/**
+	* @method
+	* @name _set
+	*/
+	opts._set = function(key, value) {
+		options[key] = value;
+		opts._save();
 		return value;
 	};
 
@@ -43,24 +44,62 @@ var validity = (function (validity) {
 	* @method
 	* @name storage
 	*/
-	opts.storage = function(mock) {
-		if (mock) {
-			storage = mock;
-		}
-		else if (storage === undefined) {
-			storage = window.localStorage;
-		}
-
-		return storage;
+	opts.init = function() {
+		opts._load();
+		// Load new options on change.
+		chrome.storage.onChanged.addListener(opts._load);
 	};
 
-	function _load() {
-		options = JSON.parse(opts.storage().options);
-	}
+	/**
+	* @method
+	* @name backend
+	*/
+	opts.backend = function(storageObj) {
+		if (storageObj) {
+			backend = storageObj;
+		}
+		else if (backend === undefined) {
+			backend = chrome.storage.sync;
+		}
+		return backend;
+	};
 
-	function _save() {
-		opts.storage().options = JSON.stringify(options);
-	}
+	/**
+	* @method
+	* @name _localCache
+	*/
+	opts._localCache = {
+		get: function() {
+			options = JSON.parse(window.localStorage.getItem('options')) || {};
+			return options;
+		},
+		set: function() {
+			return window.localStorage.setItem('options', JSON.stringify(options));
+		}
+	};
+
+	/**
+	* @method
+	* @name _load
+	*/
+	opts._load = function() {
+		opts.backend().get('options', function(obj) {
+			options = obj.options || options;
+		});
+		return opts._localCache.get();
+	};
+
+	/**
+	* @method
+	* @name _save
+	*/
+	opts._save = function() {
+		// Store as a single JSON object, so we can cache in memory.
+		opts.backend().set({'options': JSON.stringify(options)});
+		return opts._localCache.set();
+	};
+
+	opts.init();
 
 	validity.opts = opts;
 	return validity;

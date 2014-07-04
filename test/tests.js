@@ -24,7 +24,7 @@ validity.stats.disableAnalytics();
 */
 
 (function() {
-	var lifecycle = {setup: mock, tearDown: function(){
+	var lifecycle = {setup: mock, teardown: function(){
 				validity.net = _net;
 			}
 		},
@@ -77,7 +77,7 @@ validity.stats.disableAnalytics();
 */
 
 (function() {
-	var lifecycle = {setup: function() {}, tearDown: function(){}};
+	var lifecycle = {setup: function() {}, teardown: function(){}};
 
 	module('xml', lifecycle);
 
@@ -109,7 +109,7 @@ validity.stats.disableAnalytics();
 */
 
 (function() {
-	var lifecycle = {setup: mock, tearDown: function(){}};
+	var lifecycle = {setup: mock, teardown: function(){}};
 
 	//	Mock pageAction API
 	function mock(){
@@ -141,7 +141,7 @@ validity.stats.disableAnalytics();
 
 		validity.ui.setPageAction('0', 'default', 'Validity');
 		equal(chrome.pageAction.tabs['0'].title, 'Validity', 'Title was set correctly');
-		equal(chrome.pageAction.tabs['0'].icon, 'img/html_valid.png', 'Icon was set correctly');
+		deepEqual(chrome.pageAction.tabs['0'].icon, {'19': 'icons/19.png', '38': 'icons/38.png'}, 'Icon was set correctly');
 	});
 })();
 
@@ -227,7 +227,7 @@ validity.stats.disableAnalytics();
 					}
 				};
 			},
-			tearDown: function() {
+			teardown: function() {
 				window.XMLHttpRequest = _XMLHttpRequest;
 				window.validity.ui = _ui;
 			}
@@ -270,7 +270,7 @@ validity.stats.disableAnalytics();
 */
 
 (function() {
-	var lifecycle = {setup: function(){}, tearDown: function(){}};
+	var lifecycle = {setup: function(){}, teardown: function(){}};
 
 	module('util', lifecycle);
 
@@ -331,12 +331,14 @@ validity.stats.disableAnalytics();
 (function() {
 	var lifecycle = {
 		setup: function(){
-			validity.opts.storage({
-				'collapseResults': 'true',
-				'enableHosts': 'www.renyard.net www.bbc.co.uk'
-			});
+			chrome.storage.sync.clear();
+			validity.opts.option('collapseResults', true);
+			validity.opts.option('enableHosts', ['www.renyard.net', 'www.bbc.co.uk']);
+			validity.opts._load();
 		},
-		tearDown: function(){}};
+		teardown: function(){
+			chrome.storage.sync.clear();
+		}};
 
 	module('opts', lifecycle);
 
@@ -345,7 +347,7 @@ validity.stats.disableAnalytics();
 
 		equal(validity.opts.option('collapseResults'), true);
 		equal(validity.opts.option('undef'), undefined);
-		equal(validity.opts.option('enableHosts'), 'www.renyard.net www.bbc.co.uk');
+		deepEqual(validity.opts.option('enableHosts'), ['www.renyard.net', 'www.bbc.co.uk']);
 		equal(validity.opts.option('collapseResults', false), false);
 	});
 })();
@@ -354,12 +356,12 @@ validity.stats.disableAnalytics();
 * Analytics Tests
 */
 
-/*(function() {
+(function() {
 	var lifecycle = {setup: function(){
 		validity.opts.option('disableAnalytics', false);
 		validity.stats.disableAnalytics();
 		window._gaq = [];
-	}, tearDown: function() {
+	}, teardown: function() {
 		validity.opts.option('disableAnalytics', true);
 	}};
 
@@ -372,14 +374,14 @@ validity.stats.disableAnalytics();
 		deepEqual(_gaq[0], ['_trackEvent', 'category', 'action', 'label', 'title']);
 		equal(_gaq.length, 1);
 	});
-})();*/
+})();
 
 /**
 * Options Tests
 */
 
 (function() {
-	var lifecycle = {setup: function(){}, tearDown: function(){}};
+	var lifecycle = {setup: function(){}, teardown: function(){}};
 
 	module('options', lifecycle);
 
@@ -416,6 +418,8 @@ validity.stats.disableAnalytics();
 (function() {
 	var _localStorage,
 		lifecycle = {setup: function() {
+			// Clear chrome extension storage.
+			chrome.storage.sync.clear();
 			//	Clear localStorage
 			window.localStorage.clear();
 			//	Mock localStorage.
@@ -423,10 +427,12 @@ validity.stats.disableAnalytics();
 
 			//	Populate localStorage
 			localStorage['collapseResults'] = 'true';
+			localStorage['disableAnalytics'] = true;
 			localStorage['enableHosts'] = 'www.renyard.net www.amazon.com localhost';
 			localStorage['validateHosts'] = 'www.amazon.com www.bbc.co.uk www.renyard.net';
 			localStorage['validator'] = '';
-		}, tearDown: function() {
+
+		}, teardown: function() {
 			//	Reinstate real localStorage.
 			window.localStorage = _localStorage;
 		}};
@@ -460,8 +466,9 @@ validity.stats.disableAnalytics();
 
 		validity.upgrade.migrate('2.0.0', '1.2.4');
 
-		deepEqual(JSON.parse(window.localStorage['options']), {
+		deepEqual(chrome.storage.sync._getStorage(), {
 			'collapseResults': true,
+			'disableAnalytics': true,
 			'enableHosts': [
 				'www.renyard.net',
 				'www.amazon.com',
@@ -472,7 +479,8 @@ validity.stats.disableAnalytics();
 				'www.bbc.co.uk',
 				'www.renyard.net'
 			],
-			'validator': ''
+			'validator': '',
+			'version': '2.0.0'
 		});
 	});
 })();

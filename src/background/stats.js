@@ -39,41 +39,25 @@ var validity = (function(validity) {
 	};
 
 	stats.disableAnalytics = function() {
-		/*
-		validity.util.ready(function() {
-			if (typeof ga_elm === 'object') {
-				//	Remove GA script.
-				ga_elm.parentNode.removeChild(ga_elm);
-
-				//	Clean up GA objects.
-				window._gat = undefined;
-			}
-		});*/
 		window['ga-disable-@gaid@'] = true;
 
 		//	Clear queue periodically.
+		stats._purgeTrackingQueue();
 		(function clearQueue() {
 			purge_timeout = window.setTimeout(function() {
 				stats._purgeTrackingQueue();
 				clearQueue();
-			}, 60);
+			}, 60 * 60 * 1000);
 		})();
 	};
 
 	stats.enableAnalytics = function() {
-		/*
-		validity.util.ready(function() {
-			if (typeof ga_elm === 'undefined') {
-				stats._init();
-			}
-		});
-		*/
 		window.clearTimeout(purge_timeout);
 		window['ag-disable-@gaid@'] = false;
 	};
 
 	stats._purgeTrackingQueue = function() {
-		//	Remove only page and events from queue.
+		//	Remove only page and events, not _setAccount from queue.
 		for (var i=0; i<=_gaq; i++) {
 			if (/^\_track/.match(_gaq[i][0])) {
 				_gaq.splice(i, 1);

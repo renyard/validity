@@ -51,7 +51,7 @@ var validity = (function(validity) {
 
 			//	If this isn't the first run of a new version
 			//	or we already have localStorage['options'], return early.
-			if (upgrade.isNewVersion(version, prevVersion) === false || window.localStorage.options) {
+			if (upgrade.isNewVersion(version, prevVersion) === false) {
 				return false;
 			}
 
@@ -70,27 +70,24 @@ var validity = (function(validity) {
 
 			//	Migrate string type options.
 			dataTypes.string.forEach(function(element, index, array) {
-				options[element] = window.localStorage[element];
+				validity.opts.option(element, window.localStorage[element]);
 			});
 
 			//	Migrate array type options.
 			dataTypes.array.forEach(function(element, index, array) {
 				var arr = window.localStorage[element].split(' ');
-				options[element] = arr;
+				validity.opts.option(element, arr);
 			});
 
 			//	Migrate boolean type options.
 			dataTypes.bool.forEach(function(element, index, array) {
-				options[element] = validity.util.toBool(window.localStorage[element]);
+				validity.opts.option(element, validity.util.toBool(window.localStorage[element]));
 			});
 
-			//	Store version number of new version in localStorage.
+			//	Store version number of new version in options.
 			if (version) {
-				window.localStorage.version = version;
+				validity.opts.option('version', version);
 			}
-
-			window.localStorage.options = JSON.stringify(options);
-			return options;
 		};
 
 		validity.upgrade = upgrade;

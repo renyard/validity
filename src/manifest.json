@@ -13,7 +13,8 @@
 	"permissions": [
 		"http://*/*",
 		"https://*/*",
-		"tabs"
+		"tabs",
+		"storage"
 	],
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 	"content_scripts": [{

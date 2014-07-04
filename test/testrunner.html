@@ -9,24 +9,93 @@
 
 	<!-- Mock Chrome Extension API -->
 	<script type="text/javascript">
+	(function() {
+		var _storage = {},
+			_storageChanged = function() {};
+
 		window.chrome = {};
 		chrome.tabs = {};
-		chrome.extension = {};
-		chrome.pageAction = {};
-		chrome.extension = {onRequest: {addListener: function(){}}, tabs: {}};
-		chrome.pageAction = {onClicked: {addListener: function(){}}};
+		chrome.extension = {
+			onRequest: {
+				addListener: function(){}
+			}, tabs: {}
+		};
+		chrome.pageAction = {
+			onClicked: {
+				addListener: function(){}
+			}
+		};
+		chrome.storage = {
+			sync: {
+				set: function(obj, callback) {
+					var keys = Object.keys(obj);
+
+					for (var i = 0; i < keys.length; i++) {
+						_storage[keys[i]] = obj[keys[i]];
+					}
+
+					if (typeof callback === 'function') {
+						window.setTimeout(function() {
+							callback();
+							_storageChanged();
+						}, 0);
+					}
+				},
+				get: function(keys, callback) {
+					var result = {};
+
+					if (keys === null) {
+						return _storage;
+					}
+					else if (typeof keys === 'string') {
+						keys = [keys];
+					}
+
+					for (var i = 0; i < keys.length; i++) {
+						result[keys[i]] = _storage[keys[i]];
+					}
+
+					if (typeof callback === 'function') {
+						window.setTimeout(function() {
+							callback(result);
+							_storageChanged();
+						}, 0);
+					}
+				},
+				clear: function(callback) {
+					_storage = {};
+
+					if (typeof callback === 'function') {
+						window.setTimeout(function() {
+							callback(result);
+						}, 0);
+					}
+				},
+				_getStorage: function() {
+					return JSON.parse(_storage.options);
+				}
+			},
+			onChanged: {
+				addListener: function(callback) {
+					if (typeof callback === 'function') {
+						_storageChanged = callback;
+					}
+				}
+			}
+		};
+	})();
 	</script>
 
 	<!-- Background Scripts -->
-	<script type="text/javascript" src="../src/background/controller.js"></script>
-	<script type="text/javascript" src="../src/background/net.js"></script>
-	<script type="text/javascript" src="../src/background/xml.js"></script>
-	<script type="text/javascript" src="../src/background/ui.js"></script>
-	<script type="text/javascript" src="../src/background/util.js"></script>
-	<script type="text/javascript" src="../src/background/opts.js"></script>
-	<script type="text/javascript" src="../src/background/stats.js"></script>
-	<script type="text/javascript" src="../src/background/upgrade.js"></script>
-	<script type="text/javascript" src="../src/options/options.js"></script>
+	<script type="text/javascript" src="../dist/background/controller.js"></script>
+	<script type="text/javascript" src="../dist/background/net.js"></script>
+	<script type="text/javascript" src="../dist/background/xml.js"></script>
+	<script type="text/javascript" src="../dist/background/ui.js"></script>
+	<script type="text/javascript" src="../dist/background/util.js"></script>
+	<script type="text/javascript" src="../dist/background/opts.js"></script>
+	<script type="text/javascript" src="../dist/background/stats.js"></script>
+	<script type="text/javascript" src="../dist/background/upgrade.js"></script>
+	<script type="text/javascript" src="../dist/options/options.js"></script>
 
 	<!-- Fixtures -->
 	<script type="text/javascript" src="fixtures/xmlfixtures.js"></script>
