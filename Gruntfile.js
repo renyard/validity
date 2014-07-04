@@ -14,11 +14,11 @@ module.exports = function(grunt) {
 	}
 
 	// Merge config defaults.
-	merge(config, {
+	merge({
 		version: '0.0.0',
 		copyright: 'Copyright 2009 - ' + (new Date()).getFullYear() + ' Ian Renyard',
 		gaid: 'UA-XXXXXX-X'
-	});
+	}, config);
 
 	grunt.initConfig({
 		pkg: pkg,
