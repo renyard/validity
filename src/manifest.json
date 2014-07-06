@@ -19,7 +19,10 @@
 	],
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 	"content_scripts": [{
-		"matches": ["*://*/*"],
+		"matches": [
+			"http://*/*",
+			"https://*/*"
+		],
 		"js": ["validity.js"]
 	}],
 	"background": {
@@ -30,7 +33,8 @@
 			"background/xml.js",
 			"background/ui.js",
 			"background/util.js",
-			"background/opts.js"
+			"background/opts.js",
+			"background/upgrade.js"
 		]
 	},
 	"page_action": {
@@ -39,6 +43,15 @@
 			"38": "icons/38.png"
 		},
 		"default_title": "__MSG_page_action_title__"
+	},
+	"commands": {
+		"_execute_page_action": {
+			"suggested_key": {
+				"default": "Alt+Shift+V",
+				"mac": "Alt+Shift+V"
+			},
+			"description": "__MSG_page_action_title__"
+		}
 	},
 	"options_page": "options.html",
 	"manifest_version": 2
