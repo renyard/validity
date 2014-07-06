@@ -1,6 +1,5 @@
 {
   "name": "Validity",
-  "version": "2.0.0",
   "version": "3.0.0",
   "repository": "https://github.com/renyard/validity",
   "devDependencies": {
@@ -11,6 +10,7 @@
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-qunit": "~0.3.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-notify": "^0.3.0",
     "grunt-replace": "~0.5.1",
     "merge": "^1.1.3"
   }
