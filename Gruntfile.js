@@ -114,7 +114,13 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'qunit']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'qunit', 'notify_hooks']
+			}
+		},
+		notify_hooks: {
+			options: {
+				enabled: true,
+				max_js_hint_notifications: 5
 			}
 		}
 	});
@@ -126,6 +132,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-notify');
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
 	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'qunit']);
