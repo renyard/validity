@@ -58,7 +58,6 @@
 					if (typeof callback === 'function') {
 						window.setTimeout(function() {
 							callback(result);
-							_storageChanged();
 						}, 0);
 					}
 				},
@@ -83,6 +82,11 @@
 				}
 			}
 		};
+		chrome.runtime = {
+			onInstalled: {
+				addListener: function() {}
+			}
+		}
 	})();
 	</script>
 

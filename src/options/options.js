@@ -20,8 +20,8 @@ var validity = (function(validity) {
 				validateHosts = [];
 
 			//	TODO: abstract select box population into function
-			if (localStorage.enableHosts) {
-				enableHosts = localStorage.enableHosts.split(' ');
+			if (validity.opts.option('enableHosts')) {
+				enableHosts = validity.opts.option('enableHosts');
 				for (var i = 0; i < enableHosts.length; i++) {
 					hostOpt = document.createElement('option');
 					hostOpt.textContent = enableHosts[i];
@@ -29,8 +29,8 @@ var validity = (function(validity) {
 				}
 			}
 
-			if (localStorage.validateHosts !== undefined) {
-				validateHosts = localStorage.validateHosts.split(' ');
+			if (validity.opts.option('validateHosts') !== undefined) {
+				validateHosts = validity.opts.option('validateHosts');
 				//	Loop through hosts to populate select box
 				for (var j = 0; j < validateHosts.length; j++) {
 					hostOpt = document.createElement('option');
@@ -39,12 +39,12 @@ var validity = (function(validity) {
 				}
 			}
 
-			if (localStorage.validator !== undefined) {
-				validator.value = localStorage.validator;
+			if (validity.opts.option('validator') !== undefined) {
+				validator.value = validity.opts.options('validator');
 			}
 
-			if (localStorage.collapseResults !== undefined) {
-				collapsed.checked = options.toBool(localStorage.collapseResults);
+			if (validity.opts.option('collapseResults') !== undefined) {
+				collapsed.checked = validity.opts.option('collapseResults');
 			}
 			else {
 				//	Defaults to true
@@ -70,10 +70,10 @@ var validity = (function(validity) {
 		enableHosts.sort();
 		validateHosts.sort();
 
-		localStorage.enableHosts = enableHosts.join(' ');
-		localStorage.validateHosts = validateHosts.join(' ');
-		localStorage.validator = validator.value;
-		localStorage.collapseResults = collapse.checked.toString();
+		validity.opts.option('enableHosts', enableHosts);
+		validity.opts.option('validateHosts', validateHosts);
+		validity.opts.option('validator', validator.value);
+		validity.opts.option('collapseResults', collapse.checked);
 	}
 
 	//	Edit hosts

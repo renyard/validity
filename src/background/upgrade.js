@@ -90,6 +90,12 @@ var validity = (function(validity) {
 			}
 		};
 
+		chrome.runtime.onInstalled.addListener(function(details) {
+			if (details.reason === 'update') {
+				upgrade.migrate(version, details.previousVersion);
+			}
+		});
+
 		validity.upgrade = upgrade;
 		return validity;
 })(validity || {});
