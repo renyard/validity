@@ -1,7 +1,6 @@
 {
 	"name": "__MSG_extn_name__",
-	"version": "@version@",/*!debug*/
-	"version": "0.0.0",/*gubed!*/
+	"version": "@version@",
 	"default_locale": "en_GB",
 	"description": "__MSG_extn_description__",
 	"icons": {
