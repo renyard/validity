@@ -38,41 +38,6 @@
 	/**
 	 * @private
 	 * @function
-	 * @name _attachKeyboardShortcuts
-	 */
-	function _attachKeyboardShortcuts() {
-		//	Set up keyboard shortcuts (Alt + Shift + V)
-		document.addEventListener("keydown", function (e) {
-			if (e.which === 16) {
-				shift = true;
-				return;
-			}
-			//	Alt is 18 on it's own or 91 with shift
-			else if (e.which === 18 || e.which === 91) {
-				alt = true;
-				return;
-			}
-			else if (e.which === 86) {
-				if (alt && shift) {
-					_requestValidation();
-				}
-			}
-		}, false);
-
-		//	Track state of shift and alt keys
-		document.addEventListener("keyup", function (e) {
-			if (e.which === 16) {
-				shift = false;
-			}
-			else if (e.which === 18) {
-				alt = false;
-			}
-		});
-	}
-
-	/**
-	 * @private
-	 * @function
 	 * @name _logMessages
 	 */
 	function _logMessages(response) {
@@ -136,7 +101,6 @@
 		_getOptions(function() {
 			chrome.extension.sendRequest({'action': 'init'}, function(response) {
 				if (response.attatchActions === true) {
-					_attachKeyboardShortcuts();
 					chrome.extension.onRequest.addListener(function(results) {
 						chrome.extension.sendRequest({'action': 'options'}, function(options) {
 							opts = options;

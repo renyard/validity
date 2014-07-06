@@ -105,6 +105,17 @@ module.exports = function(grunt) {
 					}
 				]
 			}
+		},
+		watch: {
+			src: {
+				files: [
+					'src/**/*',
+					'config.json',
+					'Gruntfile.js',
+					'package.json'
+				],
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'qunit']
+			}
 		}
 	});
 
@@ -114,6 +125,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
 	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'qunit']);

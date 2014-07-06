@@ -4,6 +4,7 @@
 * Regular expressions are now supported for host matching in options.
 * The keyboard shortcut can now be changed via the "Keyboard shortcuts" dialog on the extension management page.
 * Options are now synced via your Google or Opera Sync account.
+* Regular expressions can now be used to match hosts.
 * Rewrote the build script to use Grunt and include unit tests and linting.
 
 1.3.0 (23/05/2013)
