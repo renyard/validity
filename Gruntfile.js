@@ -14,8 +14,7 @@ module.exports = function(grunt) {
 	}
 
 	// Merge config defaults.
-	merge({
-		version: '0.0.0',
+	config = merge({
 		copyright: 'Copyright 2009 - ' + (new Date()).getFullYear() + ' Ian Renyard',
 		gaid: 'UA-XXXXXX-X'
 	}, config);
