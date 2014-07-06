@@ -1,6 +1,8 @@
-2.0.0 (04/07/2014)
+2.0.0
 * Now available for Opera as well as Chrome.
 * Support for Retina & high dpi displays.
+* Regular expressions are now supported for host matching in options.
+* The keyboard shortcut can now be changed via the "Keyboard shortcuts" dialog on the extension management page.
 * Options are now synced via your Google or Opera Sync account.
 * Rewrote the build script to use Grunt and include unit tests and linting.
 
