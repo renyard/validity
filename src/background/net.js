@@ -47,7 +47,7 @@ var validity = (function(validity) {
 			xhrValidator = new XMLHttpRequest();
 		
 		//	Set validator URL
-		validator = localStorage.validator || DEFAULT_VALIDATOR;
+		validator = validity.opts.option('validator') || DEFAULT_VALIDATOR;
 		
 		xhrValidator.onreadystatechange = function() {
 			var response;

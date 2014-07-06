@@ -37,12 +37,12 @@ var validity = (function(validity) {
 				controller.validate(sender.tab);
 				break;
 			case 'init':
-				enableHosts = localStorage.enableHosts;
-				autoValidateHosts = localStorage.validateHosts || [];
+				enableHosts = validity.opts.option('enableHosts');
+				autoValidateHosts = validity.opts.option('validateHosts') || [];
 				tabHost = validity.util.getHost(sender.tab.url);
 				
 				//	Enable if no hosts are set.
-				if (typeof enableHosts !== 'string' || enableHosts === '') {
+				if (typeof enableHosts !== 'object' || enableHosts === []) {
 					enabledForHost = true;
 				}
 				else {
@@ -61,8 +61,8 @@ var validity = (function(validity) {
 				}
 				break;
 			case 'options':
-				if (localStorage.collapseResults !== undefined) {
-					opts.collapseResults = validity.util.toBool(localStorage.collapseResults);
+				if (validity.opts.option('collapseResults') !== undefined) {
+					opts.collapseResults = validity.util.toBool(validity.opts.option('collapseResults'));
 				}
 				else {
 					opts.collapseResults = true;
@@ -104,8 +104,8 @@ var validity = (function(validity) {
 		}
 
 		//	Read options here in case they've been changed since last time
-		enableHosts = localStorage.enableHosts || '';
-		autoValidateHosts = localStorage.validateHosts || '';
+		enableHosts = validity.opts.option('enableHosts') || [];
+		autoValidateHosts = validity.opts.option('validateHosts') || [];
 
 		//	Extract host from URL
 		tabHost = validity.util.getHost(tab.url);

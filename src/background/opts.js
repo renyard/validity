@@ -44,7 +44,7 @@ var validity = (function (validity) {
 	* @method
 	* @name storage
 	*/
-	opts.init = function() {
+	opts._init = function() {
 		opts._load();
 		// Load new options on change.
 		chrome.storage.onChanged.addListener(opts._load);
@@ -84,7 +84,9 @@ var validity = (function (validity) {
 	*/
 	opts._load = function() {
 		opts.backend().get('options', function(obj) {
-			options = obj.options || options;
+			if (obj.options !== undefined) {
+				options = JSON.parse(obj.options);
+			}
 		});
 		return opts._localCache.get();
 	};
@@ -99,7 +101,7 @@ var validity = (function (validity) {
 		return opts._localCache.set();
 	};
 
-	opts.init();
+	opts._init();
 
 	validity.opts = opts;
 	return validity;
