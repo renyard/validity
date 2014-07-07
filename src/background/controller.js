@@ -41,8 +41,8 @@ var validity = (function(validity) {
 				autoValidateHosts = validity.opts.option('validateHosts') || [];
 				tabHost = validity.util.getHost(sender.tab.url);
 				
-				//	Enable if no hosts are set.
-				if (typeof enableHosts !== 'object' || enableHosts === []) {
+				//	Enable if no hosts are set. (i.e. Not an array or with zero length.)
+				if (Object.prototype.toString.call(enableHosts) !== '[object Array]' || enableHosts.length < 1) {
 					enabledForHost = true;
 				}
 				else {
