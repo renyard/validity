@@ -87,8 +87,22 @@ module.exports = function(grunt) {
 				evil: true
 			}
 		},
+		connect: {
+			tests: {
+				options: {
+					port: 0,
+					base: '.'
+				}
+			}
+		},
 		qunit: {
-			all: ['test/*.html']
+			all: {
+				options: {
+					urls: [
+						'http://<%= connect.tests.options.hostname %>:<%= connect.tests.options.port %>/test/testrunner.html'
+					]
+				}
+			}
 		},
 		compress: {
 			dist: {
@@ -114,7 +128,7 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'qunit', 'notify_hooks']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit', 'notify_hooks']
 			}
 		},
 		notify_hooks: {
@@ -129,12 +143,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-notify');
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'qunit']);
-	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'qunit', 'compress']);
+	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit']);
+	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit', 'compress']);
 }
