@@ -93,6 +93,13 @@ module.exports = function(grunt) {
 					port: 0,
 					base: '.'
 				}
+			},
+			server: {
+				options: {
+					port: 8080,
+					base: '.',
+					keepalive: true
+				}
 			}
 		},
 		qunit: {
@@ -151,5 +158,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
 	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit']);
+	grunt.registerTask('server', ['clean', 'copy', 'replace', 'connect:server']);
 	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit', 'compress']);
 }
