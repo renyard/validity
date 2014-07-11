@@ -78,8 +78,8 @@
 					message.type + '(\'' +
 					//	Write line number if available
 					(line > 0?'line ' + line + ': ':'') +
-					//	Remove line breaks from message
-					message.message.replace(/\r\n|\n|\r/g, '') +
+					//	Remove line breaks and escape quotes in message
+					message.message.replace(/\r\n|\n|\r/g, '').replace(/([\'\"])/g, '\\$1') +
 					'\');';
 			}
 
