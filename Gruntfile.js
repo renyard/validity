@@ -135,7 +135,7 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit', 'notify_hooks']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'connect:tests', 'qunit', 'notify_hooks']
 			}
 		},
 		notify_hooks: {
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-notify');
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit']);
+	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'connect:tests', 'qunit']);
 	grunt.registerTask('server', ['clean', 'copy', 'replace', 'connect:server']);
 	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'connect', 'qunit', 'compress']);
 }
