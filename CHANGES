@@ -1,3 +1,6 @@
+2.0.2 (14/07/2014)
+* Fixed a bug in loading the custom validator value on the options page.
+
 2.0.1 (11/07/2014)
 * Fixed a bug when the validator message contains a quote.
 
