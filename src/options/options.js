@@ -40,7 +40,7 @@ var validity = (function(validity) {
 			}
 
 			if (validity.opts.option('validator') !== undefined) {
-				validator.value = validity.opts.options('validator');
+				validator.value = validity.opts.option('validator');
 			}
 
 			if (validity.opts.option('collapseResults') !== undefined) {
