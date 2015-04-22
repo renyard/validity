@@ -8,7 +8,7 @@ var validity = (function(validity) {
 	 * @const
 	 * @name DEFAULT_VALIDATOR
 	 */
-	var DEFAULT_VALIDATOR = 'http://validator.w3.org/check',
+	var DEFAULT_VALIDATOR = 'https://html.validity.org.uk/check',
 		net = {};
 
 	/**
@@ -45,10 +45,10 @@ var validity = (function(validity) {
 	net.submitValidation = function(tab, source, callback) {
 		var validator,
 			xhrValidator = new XMLHttpRequest();
-		
+
 		//	Set validator URL
 		validator = validity.opts.option('validator') || DEFAULT_VALIDATOR;
-		
+
 		xhrValidator.onreadystatechange = function() {
 			var response;
 			if (xhrValidator.readyState === 4) {
@@ -60,7 +60,7 @@ var validity = (function(validity) {
 					else {
 						validity.ui.setPageAction(tab.id, 'valid', 'Page is valid.');
 					}
-					
+
 					if (typeof callback === 'function') {
 						callback(tab, response);
 					}
