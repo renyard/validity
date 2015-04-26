@@ -1,5 +1,8 @@
 body {
 	font-family: Arial, sans-serif;
+	max-width: 640px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 h1 {
@@ -45,4 +48,27 @@ input[type=submit]:active {
 	box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
 	background: #ebebeb linear-gradient(#f4f4f4, #efefef 40%, #dcdcdc);
 	color: #333;
+}
+
+#firstrun .install,
+#firstrun .update {
+	display: none;
+}
+
+dl dt {
+	padding-top: 10px;
+	font-weight: bold;
+}
+
+dl dd {
+	margin-left: 0;
+}
+
+dl dd ul li {
+	margin-top: 4px;
+}
+
+iframe {
+	width: 100%;
+	height: 300px;
 }
