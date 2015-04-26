@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 	// Merge config defaults.
 	config = merge({
 		copyright: 'Copyright 2009 - ' + (new Date()).getFullYear() + ' Ian Renyard',
-		gaid: 'UA-XXXXXX-X'
+		gaid: 'UA-19656504-2'
 	}, config);
 
 	grunt.initConfig({
@@ -35,6 +35,11 @@ module.exports = function(grunt) {
 						expand: true,
 						cwd: 'src/',
 						src: ['**'],
+						dest: 'dist/'
+					},
+					{
+						expand: true,
+						src: ['CHANGES'],
 						dest: 'dist/'
 					}
 				]
@@ -130,4 +135,4 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
 	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'qunit']);
 	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'qunit', 'compress']);
-}
+};

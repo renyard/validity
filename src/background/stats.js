@@ -1,14 +1,3 @@
-/*
-	TODO:
-	* Start up vs. Up-time.
-	* New user.
-	* Options:
-		* Collapsed results.
-		* Custom validator URL.
-		* Restricted validation.
-		* Auto validation.
-*/
-
 var _gaq = _gaq || [];
 
 var validity = (function(validity) {
