@@ -1,4 +1,4 @@
-3.0.0 (26/04/2015)
+3.0.1 (26/04/2015)
 * Changed the default validator to an instance run specifically for Validity.
 * The validator uses SSL encryption by default, scoring an A on SSL Check (https://sslcheck.globalsign.com/en_GB/sslcheck/?host=html.validity.org.uk).
 * The new validator instance should also fix the "Bad Gateway" errors, which are believed to be due to rate limiting on the W3C Validator.

@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 	// Merge config defaults.
 	config = merge({
 		copyright: 'Copyright 2009 - ' + (new Date()).getFullYear() + ' Ian Renyard',
-		gaid: 'UA-XXXXXX-X'
+		gaid: 'UA-19656504-2'
 	}, config);
 
 	grunt.initConfig({
