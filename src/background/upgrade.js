@@ -91,8 +91,13 @@ var validity = (function(validity) {
 		};
 
 		chrome.runtime.onInstalled.addListener(function(details) {
-			if (details.reason === 'update') {
-				upgrade.migrate(version, details.previousVersion);
+			var reason = details.reason;
+
+			if (reason === 'install' || reason === 'update') {
+				chrome.windows.create({
+					'url': '/firstrun.html' + '?' + reason,
+					'focused': true
+				});
 			}
 		});
 
