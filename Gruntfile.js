@@ -36,6 +36,11 @@ module.exports = function(grunt) {
 						cwd: 'src/',
 						src: ['**'],
 						dest: 'dist/'
+					},
+					{
+						expand: true,
+						src: ['CHANGES'],
+						dest: 'dist/'
 					}
 				]
 			}
