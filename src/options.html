@@ -2,9 +2,9 @@
 <html id="validity-options">
 	<head>
 		<title>Validity Options</title>
-		<link href="options/options.css" rel="stylesheet" type="text/css" />
+		<link href="ui/css/main.css" rel="stylesheet" />
 		<script src="background/opts.js"></script>
-		<script src="options/options.js"></script>
+		<script src="ui/js/options.js"></script>
 	</head>
 	<body>
 		<h1>Validity</h1>
@@ -25,7 +25,7 @@
 				<input type="button" id="validateAdd" value="Add" />
 
 				<p><label for="validator">Custom Validator URL</label></p>
-				<input id="validator" type="text" value="" placeholder="http://validator.w3.org/check" />
+				<input id="validator" type="text" value="" placeholder="https://html.validity.org.uk/check" />
 
 				<p><input id="collapse" type="checkbox" />
 				<label for="collapse">Collapse console logged results</label></p>
@@ -38,8 +38,18 @@
 				@copyright@
 			</p>
 			<p>
-				Source code is available at <a href="http://github.com/renyard/validity">http://github.com/renyard/validity</a>
+				Source code is available at <a href="http://github.com/renyard/validity">http://github.com/renyard/validity</a>.
 			</p>
 		</div>
+			<p>
+				The default validator instance is based on the
+				<a href="https://github.com/magnetikonline/dockerhtml5validator">Docker image</a>
+				by <a href="https://github.com/magnetikonline">Peter Mescalchin</a><br />
+				and hosted on <a href="https://www.digitalocean.com/?refcode=2fe4c8331601">Digital Ocean</a>.
+				Try Digital Ocean with $10 free credit:
+			</p>
+			<a href="https://www.digitalocean.com/?refcode=2fe4c8331601">
+				<img src="img/options/ssd-virtual-servers-banner-468x60.jpg" alt="" />
+			</a>
 	</body>
 </html>
