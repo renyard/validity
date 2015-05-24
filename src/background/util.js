@@ -75,7 +75,7 @@ var validity = (function(validity) {
 	util.validProtocol = function(url) {
 		var valid,
 			backRefs = [],
-			protocolRegExp = new RegExp(/^(https?)/);
+			protocolRegExp = new RegExp(/^(https?|file)/);
 
 		valid = protocolRegExp.test(url);
 

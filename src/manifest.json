@@ -13,6 +13,7 @@
 	"permissions": [
 		"http://*/*",
 		"https://*/*",
+		"file://*/*",
 		"tabs",
 		"storage"
 	],
@@ -20,7 +21,8 @@
 	"content_scripts": [{
 		"matches": [
 			"http://*/*",
-			"https://*/*"
+			"https://*/*",
+			"file://*/*"
 		],
 		"js": ["validity.js"]
 	}],
