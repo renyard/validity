@@ -1,11 +1,13 @@
-var _gaq = _gaq || [];
-
 var validity = (function(validity) {
 	"use strict";
-	var stats = {},
+	var _gaq,
+		stats = {},
 		ga_elm,
 		purge_timeout,
 		PURGE_INTERVAL = 60;
+
+	// Set _gaq global and local vars.
+	_gaq = window._gaq = window._gaq || [];
 
 	_gaq.push(['_setAccount', '@gaid@']);
 	_gaq.push(['_trackPageview', '/validity/@version@']);
@@ -64,6 +66,9 @@ var validity = (function(validity) {
 	};
 
 	document.addEventListener('DOMContentLoaded', stats._init, false);
+	document.addEventListener('error', function(e) {
+		stats.track('error', e.message);
+	}, false);
 
 	validity.stats = stats;
 	return validity;
