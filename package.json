@@ -2,6 +2,9 @@
   "name": "Validity",
   "version": "3.0.1",
   "repository": "https://github.com/renyard/validity",
+  "scripts": {
+      "test": "grunt test"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "^0.5.0",
