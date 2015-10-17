@@ -92,9 +92,11 @@ module.exports = function(grunt) {
 				evil: true
 			}
 		},
-		qunit: {
-			all: ['test/*.html']
-		},
+        karma: {
+            unit:{
+                configFile: 'karma.conf.js'
+            }
+        },
 		compress: {
 			dist: {
 				options: {
@@ -119,7 +121,7 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'qunit']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:unit']
 			}
 		}
 	});
@@ -128,11 +130,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-qunit');
+	grunt.loadNpmTasks('grunt-karma');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'qunit']);
-	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'qunit', 'compress']);
+	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'karma:unit']);
+	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma:unit', 'compress']);
 };
