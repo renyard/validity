@@ -1,0 +1,11 @@
+version: 1.0.{build}
+build: off
+test_script:
+- ps: >-
+    node --version
+    grunt test
+install:
+    - ps: Install-Product node
+    - ps: npm install -g grunt-cli
+    - ps: npm install
+    - cinst google-chrome-x64
