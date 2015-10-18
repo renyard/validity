@@ -7,3 +7,7 @@ before_install:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
 install: npm install
+deploy:
+    providor: script
+    script: grunt deploy
+    on: master

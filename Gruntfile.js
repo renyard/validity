@@ -123,7 +123,23 @@ module.exports = function(grunt) {
 				],
 				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:unit']
 			}
-		}
+		},
+        webstore_upload: {
+            accounts: {
+                default: {
+                    publish: false,
+                    client_id: process.env.CLIENT_ID,
+                    client_secret: process.env.CLIENT_SECRET,
+                    refresh_token: process.env.REFRESH_TOKEN
+                }
+            },
+            extensions: {
+                validity: {
+                    appid: process.env.APP_ID,
+                    zip: 'validity.zip'
+                }
+            }
+        }
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -133,6 +149,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-karma');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-webstore-upload');
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
 	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'karma:unit']);
