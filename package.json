@@ -20,6 +20,8 @@
     "karma-opera-launcher": "^0.3.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-qunit": "^0.1.5",
-    "merge": "^1.1.3"
+    "merge": "^1.1.3",
+    "phantomjs": "^1.9.18",
+    "qunit": "^0.7.7"
   }
 }
