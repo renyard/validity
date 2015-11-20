@@ -93,8 +93,12 @@ module.exports = function(grunt) {
 			}
 		},
         karma: {
-            unit:{
+            unit: {
                 configFile: 'karma.conf.js'
+			},
+			watch: {
+                configFile: 'karma.conf.js',
+				browsers: ['PhantomJS']
             }
         },
 		compress: {
@@ -121,7 +125,7 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:unit']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:watch']
 			}
 		}
 	});
