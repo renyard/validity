@@ -11,6 +11,7 @@ var validity = (function(validity) {
 	function loadOptions() {
 		var validateHosts,
 			hostOpt,
+			lang = $('lang'),
 			validator = $('validator'),
 			collapsed = $('collapse');
 
@@ -18,6 +19,10 @@ var validity = (function(validity) {
 		window.addEventListener('load', function() {
 			var enableHosts = [],
 				validateHosts = [];
+
+			if (validity.opts.option('lang') !== undefined) {
+				lang.value = validity.opts.option('lang');
+			}
 
 			//	TODO: abstract select box population into function
 			if (validity.opts.option('enableHosts')) {
@@ -70,6 +75,7 @@ var validity = (function(validity) {
 		enableHosts.sort();
 		validateHosts.sort();
 
+		validity.opts.option('lang', lang.value);
 		validity.opts.option('enableHosts', enableHosts);
 		validity.opts.option('validateHosts', validateHosts);
 		validity.opts.option('validator', validator.value);

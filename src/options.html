@@ -8,30 +8,61 @@
 	</head>
 	<body>
 		<h1>Validity</h1>
-		<form id="optionsForm">
+		<form id="optionsForm" action="">
 			<fieldset>
-				<p><label>Enable for Specified Hosts</label></p>
+				<p><label for="lang" data-i18n="opt-lang">
+					Language
+				</label></p>
+				<select id="lang">
+					<option value="">Auto detect</option>
+					<option value="en-gb">English (UK)</option>
+					<option value="en-ar">English (Pirate)</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<p><label data-i18n="opt-specific-hosts">
+					Enable for Specified Hosts
+				</label></p>
 				<select id="enableHosts" size="2"></select>
-				<input type="button" id="enableRemove" value="Remove" /><br />
-				<input type="text" id="enableHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
-				<input type="button" id="enableAdd" value="Add" />
 
-				<p><label for="validateHosts">
+				<button type="button" id="enableRemove" data-i18n="opt-remove">
+					Remove
+				</button><br />
+
+				<input type="text" id="enableHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
+				<button type="button" id="enableAdd" data-i18n="opt-add">
+					Add
+				</button>
+
+				<p><label for="validateHosts" data-i18n="opt-validate-hosts">
 					Automatically Validate Hosts
 				</label></p>
 				<select id="validateHosts" size="2"></select>
-				<input type="button" id="validateRemove" value="Remove" /><br />
-				<input type="text" id="validateHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
-				<input type="button" id="validateAdd" value="Add" />
 
-				<p><label for="validator">Custom Validator URL</label></p>
+				<button type="button" id="validateRemove" data-i18n="opt-remove">
+					Remove
+				</button><br />
+				<input type="text" id="validateHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
+				<button type="button" id="validateAdd" data-i18n="opt-add">
+					Add
+				</button>
+
+				<p><label for="validator" data-i18n="opt-custom-url">
+					Custom Validator URL
+				</label></p>
 				<input id="validator" type="text" value="" placeholder="https://html.validity.org.uk/check" />
 
 				<p><input id="collapse" type="checkbox" />
-				<label for="collapse">Collapse console logged results</label></p>
+				<label for="collapse" data-i18n="opt-collapse-results">
+					Collapse console logged results
+				</label></p>
 			</fieldset>
-			<input id="save" type="submit" value="Save" />
-			<input id="apply" type="button" value="Apply" />
+			<button id="save" type="submit" data-i18n="opt-save">
+				Save
+			</button>
+			<button id="apply" type="button" data-i18n="opt-apply">
+				Apply
+			</button>
 		</form>
 		<div id="about">
 			<p>
