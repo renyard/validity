@@ -27,6 +27,7 @@ select {
 	width: 300px;
 }
 
+button,
 input[type=button],
 input[type=submit] {
 	background: linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
