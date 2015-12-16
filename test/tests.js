@@ -412,6 +412,22 @@ validity.stats.disableAnalytics();
 })();
 
 /**
+ * i18n Tests
+ */
+
+(function() {
+	module('i18n');
+
+	test('_detectLocale', function() {
+		equal(validity.i18n._detectLocale(['en-GB']), 'en-GB');
+		equal(validity.i18n._detectLocale(['en-AR']), 'en-AR');
+		equal(validity.i18n._detectLocale(['de'], ['en-GB', 'de']), 'de');
+		equal(validity.i18n._detectLocale(['es'], ['en-GB', 'de']), 'en-GB');
+		equal(validity.i18n._detectLocale(['es', 'de', 'en-GB'], ['en-GB', 'de']), 'de');
+	});
+})();
+
+/**
 * Upgrade Tests
 */
 

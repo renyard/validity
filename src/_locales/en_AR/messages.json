@@ -1,0 +1,11 @@
+{
+	"extn_name": {
+		"message": "Validity"
+	},
+	"extn_description": {
+		"message": "Click t' icon in t' address bar or press Alt+Shift+V t' validate t' current page. Results can be seen in Chrome's JS console."
+	},
+	"page_action_title": {
+		"message": "Validate Document"
+	}
+}

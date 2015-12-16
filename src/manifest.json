@@ -1,6 +1,7 @@
 {
 	"name": "__MSG_extn_name__",
 	"version": "@version@",
+	"minimum_chrome_version": "45",
 	"default_locale": "en_GB",
 	"description": "__MSG_extn_description__",
 	"icons": {
@@ -33,7 +34,8 @@
 			"background/ui.js",
 			"background/util.js",
 			"background/opts.js",
-			"background/upgrade.js"
+			"background/upgrade.js",
+            "background/i18n.js"
 		]
 	},
 	"page_action": {
