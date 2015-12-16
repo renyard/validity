@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "stable"
 before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get upgrade chromium-browser -qq
     - npm install -g grunt-cli
     - export CHROME_BIN=chromium-browser
     - export DISPLAY=:99.0

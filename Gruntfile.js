@@ -89,8 +89,9 @@ module.exports = function(grunt) {
 					localStorage: true,
 					chrome: true
 				},
+				esnext: true,
 				evil: true
-			}
+			},
 		},
         karma: {
             unit: {
@@ -98,7 +99,7 @@ module.exports = function(grunt) {
 			},
 			watch: {
                 configFile: 'karma.conf.js',
-				browsers: ['PhantomJS']
+				browsers: ['Chrome']
             }
         },
 		compress: {
