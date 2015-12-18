@@ -5,6 +5,8 @@ module.exports = function(grunt) {
 		config = {},
 		pkg = grunt.file.readJSON('package.json');
 
+    require('load-grunt-tasks')(grunt);
+
 	// Load the config file if one exists.
 	try {
 		config = grunt.file.readJSON('config.json');
@@ -28,13 +30,27 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+        babel: {
+            src: {
+                options: {
+                    sourceMap: true,
+                    presets: ['es2015']
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: '**/*.js',
+                    dest: 'dist/'
+                }]
+            }
+        },
 		copy: {
 			src: {
 				files: [
 					{
 						expand: true,
 						cwd: 'src/',
-						src: ['**'],
+						src: ['**', '!**/*.js'],
 						dest: 'dist/'
 					},
 					{
@@ -72,14 +88,19 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						cwd: 'dist/',
-						src: ['**/*'],
+						src: [
+                            '**/*.js',
+                            '**/*.json',
+                            '**/*.html',
+                            '**/*.css'
+                        ],
 						dest: 'dist/'
 					}
 				]
 			},
 		},
 		jshint: {
-			all: ['dist/**/*.js'],
+			all: ['src/**/*.js'],
 			options: {
 				globals: {
 					document: true,
@@ -89,6 +110,7 @@ module.exports = function(grunt) {
 					localStorage: true,
 					chrome: true
 				},
+                elision: true,
 				esnext: true,
 				evil: true
 			},
@@ -131,15 +153,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-replace');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-karma');
-	grunt.loadNpmTasks('grunt-contrib-compress');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-
-	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'karma:unit']);
-	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma:unit', 'compress']);
+	grunt.registerTask('build', ['clean', 'babel', 'copy', 'replace']);
+	grunt.registerTask('test', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:unit']);
+	grunt.registerTask('default', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:unit', 'compress']);
 };

@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       'test/mocks.js',
       'test/fixtures/xmlfixtures.js',
-      'src/**/*.js',
+      'dist/**/*.js',
       'test/tests.js'
     ],
 
@@ -30,7 +30,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'src/**/*.js': 'coverage'
+        'src/**/*.js': ['babel', 'coverage']
     },
 
 
@@ -63,7 +63,7 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-		// 'PhantomJS',
+		'PhantomJS',
 		'Chrome',
 		'Opera'
 	],
