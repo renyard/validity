@@ -425,6 +425,13 @@ validity.stats.disableAnalytics();
 		equal(validity.i18n._detectLocale(['es'], ['en-GB', 'de']), 'en-GB');
 		equal(validity.i18n._detectLocale(['es', 'de', 'en-GB'], ['en-GB', 'de']), 'de');
 	});
+
+    test('_parseLocale', function() {
+        deepEqual(validity.i18n._parseLocale('en-GB'), ['en', 'gb']);
+        deepEqual(validity.i18n._parseLocale('en'), ['en', '']);
+        deepEqual(validity.i18n._parseLocale('en-AU'), ['en', 'au']);
+        deepEqual(validity.i18n._parseLocale('de'), ['de', '']);
+    });
 })();
 
 /**

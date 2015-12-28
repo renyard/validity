@@ -116,12 +116,12 @@ module.exports = function(grunt) {
 			},
 		},
         karma: {
-            unit: {
+            all: {
                 configFile: 'karma.conf.js'
 			},
-			watch: {
+			headless: {
                 configFile: 'karma.conf.js',
-				browsers: ['Chrome']
+				browsers: ['PhantomJS']
             }
         },
 		compress: {
@@ -144,16 +144,18 @@ module.exports = function(grunt) {
 			src: {
 				files: [
 					'src/**/*',
+                    'test/**/*',
+                    '!test/coverage/**/*',
 					'config.json',
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:watch']
+				tasks: ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:headless']
 			}
 		}
 	});
 
 	grunt.registerTask('build', ['clean', 'babel', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:unit']);
-	grunt.registerTask('default', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:unit', 'compress']);
+	grunt.registerTask('test', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:headless']);
+	grunt.registerTask('default', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:all', 'compress']);
 };
