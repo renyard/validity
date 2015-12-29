@@ -6,6 +6,42 @@
 		"message": "Click t' icon in t' address bar or press Alt+Shift+V t' validate t' current page. Results can be seen in Chrome's JS console."
 	},
 	"page_action_title": {
-		"message": "Validate Document"
+		"message": "Validate t' Document"
+	},
+	"opt_lang": {
+		"message": "Language"
+	},
+	"opt_lang_auto": {
+		"message": "Auto detect"
+	},
+	"opt_remove": {
+		"message": "Remove"
+	},
+	"opt_add": {
+		"message": "Add"
+	},
+	"opt_specific_hosts": {
+		"message": "Enable for t' Specified Hosts"
+	},
+	"opt_validate_hosts": {
+		"message": "Automatically Validate Hosts"
+	},
+	"opt_custom_url": {
+		"message": "Custom Validator URL"
+	},
+	"opt_collapse_results": {
+		"message": "Collapse console logged results"
+	},
+	"opt_save": {
+		"message": "Save"
+	},
+	"opt_apply": {
+		"message": "Apply"
+	},
+	"opt_source_code": {
+		"message": "Source code is available at <a href=\"http://github.com/renyard/validity\">http://github.com/renyard/validity</a>."
+	},
+	"opt_default_validator": {
+		"message": "The default validator instance is based on the <a href=\"https://github.com/magnetikonline/dockerhtml5validator\">Docker image</a> by <a href=\"https://github.com/magnetikonline\">Peter Mescalchin</a><br /> and hosted on <a href=\"https://www.digitalocean.com/?refcode=2fe4c8331601\">Digital Ocean</a>. Try Digital Ocean with $10 free credit:"
 	}
 }
