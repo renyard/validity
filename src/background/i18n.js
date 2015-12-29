@@ -139,9 +139,14 @@ var validity = (function(validity) {
         if (strings[id]) {
             string = strings[id].message;
         }
-        else {
+        else if (defaultStrings[id]) {
             // No translation, fallback to default.
             string = defaultStrings[id].message;
+        }
+        else {
+            console.warn(`No translation found for ${id}.`);
+            reject();
+            return;
         }
 
         if (typeof string === 'string') {
@@ -177,6 +182,25 @@ var validity = (function(validity) {
                 // Strings have not been loaded. Add to queue.
                 reqQueue.push(stringResolver);
             }
+        });
+    };
+
+    /**
+     * @name populateDom
+     * @description Populates all translations in the DOM.
+     */
+    i18n.populateDom = function(root=document) {
+        var elms;
+        
+        elms = Array.from(root.querySelectorAll('[data-i18n]'));
+
+        elms.forEach((v, i, a) => {
+            var elm = v,
+                id = elm.getAttribute('data-i18n');
+
+            i18n.get(id).then(string => {
+                elm.innerHTML = string;
+            });
         });
     };
 
