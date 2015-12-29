@@ -1,4 +1,4 @@
-var validity = (function(validity) {
+(function(validity) {
 	"use strict";
 	var options = {},
 		$ = function(id) {
@@ -177,10 +177,6 @@ var validity = (function(validity) {
 
 	//	Run init() if we're on the options page.
 	if ($('validity-options')) {
-		document.addEventListener('DOMContentLoaded', function() {
-			validity.options.init();
-		});
+		document.addEventListener('DOMContentLoaded', validity.options.init);
 	}
-
-	return validity;
-})(validity || {});
+})(window.validity);

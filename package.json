@@ -21,11 +21,11 @@
     "karma-chrome-launcher": "^0.2.1",
     "karma-coverage": "^0.5.3",
     "karma-opera-launcher": "^0.3.0",
-    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs-launcher": "^0.2.2",
     "karma-qunit": "^0.1.8",
     "load-grunt-tasks": "^3.3.0",
     "merge": "^1.2.0",
-    "phantomjs": "^1.9.18",
+    "phantomjs": "^1.9.19",
     "qunitjs": "^1.20.0"
   }
 }

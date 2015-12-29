@@ -192,7 +192,9 @@ var validity = (function(validity) {
     i18n.populateDom = function(root=document) {
         var elms;
         
-        elms = Array.from(root.querySelectorAll('[data-i18n]'));
+        elms = root.querySelectorAll('[data-i18n]');
+        // Convert nodelist to array.
+        elms = [].slice.call(elms);
 
         elms.forEach((v, i, a) => {
             var elm = v,
@@ -203,6 +205,9 @@ var validity = (function(validity) {
             });
         });
     };
+
+    // Populate static pages on load.
+    document.addEventListener('DOMContentLoaded', e => i18n.populateDom());
 
     validity.i18n = i18n;
     return validity;
