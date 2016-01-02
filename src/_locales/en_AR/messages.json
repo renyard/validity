@@ -43,5 +43,35 @@
 	},
 	"opt_default_validator": {
 		"message": "The default validator instance is based on the <a href=\"https://github.com/magnetikonline/dockerhtml5validator\">Docker image</a> by <a href=\"https://github.com/magnetikonline\">Peter Mescalchin</a><br /> and hosted on <a href=\"https://www.digitalocean.com/?refcode=2fe4c8331601\">Digital Ocean</a>. Try Digital Ocean with $10 free credit:"
-	}
+	},
+    "firstrun_install": {
+        "message": "Thanks for installing Validity."
+    },
+    "firstrun_update": {
+        "message": "Validity has been updated to version @version@."
+    },
+    "firstrun_faq": {
+        "message": "FAQ"
+    },
+    "firstrun_q_bug": {
+        "message": "How do I report a bug in Validity?"
+    },
+    "firstrun_a_bug": {
+        "message": "If you think you've found a bug in Validity, please raise an issue on the project's GitHub page at <a href=\"https://github.com/renyard/validity/issues\">https://github.com/renyard/validity/issues</a>."
+    },
+    "firstrun_q_feature": {
+        "message": "How to I request a new feature in Validity?"
+    },
+    "firstrun_a_feature": {
+        "message": "Please raise an issue on the project's <a href=\"https://github.com/renyard/validity/issues\">GitHub page</a>."
+    },
+    "firstrun_q_support": {
+        "message": "How can I support the development of Validity?"
+    },
+    "firstrun_a_support": {
+        "message": "<p>There are several ways that you can contribute to the continued development of Validity:</p><ul><li>If you like the extension, please leave a review on the Chrome Web Store. If you've encountered any problems or would like to make a feature request, please raise an issue on the project's <a href=\"https://github.com/renyard/validity/issues\">GitHub page</a>.</li><li>If you're looking for Cloud hosting, signup to <a href=\"https://www.digitalocean.com/?refcode=2fe4c8331601\">Digital Ocean</a> via the Validity referral, below. Credit earned through referrals will be used to fund the continued running of the validation service.</li><li>Code contributions are also always welcome and appreciated for bug fixes and new features. For a bug fix, please raise a pull request.</li></ul>"
+    },
+    "firstrun_changelog": {
+        "message": "Change Log"
+    }
 }
