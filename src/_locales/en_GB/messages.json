@@ -8,6 +8,12 @@
 	"page_action_title": {
 		"message": "Validate Document"
 	},
+    "net_contacting": {
+        "message": "Contacting validator..."
+    },
+    "net_source_error": {
+        "message": "Could not retrieve source: "
+    },
 	"opt_lang": {
 		"message": "Language"
 	},

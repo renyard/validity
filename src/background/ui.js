@@ -35,7 +35,9 @@ var validity = (function(validity) {
 
 	ui.init = function(tabId) {
 		//	Set up page action on new tabs
-		ui.setPageAction(tabId, 'default', 'Validate Document (Alt+Shift+V)');
+		validity.i18n.get('page_action_title').then(
+			string => ui.setPageAction(tabId, 'default', string)
+		);
 	};
 
 	ui._animate = function (tabId, obj, text) {

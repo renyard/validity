@@ -19,7 +19,9 @@ var validity = (function(validity) {
 	net.getSource = function(tab, callback) {
 		var xhrSource = new XMLHttpRequest();
 		//	Update page action icon
-		validity.ui.setPageAction(tab.id, 'connecting', 'Contacting validator...');
+		validity.i18n.get('net_contacting', string =>
+			validity.ui.setPageAction(tab.id, 'connecting', string)
+		);
 		xhrSource.onreadystatechange = function() {
 			if (xhrSource.readyState === 4) {
 				if (xhrSource.status === 200) {
@@ -27,7 +29,9 @@ var validity = (function(validity) {
 					validity.stats.track('net', 'source', 'success', xhrSource.statusText);
 				}
 				else {
-					validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + xhrValidator.statusText);
+					validity.i18n.get('net_source_error', string => 
+						validity.ui.setPageAction(tab.id, 'error', string + xhrValidator.statusText)
+					);
 					validity.stats.track('net', 'source', 'error', xhrSource.statusText);
 				}
 			}
