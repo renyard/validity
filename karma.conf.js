@@ -15,6 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // PhantomJS requires a polyfill for Promise support.
+      'node_modules/babel-polyfill/dist/polyfill.js',
       'test/mocks.js',
       'test/fixtures/xmlfixtures.js',
       'dist/**/*.js',
