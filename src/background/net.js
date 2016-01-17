@@ -64,7 +64,11 @@ var validity = (function(validity) {
 					if (typeof callback === 'function') {
 						callback(tab, response);
 					}
+
+                    // Analytics.
 					validity.stats.track('net', 'validate', 'success', response.statusText);
+                    validity.stats.track('net', 'validate', 'doctype', response.doctype);
+                    validity.stats.track('net', 'validate', 'default_validator', (validator === DEFAULT_VALIDATOR));
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not contact validator: ' + xhrValidator.statusText);

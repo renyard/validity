@@ -4,7 +4,8 @@
  */
 var validity = (function(validity) {
 	"use strict";
-	var xml = {};
+	var xml = {},
+		suppressed = ['obsolete-interface'];
 
 	//	Public Methods
 
@@ -50,7 +51,7 @@ var validity = (function(validity) {
 			warnings[j].lastLine = parseInt(_getFirstTagName(warningNodes[j], 'line').textContent, 10);
 			warnings[j].lastColumn = parseInt(_getFirstTagName(warningNodes[j], 'col').textContent, 10);
 			warnings[j].message = _getFirstTagName(warningNodes[j], 'message').textContent;
-			warnings[j].messageid = '';
+			warnings[j].messageid = _getFirstTagName(warningNodes[j], 'messageid').textContent;
 			warnings[j].explanation = '';
 			warnings[j].type = 'warn';
 		}
@@ -76,6 +77,15 @@ var validity = (function(validity) {
 			else {
 				return 0;
 			}
+		});
+
+		// Filter out suppressed messages.
+		messages = messages.filter(function(message, index, array) {
+			var id = message.messageid;
+
+			return !suppressed.some(function(v, i, a) {
+				return id === v;
+			});
 		});
 
 		response.messages = messages;
