@@ -15,10 +15,22 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // PhantomJS requires a polyfill for Promise support.
+      'node_modules/babel-polyfill/dist/polyfill.js',
       'test/mocks.js',
       'test/fixtures/xmlfixtures.js',
-      'src/**/*.js',
-      'test/tests.js'
+      'dist/**/*.js',
+      'test/tests.js',
+      {
+          pattern: 'dist/**/*',
+          included: false,
+          watched: true
+      },
+      {
+        pattern: 'test/fixtures/**/*',
+        included: false,
+        watched: false
+      }
     ],
 
 
@@ -30,7 +42,13 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'src/**/*.js': 'coverage'
+        'src/**/*.js': ['babel', 'coverage']
+    },
+
+
+    proxies: {
+        '/_locales/': '/base/dist/_locales/',
+        '/fixtures/': '/base/test/fixtures/'
     },
 
 
@@ -62,7 +80,11 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS', 'Chrome', 'Opera'],
+    browsers: [
+		'PhantomJS',
+		'Chrome',
+		'Opera'
+	],
 
     customLaunchers: {
         ChromeTravis: {
