@@ -20,7 +20,17 @@ module.exports = function(config) {
       'test/mocks.js',
       'test/fixtures/xmlfixtures.js',
       'dist/**/*.js',
-      'test/tests.js'
+      'test/tests.js',
+      {
+          pattern: 'dist/**/*',
+          included: false,
+          watched: true
+      },
+      {
+        pattern: 'test/fixtures/**/*',
+        included: false,
+        watched: false
+      }
     ],
 
 
@@ -33,6 +43,12 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
         'src/**/*.js': ['babel', 'coverage']
+    },
+
+
+    proxies: {
+        '/_locales/': '/base/dist/_locales/',
+        '/fixtures/': '/base/test/fixtures/'
     },
 
 

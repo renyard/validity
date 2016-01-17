@@ -154,72 +154,10 @@ validity.stats.disableAnalytics();
 		_ui,
 		lifecycle = {
 			setup: function() {
-				_XMLHttpRequest = window.XMLHttpRequest;
-				
-				//	Mock XMLHttpRequest
-				window.XMLHttpRequest = function() {
-					var self = this;
+                validity.opts.option('validator', '/fixtures/validresponse.xml');
 
-					this.readyState = 0;
-					this.onreadystatechange = function() {
-						
-					};
-					this.open = function() {
-						
-					};
-					this.send = function() {
-						
-					};
-					this.setRequestHeader = function() {
-						
-					};
-
-					window.setTimeout(function() {
-						self.readyState = 4;
-						self.status = 200;
-						self.responseText = '<!doctype html><html><head><title></title></head><body></body></html>';
-						self.responseXML = document.createDocumentFragment('<uri>http://not.used</uri>');
-						self.responseXML.getElementsByTagName = function(tagName) {
-							var mockNode = {};
-							
-							switch (tagName) {
-								case 'uri':
-									mockNode.textContent = 'http://not.used';
-									break;
-								case 'errorcount':
-									mockNode.textContent = '0';
-									break;
-								case 'doctype' || 'charset':
-									mockNode.textContent = '';
-									break;
-								case 'errorlist':
-									mockNode.length = '0';
-									mockNode[0] = {
-										'getElementsByTagName': function() {
-											return [];
-										}
-									};
-									break;
-								case 'warninglist':
-									mockNode.length = '0';
-									mockNode[0] = {
-										'getElementsByTagName': function() {
-											return [];
-										}
-									};
-									break;
-								default:
-									break;
-							}
-							
-							return mockNode;
-
-						};
-						self.onreadystatechange();
-					}, 500);
-				};
-				
 				_ui = window.validity.ui;
+
 				//	Mock ui functionality
 				window.validity.ui = {
 					setPageAction: function() {
@@ -228,7 +166,6 @@ validity.stats.disableAnalytics();
 				};
 			},
 			teardown: function() {
-				window.XMLHttpRequest = _XMLHttpRequest;
 				window.validity.ui = _ui;
 			}
 		};
@@ -238,13 +175,16 @@ validity.stats.disableAnalytics();
 	asyncTest('getSource', function() {
 		var mockTab = {
 			id: '1',
-			url: 'http://not.used'
+			url: '/fixtures/html/valid.html'
 		};
 		
 		expect(1);
 		
 		_net.getSource(mockTab, function(source) {
-			equal(source, '<!doctype html><html><head><title></title></head><body></body></html>', 'Fetched source code for page');
+			equal(
+                source.replace(/\r?\n|\r/, ''),
+                '<!doctype html><html><head><title></title></head><body></body></html>', 'Fetched source code for page'
+            );
 			start();
 		});
 	});
@@ -252,7 +192,7 @@ validity.stats.disableAnalytics();
 	asyncTest('submitValidation', function() {
 		var mockTab = {
 			id: '2',
-			'url': 'http://not.used'
+			'url': '/fixtures/html/valid.html'
 		};
 		
 		expect(1);
@@ -432,6 +372,17 @@ validity.stats.disableAnalytics();
         deepEqual(validity.i18n._parseLocale('en-AU'), ['en', 'au']);
         deepEqual(validity.i18n._parseLocale('de'), ['de', '']);
     });
+
+	asyncTest('get', function() {
+		expect(1);
+
+		validity.i18n.get('extn_name').then(function(string) {
+			equal(string, 'Validity');
+			start();
+		}, function(){
+            start();
+        });
+	});
 })();
 
 /**
