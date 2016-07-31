@@ -8,7 +8,7 @@ var validity = (function(validity) {
 	 * @const
 	 * @name DEFAULT_VALIDATOR
 	 */
-	var DEFAULT_VALIDATOR = 'https://html.validity.org.uk/check',
+	var DEFAULT_VALIDATOR = 'https://validator.w3.org/check',
 		net = {};
 
 	/**
