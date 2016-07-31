@@ -8,7 +8,7 @@ var validity = (function(validity) {
 	 * @const
 	 * @name DEFAULT_VALIDATOR
 	 */
-	var DEFAULT_VALIDATOR = 'https://html.validity.org.uk/check',
+	var DEFAULT_VALIDATOR = 'https://validator.w3.org/check',
 		net = {};
 
 	/**
@@ -22,16 +22,15 @@ var validity = (function(validity) {
 		validity.ui.setPageAction(tab.id, 'connecting', 'Contacting validator...');
 		xhrSource.onreadystatechange = function() {
 			if (xhrSource.readyState === 4) {
-				if (xhrSource.status === 200) {
-					callback(xhrSource.responseText);
-					validity.stats.track('net', 'source', 'success', xhrSource.statusText);
-				}
-				else {
-					validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + xhrValidator.statusText);
-					validity.stats.track('net', 'source', 'error', xhrSource.statusText);
-				}
+                callback(xhrSource.responseText);
+                validity.stats.track('source', 'success', xhrSource.statusText);
 			}
 		};
+
+        xhrSource.onerror = (e) => {
+            validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + e.message);
+            validity.stats.track('source', 'error', e.message);
+        };
 
 		xhrSource.open('GET', tab.url);
 		xhrSource.send();
@@ -66,13 +65,13 @@ var validity = (function(validity) {
 					}
 
                     // Analytics.
-					validity.stats.track('net', 'validate', 'success', response.statusText);
-                    validity.stats.track('net', 'validate', 'doctype', response.doctype);
-                    validity.stats.track('net', 'validate', 'default_validator', (validator === DEFAULT_VALIDATOR));
+					validity.stats.track('validate', 'success', response.statusText);
+                    validity.stats.track('validate', 'doctype', response.doctype);
+                    validity.stats.track('validate', 'default_validator', (validator === DEFAULT_VALIDATOR).toString());
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not contact validator: ' + xhrValidator.statusText);
-					validity.stats.track('net', 'validate', 'error', response.statusText);
+					validity.stats.track('validate', 'error', response.statusText);
 				}
 			}
 		};
