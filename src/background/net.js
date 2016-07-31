@@ -22,16 +22,15 @@ var validity = (function(validity) {
 		validity.ui.setPageAction(tab.id, 'connecting', 'Contacting validator...');
 		xhrSource.onreadystatechange = function() {
 			if (xhrSource.readyState === 4) {
-				if (xhrSource.status === 200) {
-					callback(xhrSource.responseText);
-					validity.stats.track('source', 'success', xhrSource.statusText);
-				}
-				else {
-					validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + xhrValidator.statusText);
-					validity.stats.track('source', 'error', xhrSource.statusText);
-				}
+                callback(xhrSource.responseText);
+                validity.stats.track('source', 'success', xhrSource.statusText);
 			}
 		};
+
+        xhrSource.onerror = (e) => {
+            validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + e.message);
+            validity.stats.track('source', 'error', e.message);
+        };
 
 		xhrSource.open('GET', tab.url);
 		xhrSource.send();
