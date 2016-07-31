@@ -93,7 +93,7 @@ var validity = (function(validity) {
 		chrome.runtime.onInstalled.addListener(function(details) {
 			var reason = details.reason;
 
-			if (reason === 'install' || reason === 'update') {
+			if (reason === 'install') {
 				chrome.windows.create({
 					'url': '/firstrun.html' + '?' + reason,
 					'focused': true
