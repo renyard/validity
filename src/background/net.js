@@ -24,11 +24,11 @@ var validity = (function(validity) {
 			if (xhrSource.readyState === 4) {
 				if (xhrSource.status === 200) {
 					callback(xhrSource.responseText);
-					validity.stats.track('net', 'source', 'success', xhrSource.statusText);
+					validity.stats.track('source', 'success', xhrSource.statusText);
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not retrieve source: ' + xhrValidator.statusText);
-					validity.stats.track('net', 'source', 'error', xhrSource.statusText);
+					validity.stats.track('source', 'error', xhrSource.statusText);
 				}
 			}
 		};
@@ -66,13 +66,13 @@ var validity = (function(validity) {
 					}
 
                     // Analytics.
-					validity.stats.track('net', 'validate', 'success', response.statusText);
-                    validity.stats.track('net', 'validate', 'doctype', response.doctype);
-                    validity.stats.track('net', 'validate', 'default_validator', (validator === DEFAULT_VALIDATOR));
+					validity.stats.track('validate', 'success', response.statusText);
+                    validity.stats.track('validate', 'doctype', response.doctype);
+                    validity.stats.track('validate', 'default_validator', (validator === DEFAULT_VALIDATOR).toString());
 				}
 				else {
 					validity.ui.setPageAction(tab.id, 'error', 'Could not contact validator: ' + xhrValidator.statusText);
-					validity.stats.track('net', 'validate', 'error', response.statusText);
+					validity.stats.track('validate', 'error', response.statusText);
 				}
 			}
 		};
