@@ -1,3 +1,7 @@
+3.2.0 (31/07/2016)
+* Changed default validator to W3C hosted instance.
+* Fixed #68 error pages (response other then 200) cannot be validated.
+
 3.1.0 (17/01/2016)
 * Suppressed the "This interface to HTML5 document checking is obsolete." message.
 
