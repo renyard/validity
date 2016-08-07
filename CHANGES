@@ -1,3 +1,6 @@
+3.2.1 (07/08/2016)
+* Corrected the default validator in the options UI.
+
 3.2.0 (31/07/2016)
 * Changed default validator to W3C hosted instance.
 * Fixed #68 error pages (response other then 200) cannot be validated.
