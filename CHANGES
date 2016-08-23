@@ -1,3 +1,6 @@
+3.2.2 (23/08/2016)
+* Changed default validator, due to breaking change in W3C hosted instance.
+
 3.2.1 (07/08/2016)
 * Corrected the default validator in the options UI.
 
