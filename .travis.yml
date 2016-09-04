@@ -1,9 +1,5 @@
 language: node_js
 sudo: true
-addons:
-  apt:
-    packages:
-      - google-chrome-stable
 node_js:
   - "stable"
 before_install:
