@@ -2,6 +2,7 @@
 	"name": "__MSG_extn_name__",
 	"version": "@version@",
 	"default_locale": "en_GB",
+	"minimum_chrome_version": "53",
 	"description": "__MSG_extn_description__",
 	"icons": {
 		"16": "icons/16.png",
