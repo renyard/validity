@@ -32,8 +32,7 @@
 			"background/xml.js",
 			"background/ui.js",
 			"background/util.js",
-			"background/opts.js",
-			"background/upgrade.js"
+			"background/opts.js"
 		]
 	},
 	"page_action": {
