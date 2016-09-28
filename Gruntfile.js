@@ -30,27 +30,13 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-        babel: {
-            src: {
-                options: {
-                    sourceMap: true,
-                    presets: ['es2015']
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'src/',
-                    src: '**/*.js',
-                    dest: 'dist/'
-                }]
-            }
-        },
 		copy: {
 			src: {
 				files: [
 					{
 						expand: true,
 						cwd: 'src/',
-						src: ['**', '!**/*.js'],
+						src: '**/*',
 						dest: 'dist/'
 					},
 					{
@@ -118,10 +104,6 @@ module.exports = function(grunt) {
         karma: {
             all: {
                 configFile: 'karma.conf.js'
-			},
-			headless: {
-                configFile: 'karma.conf.js',
-				browsers: ['PhantomJS']
             }
         },
 		compress: {
@@ -150,12 +132,12 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:headless']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:headless']
 			}
 		}
 	});
 
-	grunt.registerTask('build', ['clean', 'babel', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:headless']);
-	grunt.registerTask('default', ['clean', 'babel', 'copy', 'replace', 'jshint', 'karma:all', 'compress']);
+	grunt.registerTask('build', ['clean', 'copy', 'replace']);
+	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'karma']);
+	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma:all', 'compress']);
 };

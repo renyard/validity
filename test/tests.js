@@ -89,7 +89,7 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":"0","messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":0,"warningCount":0,"messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 
 	test('Invalid Document', function() {
@@ -100,10 +100,10 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		deepEqual(response, {"url":"http://www.renyard.net/","doctype":"HTML5","errorCount":"1","messages":[{"lastLine":6,"lastColumn":53,"message":"Bad value X-UA-Compatible for attribute http-equiv on element meta.","messageid":"html5","explanation":"  <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>","type":"error"}],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {"url":"http://www.renyard.net/","doctype":"HTML5","errorCount":1,"warningCount":0,"messages":[{"lastLine":6,"lastColumn":53,"message":"Bad value X-UA-Compatible for attribute http-equiv on element meta.","messageid":"html5","explanation":"  <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>","type":"error"}],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 
-	test('Suppressed Messages', function() {
+	test('Valid Document with Warnings', function() {
 		var parser = new DOMParser(),
 			response,
 			xmlDoc = parser.parseFromString(xmlFixtures.warnings, 'text/xml');
@@ -111,7 +111,38 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":"0","messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {
+				"doctype": "HTML5",
+				"errorCount": 0,
+				"messages": [
+					{
+						"explanation": "",
+						"lastColumn": 17,
+						"lastLine": 25,
+	"message": "A table row was 2 columns wide and exceeded the column count established by the first row (1).",
+	"messageid": "html5",
+						"type": "warn"
+					}
+				],
+				"source": {
+					"encoding": "utf-8",
+					"type": "text/html"
+				},
+				"url": "upload://Form Submission",
+				"warningCount": 1
+			}
+		);
+	});
+
+	test('Suppressed Messages', function() {
+		var parser = new DOMParser(),
+			response,
+			xmlDoc = parser.parseFromString(xmlFixtures.suppressed, 'text/xml');
+
+		expect(1);
+
+		response = validity.xml.parseResponse(xmlDoc);
+		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":0,"warningCount":0,"messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 })();
 
@@ -419,79 +450,5 @@ validity.stats.disableAnalytics();
 		equal(select.getElementsByTagName('option')[0].innerText, 'bar');
 
 		body.removeChild(select);
-	});
-})();
-
-/**
-* Upgrade Tests
-*/
-
-(function() {
-	var _localStorage,
-		lifecycle = {setup: function() {
-			// Clear chrome extension storage.
-			chrome.storage.sync.clear();
-			//	Clear localStorage
-			window.localStorage.clear();
-			//	Mock localStorage.
-			_localStorage = localStorage;
-
-			//	Populate localStorage
-			localStorage['collapseResults'] = 'true';
-			localStorage['disableAnalytics'] = true;
-			localStorage['enableHosts'] = 'www.renyard.net www.amazon.com localhost';
-			localStorage['validateHosts'] = 'www.amazon.com www.bbc.co.uk www.renyard.net';
-			localStorage['validator'] = '';
-
-		}, teardown: function() {
-			//	Reinstate real localStorage.
-			window.localStorage = _localStorage;
-		}};
-
-	module('upgrade', lifecycle);
-
-	test('explodeVersion', function() {
-		var v1_2_3 = validity.upgrade.explodeVersion('1.2.3'),
-			v2_10_0 = validity.upgrade.explodeVersion('2.10.0');
-
-		expect(2);
-
-		deepEqual(v1_2_3, [1, 2, 3]);
-		deepEqual(v2_10_0, [2, 10, 0]);
-	});
-
-	test('isNewVersion', function() {
-		expect(3);
-
-		equal(validity.upgrade.isNewVersion('2.0.0', '1.2.4'), true);
-		equal(validity.upgrade.isNewVersion('2.0.0', '2.0.0'), false);
-		equal(validity.upgrade.isNewVersion('1.2.4', '2.0.0'), false);
-	});
-
-	test('Migrate 1.x to 2.x', function() {
-		var migrated = validity.upgrade.migrate('2.0.0', '2.0.0');
-
-		expect(2);
-
-		equal(migrated, false);
-
-		validity.upgrade.migrate('2.0.0', '1.2.4');
-
-		deepEqual(chrome.storage.sync._getStorage(), {
-			'collapseResults': true,
-			'disableAnalytics': true,
-			'enableHosts': [
-				'www.renyard.net',
-				'www.amazon.com',
-				'localhost'
-			],
-			'validateHosts': [
-				'www.amazon.com',
-				'www.bbc.co.uk',
-				'www.renyard.net'
-			],
-			'validator': '',
-			'version': '2.0.0'
-		});
 	});
 })();
