@@ -15,7 +15,17 @@ var validity = (function(validity) {
 	 * @name parseResponse
 	 */
 	xml.parseResponse = function(xmlDom) {
-		var response = {"url": undefined, "doctype": undefined, "errorCount": undefined, "messages": undefined, "source": {"encoding": undefined, "type": "text/html"}},
+		var response = {
+				"url": undefined,
+				"doctype": undefined,
+				"errorCount": undefined,
+				"warningCount": undefined,
+				"messages": undefined,
+				"source": {
+					"encoding": undefined,
+					"type": "text/html"
+				}
+			},
 			errors = [],
 			warnings = [],
 			messages = [],
@@ -25,7 +35,6 @@ var validity = (function(validity) {
 		response.url = _getFirstTagName(xmlDom, 'uri').textContent;
 		response.doctype = _getFirstTagName(xmlDom, 'doctype').textContent;
 		response.source.encoding = _getFirstTagName(xmlDom, 'charset').textContent;
-		response.errorCount = _getFirstTagName(xmlDom, 'errorcount').textContent;
 
 		errorNodes = _getFirstTagName(xmlDom, 'errorlist').getElementsByTagName('error');
 		warningNodes = _getFirstTagName(xmlDom, 'warninglist').getElementsByTagName('warning');
@@ -56,6 +65,14 @@ var validity = (function(validity) {
 			warnings[j].type = 'warn';
 		}
 
+		// Filter out suppressed messages.
+		errors = errors.filter(_filterSuppressed);
+		warnings = warnings.filter(_filterSuppressed);
+
+		// Count errors and warnings.
+		response.errorCount = errors.length;
+		response.warningCount = warnings.length;
+
 		//	Concatenate errors and warnings onto messages array
 		messages = messages.concat(errors, warnings);
 
@@ -79,21 +96,26 @@ var validity = (function(validity) {
 			}
 		});
 
-		// Filter out suppressed messages.
-		messages = messages.filter(function(message, index, array) {
-			var id = message.messageid;
-
-			return !suppressed.some(function(v, i, a) {
-				return id === v;
-			});
-		});
-
 		response.messages = messages;
 
 		return response;
 	};
 
 	//	Private Functions
+
+	/**
+	 * @private
+	 * @function
+	 * @name _filterSuppressed
+	 */
+	function _filterSuppressed(message, index, array) {
+		var id = message.messageid;
+
+		return !suppressed.some(function(v, i, a) {
+			return id === v;
+		});
+	
+	}
 
 	/**
 	 * @private
