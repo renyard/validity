@@ -89,7 +89,7 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":"0","messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":0,"warningCount":0,"messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 
 	test('Invalid Document', function() {
@@ -100,10 +100,10 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		deepEqual(response, {"url":"http://www.renyard.net/","doctype":"HTML5","errorCount":"1","messages":[{"lastLine":6,"lastColumn":53,"message":"Bad value X-UA-Compatible for attribute http-equiv on element meta.","messageid":"html5","explanation":"  <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>","type":"error"}],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {"url":"http://www.renyard.net/","doctype":"HTML5","errorCount":1,"warningCount":0,"messages":[{"lastLine":6,"lastColumn":53,"message":"Bad value X-UA-Compatible for attribute http-equiv on element meta.","messageid":"html5","explanation":"  <p class=\"helpwanted\"><a href=\"http://validator.w3.org/feedback.html?uri=http%3A%2F%2Fwww.renyard.net%2F;errmsg_id=html5#errormsg\" title=\"Suggest improvements on this error message through our feedback channels\">&#x2709;</a></p>","type":"error"}],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 
-	test('Suppressed Messages', function() {
+	test('Valid Document with Warnings', function() {
 		var parser = new DOMParser(),
 			response,
 			xmlDoc = parser.parseFromString(xmlFixtures.warnings, 'text/xml');
@@ -111,7 +111,38 @@ validity.stats.disableAnalytics();
 		expect(1);
 
 		response = validity.xml.parseResponse(xmlDoc);
-		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":"0","messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
+		deepEqual(response, {
+				"doctype": "HTML5",
+				"errorCount": 0,
+				"messages": [
+					{
+						"explanation": "",
+						"lastColumn": 17,
+						"lastLine": 25,
+	"message": "A table row was 2 columns wide and exceeded the column count established by the first row (1).",
+	"messageid": "html5",
+						"type": "warn"
+					}
+				],
+				"source": {
+					"encoding": "utf-8",
+					"type": "text/html"
+				},
+				"url": "upload://Form Submission",
+				"warningCount": 1
+			}
+		);
+	});
+
+	test('Suppressed Messages', function() {
+		var parser = new DOMParser(),
+			response,
+			xmlDoc = parser.parseFromString(xmlFixtures.suppressed, 'text/xml');
+
+		expect(1);
+
+		response = validity.xml.parseResponse(xmlDoc);
+		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":0,"warningCount":0,"messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
 	});
 })();
 

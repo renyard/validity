@@ -45,6 +45,7 @@
 			message,
 			line,
 			errorCount = response.errorCount,
+			warningCount = response.warningCount,
 			toEval = '';
 
 		messages = response.messages;
@@ -56,7 +57,7 @@
 			return;
 		}
 
-		if (errorCount > 0) {
+		if (errorCount > 0 || warningCount > 0) {
 			//	Collapse results based on option
 			if (console.groupCollapsed && opts.collapseResults) {
 				toEval += 'console.groupCollapsed';
@@ -65,10 +66,19 @@
 				toEval += 'console.group';
 			}
 
-			toEval += '(\'' + errorCount + ' validation error' +
-				//	Add s for plural
-				(errorCount > 1?'s':'') +
-				'\');';
+			if (errorCount > 0) {
+				toEval += '(\'' + errorCount + ' validation error' +
+					//	Add s for plural
+					(errorCount > 1?'s':'') +
+					'\');';
+			}
+			else {
+				toEval += '(\'Document is valid ("' +
+					response.doctype + '") with ' + warningCount + ' warning' +
+					//	Add s for plural
+					(warningCount > 1?'s':'') +
+					'\');';
+			}
 
 			for(var i in messages) {
 				message = messages[i];
