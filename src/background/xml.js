@@ -5,7 +5,12 @@
 var validity = (function(validity) {
 	"use strict";
 	var xml = {},
-		suppressed = ['obsolete-interface'];
+		suppressed = [
+			// Deprecated in favour of nu validator.
+			'obsolete-interface',
+			// Direct input.
+			'W28'
+		];
 
 	//	Public Methods
 
