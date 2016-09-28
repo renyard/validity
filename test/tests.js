@@ -117,14 +117,6 @@ validity.stats.disableAnalytics();
 				"messages": [
 					{
 						"explanation": "",
-						"lastColumn": NaN,
-						"lastLine": NaN,
-						"message": "Using Direct Input mode: UTF-8 character encoding assumed",
-						"messageid": "W28",
-						"type": "warn"
-					},
-					{
-						"explanation": "",
 						"lastColumn": 17,
 						"lastLine": 25,
 	"message": "A table row was 2 columns wide and exceeded the column count established by the first row (1).",
@@ -137,7 +129,7 @@ validity.stats.disableAnalytics();
 					"type": "text/html"
 				},
 				"url": "upload://Form Submission",
-				"warningCount": 2
+				"warningCount": 1
 			}
 		);
 	});
