@@ -1,3 +1,6 @@
+3.3.1 (29/09/2016)
+* Added developer info to options dialog.
+
 3.3.0 (28/09/2016)
 * Warnings are now shown for valid documents. (#70)
 
