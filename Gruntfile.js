@@ -132,12 +132,12 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:headless']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma']
 			}
 		}
 	});
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
 	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'karma']);
-	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma:all', 'compress']);
+	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma', 'compress']);
 };
