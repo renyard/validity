@@ -12,9 +12,25 @@ h1 {
 	padding-left: 52px;
 }
 
-span.help,
-div#about {
+h2 {
+	margin-top: 0;
+}
+
+#mainContent {
+	display: flex;
+	flex-wrap: wrap;
+	padding-bottom: 10px;
+}
+
+#about {
+	padding: 10px;
+	background: #eee;
+	width: 220px;
+}
+
+#smallprint {
 	display: block;
+	clear: both;
 	font-size: 0.8em;
 }
 

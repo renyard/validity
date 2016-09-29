@@ -8,32 +8,51 @@
 	</head>
 	<body>
 		<h1>Validity</h1>
-		<form id="optionsForm">
-			<fieldset>
-				<p><label>Enable for Specified Hosts</label></p>
-				<select id="enableHosts" size="2"></select>
-				<input type="button" id="enableRemove" value="Remove" /><br />
-				<input type="text" id="enableHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
-				<input type="button" id="enableAdd" value="Add" />
 
-				<p><label for="validateHosts">
-					Automatically Validate Hosts
-				</label></p>
-				<select id="validateHosts" size="2"></select>
-				<input type="button" id="validateRemove" value="Remove" /><br />
-				<input type="text" id="validateHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
-				<input type="button" id="validateAdd" value="Add" />
+		<section id="mainContent">
+			<form id="optionsForm">
+				<h2>Options</h2>
+				<fieldset>
+					<p><label>Enable for Specified Hosts</label></p>
+					<select id="enableHosts" size="2"></select>
+					<input type="button" id="enableRemove" value="Remove" /><br />
+					<input type="text" id="enableHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
+					<input type="button" id="enableAdd" value="Add" />
 
-				<p><label for="validator">Custom Validator URL</label></p>
-				<input id="validator" type="text" value="" placeholder="https://html.validity.org.uk/check" />
+					<p><label for="validateHosts">
+						Automatically Validate Hosts
+					</label></p>
+					<select id="validateHosts" size="2"></select>
+					<input type="button" id="validateRemove" value="Remove" /><br />
+					<input type="text" id="validateHost" value="" placeholder="e.g. www.google.com, /^https?\:\/\/dev\./" />
+					<input type="button" id="validateAdd" value="Add" />
 
-				<p><input id="collapse" type="checkbox" />
-				<label for="collapse">Collapse console logged results</label></p>
-			</fieldset>
-			<input id="save" type="submit" value="Save" />
-			<input id="apply" type="button" value="Apply" />
-		</form>
-		<div id="about">
+					<p><label for="validator">Custom Validator URL</label></p>
+					<input id="validator" type="text" value="" placeholder="https://html.validity.org.uk/check" />
+
+					<p><input id="collapse" type="checkbox" />
+					<label for="collapse">Collapse console logged results</label></p>
+				</fieldset>
+				<input id="save" type="submit" value="Save" />
+				<input id="apply" type="button" value="Apply" />
+			</form>
+
+			<div id="about">
+				<h2>About The Developer</h2>
+
+				<p>
+					I'm Ian Renyard, developer of Validity and contract web developer. If you like Validity, why not consider me for your company's next JavaScript project?
+				</p>
+				<p>
+					As well as developing and maintaining Validity, I have over a decade experience in developing web apps and libraries for desktop, mobile and TV platforms, as well as web performance optimisation.
+				</p>
+				<p>
+					For more information, see <a href="https://www.renyard.co.uk">www.renyard.co.uk</a> or email <a href="mailto:hello@renyard.co.uk">hello@renyard.co.uk</a>.
+				</p>
+			</div>
+		</section>
+
+		<div id="smallprint">
 			<p>
 				@copyright@
 			</p>
