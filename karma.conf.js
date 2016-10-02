@@ -79,11 +79,11 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-		'Chrome'
+		'ChromeCI'
 	],
 
     customLaunchers: {
-        ChromeTravis: {
+        ChromeCI: {
             base: 'Chrome',
             flags: ['--no-sandbox']
         }
@@ -93,10 +93,6 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
   };
-
-  if (process.env.TRAVIS) {
-    conf.browsers = ['ChromeTravis'];
-  }
 
   config.set(conf);
 }
