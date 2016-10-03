@@ -138,6 +138,6 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'karma']);
+	grunt.registerTask('test', ['jshint', 'karma']);
 	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma', 'compress']);
 };

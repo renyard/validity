@@ -1,24 +1,17 @@
 image: node:latest
 
 before_script:
-  #!/bin/bash
-  - set -xe
-  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-  - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
-
-  # Update packages
-  - apt-get update -yqqq
-
-  # Install Chrome browser
-  - apt-get install -y google-chrome-stable
-  - export CHROME_BIN=/usr/bin/google-chrome
-
-  # Install Virtual Display emulator
-  - apt-get install -y xvfb
-
+  - ci/install-chrome.sh
   - npm install -g grunt-cli
   - npm install
 
+build:
+  script:
+    - npm build
+
 test:
+  dependencies: build
+  script:
+    - xvfb-run -a npm test
   script:
   - xvfb-run -a npm test

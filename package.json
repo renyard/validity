@@ -3,7 +3,8 @@
   "version": "3.3.1",
   "repository": "https://github.com/renyard/validity",
   "scripts": {
-    "test": "grunt test"
+    "build": "grunt build",
+    "test": "grunt test",
   },
   "devDependencies": {
     "grunt": "~0.4.5",
