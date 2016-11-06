@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
       'test/mocks.js',
       'test/fixtures/xmlfixtures.js',
+      'test/fixtures/jsonfixtures.js',
       'dist/**/*.js',
       'test/tests.js',
       {

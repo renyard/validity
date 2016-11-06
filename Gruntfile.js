@@ -104,7 +104,13 @@ module.exports = function(grunt) {
         karma: {
             all: {
                 configFile: 'karma.conf.js'
-            }
+            },
+			watch: {
+				configFile: 'karma.conf.js',
+				// Disable preprocessors to preserve line numbers in errors.
+				preprocessors: {},
+				reporters: ['progress']
+			}
         },
 		compress: {
 			dist: {
@@ -148,7 +154,7 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:watch']
 			}
 		}
 	});
