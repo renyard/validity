@@ -73,8 +73,7 @@
 					'\');';
 			}
 			else {
-				toEval += '(\'Document is valid ("' +
-					response.doctype + '") with ' + warningCount + ' warning' +
+				toEval += '(\'Document is valid with ' + warningCount + ' warning' +
 					//	Add s for plural
 					(warningCount > 1?'s':'') +
 					'\');';
@@ -96,7 +95,7 @@
 			toEval += 'console.groupEnd();';
 		}
 		else {
-			toEval += 'console.info(\'Document is valid ("' + response.doctype + '")\')';
+			toEval += 'console.info(\'Document is valid \')';
 		}
 
 		eval(toEval);

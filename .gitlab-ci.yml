@@ -1,0 +1,37 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - npm install -g grunt-cli
+  - npm install
+
+build:
+  stage: build
+  script:
+    - grunt build
+  artifacts:
+    paths:
+      - dist/
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - ci/install-chrome.sh
+    - xvfb-run -a grunt test
+
+deploy:
+  stage: deploy
+  dependencies:
+    - build
+    - test
+  environment: production
+  only:
+    - tags
+  script:
+    - grunt deploy

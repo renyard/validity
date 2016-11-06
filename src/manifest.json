@@ -30,10 +30,12 @@
 			"background/controller.js",
 			"background/net.js",
 			"background/stats.js",
+			"background/nu.js",
 			"background/xml.js",
 			"background/ui.js",
 			"background/util.js",
-			"background/opts.js"
+			"background/opts.js",
+			"background/upgrade.js"
 		]
 	},
 	"page_action": {

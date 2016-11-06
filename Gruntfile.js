@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 	// Merge config defaults.
 	config = merge({
 		copyright: 'Copyright 2009 - ' + (new Date()).getFullYear() + ' Ian Renyard',
-		gaid: 'UA-19656504-2'
+		gaid: process.env.GAID || ''
 	}, config);
 
 	grunt.initConfig({
@@ -104,7 +104,13 @@ module.exports = function(grunt) {
         karma: {
             all: {
                 configFile: 'karma.conf.js'
-            }
+            },
+			watch: {
+				configFile: 'karma.conf.js',
+				// Disable preprocessors to preserve line numbers in errors.
+				preprocessors: {},
+				reporters: ['progress']
+			}
         },
 		compress: {
 			dist: {
@@ -122,6 +128,22 @@ module.exports = function(grunt) {
 				]
 			}
 		},
+		webstore_upload: {
+			accounts: {
+				default: {
+					publish: true,
+					client_id: process.env.CLIENT_ID,
+					client_secret: process.env.CLIENT_SECRET,
+					refresh_token: process.env.REFRESH_TOKEN
+				}
+			},
+			extensions: {
+				validity: {
+					appID: "bbicmjjbohdfglopkidebfccilipgeif",
+					zip: "./"
+				}
+			}
+		},
 		watch: {
 			src: {
 				files: [
@@ -132,12 +154,13 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma']
+				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:watch']
 			}
 		}
 	});
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['clean', 'copy', 'replace', 'jshint', 'karma']);
+	grunt.registerTask('test', ['jshint', 'karma']);
 	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma', 'compress']);
+	grunt.registerTask('deploy', ['webstore_upload']);
 };

@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
       'test/mocks.js',
       'test/fixtures/xmlfixtures.js',
+      'test/fixtures/jsonfixtures.js',
       'dist/**/*.js',
       'test/tests.js',
       {
@@ -40,7 +41,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'src/**/*.js': ['coverage']
+        'dist/**/*.js': ['coverage']
     },
 
 
@@ -56,7 +57,11 @@ module.exports = function(config) {
     reporters: ['progress', 'coverage'],
 
     coverageReporter: {
-        dir: 'test/coverage/'
+		reporters: [
+			{
+				type: 'text'
+			}
+		]
     },
 
     // web server port
@@ -79,11 +84,11 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-		'Chrome'
+		'ChromeCI'
 	],
 
     customLaunchers: {
-        ChromeTravis: {
+        ChromeCI: {
             base: 'Chrome',
             flags: ['--no-sandbox']
         }
@@ -93,10 +98,6 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
   };
-
-  if (process.env.TRAVIS) {
-    conf.browsers = ['ChromeTravis'];
-  }
 
   config.set(conf);
 }
