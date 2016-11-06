@@ -1,6 +1,8 @@
-[![Build Status](https://travis-ci.org/renyard/validity.svg?branch=develop)](https://travis-ci.org/renyard/validity)
+[![build status](https://gitlab.com/renyard/validity/badges/develop/build.svg)](https://gitlab.com/renyard/validity/commits/develop)
+[![coverage report](https://gitlab.com/renyard/validity/badges/develop/coverage.svg)](https://gitlab.com/renyard/validity/commits/develop)
 
 # Validity
+
 
 Validity can be used to quickly validate your HTML documents from the address bar.
 

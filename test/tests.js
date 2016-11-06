@@ -1,3 +1,5 @@
+/* jslint esversion: 6, strict: global */
+/* globals _gaq, asyncTest, chrome, deepEqual, document, DOMParser, equal, expect, module, ok, start, test, validity, window, xmlFixtures */
 "use strict";
 
 var _controller,
@@ -81,6 +83,8 @@ validity.stats.disableAnalytics();
 
 	module('xml', lifecycle);
 
+	validity.opts.option('legacy', true);
+
 	test('Valid Document', function() {
 		var parser = new DOMParser(),
 			response,
@@ -143,6 +147,75 @@ validity.stats.disableAnalytics();
 
 		response = validity.xml.parseResponse(xmlDoc);
 		deepEqual(response, {"url":"http://www.bbc.co.uk/","doctype":"-//W3C//DTD XHTML 1.0 Strict//EN","errorCount":0,"warningCount":0,"messages":[],"source":{"encoding":"utf-8","type":"text/html"}});
+	});
+})();
+
+/**
+* Nu Tests
+*/
+(function() {
+	var lifecycle = {setup: () => {}, teardown: () => {}};
+
+	module('Nu', lifecycle);
+
+	test('Valid Document', function() {
+		var response;
+
+		expect(1);
+
+		response = validity.nu.parseResponse(jsonfixtures.valid);
+
+		deepEqual(response, {"url":"https://validator.nu","doctype":"","errorCount":0,"warningCount":0,"messages":[]});
+	});
+
+	test('Valid document with Warnings', function() {
+		var response;
+
+		expect(1);
+
+		response = validity.nu.parseResponse(jsonfixtures.warnings);
+
+		deepEqual(response, {
+			"url": "http://localhost",
+			"doctype": "",
+			"errorCount": 0,
+			"warningCount": 1,
+			"messages": [
+				{
+					"explanation": "",
+					"lastColumn": 37,
+					"lastLine": 78,
+					"message": "Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections.",
+					"messageid": "",
+					"type": "warn"
+				}
+			]
+		});
+	});
+
+	test('Invalid Document', function() {
+		var response;
+
+		expect(1);
+
+		response = validity.nu.parseResponse(jsonfixtures.invalid);
+
+		deepEqual(response, {
+			"url": "http://localhost",
+			"doctype": "",
+			"errorCount": 1,
+			"warningCount": 0,
+			"messages": [
+				{
+					"explanation": "",
+					"lastColumn": 157,
+					"lastLine": 1,
+					"message": "Internal encoding declaration “utf-8” disagrees with the actual encoding of the document (“windows-1252”).",
+					"messageid": "",
+					"type": "error"
+				}
+			]
+		});
 	});
 })();
 
