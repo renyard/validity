@@ -8,7 +8,7 @@ var validity = (function(validity) {
 	 * @const
 	 * @name DEFAULT_VALIDATOR
 	 */
-	var DEFAULT_VALIDATOR = 'https://html.validity.org.uk/check',
+	var DEFAULT_VALIDATOR = 'https://validator.w3.org/nu/',
 		net = {};
 
 	/**
@@ -43,16 +43,23 @@ var validity = (function(validity) {
 	 */
 	net.submitValidation = function(tab, source, callback) {
 		var validator,
+			legacy,
 			xhrValidator = new XMLHttpRequest();
 
 		//	Set validator URL
 		validator = validity.opts.option('validator') || DEFAULT_VALIDATOR;
+		legacy = validity.opts.option('legacy');
 
 		xhrValidator.onreadystatechange = function() {
 			var response;
 			if (xhrValidator.readyState === 4) {
 				if (xhrValidator.status === 200) {
-					response = validity.xml.parseResponse(xhrValidator.responseXML);
+					if (legacy) {
+						response = validity.xml.parseResponse(xhrValidator.responseXML);
+					}
+					else {
+						response = validity.nu.parseResponse(xhrValidator.responseText);
+					}
 					if (response.errorCount > 0) {
 						validity.ui.setPageAction(tab.id, 'invalid', response.errorCount + ' validation errors.');
 					}
@@ -77,9 +84,21 @@ var validity = (function(validity) {
 		};
 
 		//	Open the XHR connection and send data
-		xhrValidator.open('POST', validator);
-		xhrValidator.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xhrValidator.send('output=soap12&fragment='+encodeURIComponent(source));
+		if (legacy) {
+			// Legacy validator uses the SOAP interface.
+			xhrValidator.open('POST', validator);
+			xhrValidator.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhrValidator.send('output=soap12&fragment='+encodeURIComponent(source));
+
+			validity.stats.track('validate', 'legacy-validator');
+		}
+		else {
+			xhrValidator.open('POST', validator + '?out=json');
+			xhrValidator.setRequestHeader('Content-type', 'text/html');
+			xhrValidator.send(source);
+
+			validity.stats.track('validate', 'nu-validator');
+		}
 	};
 
 	validity.net = net;
