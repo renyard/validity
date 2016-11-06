@@ -18,7 +18,8 @@ var validity = (function(validity) {
 		//	Load options
 		window.addEventListener('load', function() {
 			var enableHosts = [],
-				validateHosts = [];
+				validateHosts = [],
+				validatorURL = validity.opts.option('validator');
 
 			//	TODO: abstract select box population into function
 			if (validity.opts.option('enableHosts')) {
@@ -40,9 +41,11 @@ var validity = (function(validity) {
 				}
 			}
 
-			if (validity.opts.option('validator') !== undefined) {
-				validator.value = validity.opts.option('validator');
+			if (validatorURL === undefined || validatorURL.search(/^\s*$/) !== -1) {
 				legacy.disabled = true;
+			}
+			else {
+				validator.value = validity.opts.option('validator');
 			}
 
 			if (validity.opts.option('legacy') !== undefined) {
@@ -78,7 +81,7 @@ var validity = (function(validity) {
 
 		validity.opts.option('enableHosts', enableHosts);
 		validity.opts.option('validateHosts', validateHosts);
-		validity.opts.option('legacy', Legacy.disabled?false:legacy.checked);
+		validity.opts.option('legacy', legacy.disabled?false:legacy.checked);
 		validity.opts.option('validator', validator.value);
 		validity.opts.option('collapseResults', collapse.checked);
 	}
