@@ -12,6 +12,7 @@ var validity = (function(validity) {
 		var validateHosts,
 			hostOpt,
 			validator = $('validator'),
+			legacy = $('legacy'),
 			collapsed = $('collapse');
 
 		//	Load options
@@ -41,6 +42,11 @@ var validity = (function(validity) {
 
 			if (validity.opts.option('validator') !== undefined) {
 				validator.value = validity.opts.option('validator');
+				legacy.disabled = true;
+			}
+
+			if (validity.opts.option('legacy') !== undefined) {
+				legacy.checked = validity.opts.option('legacy');
 			}
 
 			if (validity.opts.option('collapseResults') !== undefined) {
@@ -72,6 +78,7 @@ var validity = (function(validity) {
 
 		validity.opts.option('enableHosts', enableHosts);
 		validity.opts.option('validateHosts', validateHosts);
+		validity.opts.option('legacy', Legacy.disabled?false:legacy.checked);
 		validity.opts.option('validator', validator.value);
 		validity.opts.option('collapseResults', collapse.checked);
 	}
@@ -105,6 +112,9 @@ var validity = (function(validity) {
 	};
 
 	options.init = function() {
+		var validator = $('validator'),
+			legacy = $('legacy');
+
 		enableHostsElm = $('enableHosts');
 		validateHostsElm = $('validateHosts');
 		//validateHost = $('validateHost');
@@ -152,6 +162,17 @@ var validity = (function(validity) {
 				//	Cancel submit
 				e.preventDefault();
 				$('validateAdd').click();
+			}
+		});
+
+		validator.addEventListener('change', function() {
+			var url = validator.value;
+
+			if (url.search(/^\s*$/) !== -1) {
+				legacy.disabled = true;
+			}
+			else {
+				legacy.disabled = false;
 			}
 		});
 

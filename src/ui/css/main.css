@@ -66,6 +66,10 @@ input[type=submit]:active {
 	color: #333;
 }
 
+input[disabled] ~ label {
+	color: gray;
+}
+
 #firstrun .install,
 #firstrun .update {
 	display: none;

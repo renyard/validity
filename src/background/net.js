@@ -73,7 +73,6 @@ var validity = (function(validity) {
 
                     // Analytics.
 					validity.stats.track('validate', 'success', response.statusText);
-                    validity.stats.track('validate', 'doctype', response.doctype);
                     validity.stats.track('validate', 'default_validator', (validator === DEFAULT_VALIDATOR).toString());
 				}
 				else {
