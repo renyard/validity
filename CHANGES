@@ -1,3 +1,6 @@
+4.0.1 (07/11/2016)
+* Fixed analytics ID.
+
 4.0.0 (06/11/2016)
 * Validity now uses the Nu Validator (https://validator.w3.org/nu/) by default.
 * Added option to use legacy W3C Validator for custom instances.

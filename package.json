@@ -1,6 +1,6 @@
 {
   "name": "Validity",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "repository": "https://github.com/renyard/validity",
   "scripts": {
     "test": "grunt test"
