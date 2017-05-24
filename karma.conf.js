@@ -60,6 +60,9 @@ module.exports = function(config) {
 		reporters: [
 			{
 				type: 'text'
+			},
+			{
+				type: 'lcovonly'
 			}
 		]
     },
