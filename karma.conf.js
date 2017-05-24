@@ -18,10 +18,10 @@ module.exports = function(config) {
       'test/mocks.js',
       'test/fixtures/xmlfixtures.js',
       'test/fixtures/jsonfixtures.js',
-      'dist/**/*.js',
+      'src/**/*.js',
       'test/tests.js',
       {
-          pattern: 'dist/**/*',
+          pattern: 'src/**/*',
           included: false,
           watched: true
       },
@@ -41,7 +41,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'dist/**/*.js': ['coverage']
+        'src/**/*.js': ['coverage']
     },
 
 
