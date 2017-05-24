@@ -1,7 +1,7 @@
 .DS_Store
 config.json
 test/lib/qunit
-test/coverage/
 node_modules/
 dist/
 *.zip
+coverage/
