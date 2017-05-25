@@ -7,7 +7,7 @@ addons:
       - google-chrome-stable
   code_climate:
     repo_token:
-      secure: Qg7aU259poF/3O8mPtYqeOe6CI2BGxFSxcjcqCrJ2ZeGc5977cbpBYqdk17QsK3XVbCjF6AglqDh+16PFTF224ygCqPsxH6yhD1tFKDqOG4sxjpshmD8wctnQIzPnjfMOiITIELCttXzzb0XiLJTPyu2zOTCQvgO4dxAp2q9OYc=
+      secure: "Qg7aU259poF/3O8mPtYqeOe6CI2BGxFSxcjcqCrJ2ZeGc5977cbpBYqdk17QsK3XVbCjF6AglqDh+16PFTF224ygCqPsxH6yhD1tFKDqOG4sxjpshmD8wctnQIzPnjfMOiITIELCttXzzb0XiLJTPyu2zOTCQvgO4dxAp2q9OYc="
 node_js:
   - stable
 before_install:
