@@ -86,7 +86,8 @@ module.exports = function(grunt) {
 			},
 		},
 		eslint: {
-			src: ['src/**/*.js']
+			src: ['src/**/*.js'],
+			maxWarnings: -1
 		},
         karma: {
             all: {
@@ -147,7 +148,8 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['eslint', 'karma']);
+	grunt.registerTask('lint', ['eslint']);
+	grunt.registerTask('test', ['karma']);
 	grunt.registerTask('default', ['clean', 'copy', 'replace', 'eslint', 'karma', 'compress']);
 	grunt.registerTask('deploy', ['webstore_upload']);
 };
