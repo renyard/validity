@@ -10,4 +10,4 @@ engines:
         javascript:
 ratings:
   paths:
-    - src/**/*.js
+    - "src/**/*.js"
