@@ -85,21 +85,8 @@ module.exports = function(grunt) {
 				]
 			},
 		},
-		jshint: {
-			all: ['src/**/*.js'],
-			options: {
-				globals: {
-					document: true,
-					window: true,
-					XMLHttpRequest: true,
-					console: true,
-					localStorage: true,
-					chrome: true
-				},
-                elision: true,
-				esnext: true,
-				evil: true
-			},
+		eslint: {
+			src: ['src/**/*.js']
 		},
         karma: {
             all: {
@@ -154,13 +141,13 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'package.json'
 				],
-				tasks: ['clean', 'copy', 'replace', 'jshint', 'karma:watch']
+				tasks: ['clean', 'copy', 'replace', 'eslint', 'karma:watch']
 			}
 		}
 	});
 
 	grunt.registerTask('build', ['clean', 'copy', 'replace']);
-	grunt.registerTask('test', ['jshint', 'karma']);
-	grunt.registerTask('default', ['clean', 'copy', 'replace', 'jshint', 'karma', 'compress']);
+	grunt.registerTask('test', ['eslint', 'karma']);
+	grunt.registerTask('default', ['clean', 'copy', 'replace', 'eslint', 'karma', 'compress']);
 	grunt.registerTask('deploy', ['webstore_upload']);
 };
