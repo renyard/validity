@@ -1,6 +1,4 @@
 .DS_Store
-config.json
-test/lib/qunit
 node_modules/
 dist/
 *.zip

@@ -1,24 +1,13 @@
 {
-	"env": {
-		"browser": true,
-		"es6": true
-	},
-	"globals": {
-		"chrome": true,
-		"validity": true
-	},
-	"rules": {
-		"brace-style": [2, "stroustrup", { "allowSingleLine": true }],
-		"complexity": [2, 6],
-		"curly": 2,
-		"eqeqeq": [2, "allow-null"],
-		"max-statements": [2, 30],
-		"no-shadow-restricted-names": 2,
-		"no-undef": 2,
-		"no-use-before-define": 0,
-		"radix": 2,
-		"semi": [2, "always"],
-		"space-infix-ops": 2,
-		"strict": 0
-	}
+  "extends": "standard",
+  "env": {
+    "browser": true,
+    "node": false
+  },
+  "globals": {
+    "chrome": true
+  },
+  "rules": {
+      "complexity": ["error", 6]
+  }
 }

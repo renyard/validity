@@ -1,13 +1,23 @@
+---
 engines:
-  eslint:
-    enabled: true
-  complexity:
+  csslint:
     enabled: true
   duplication:
     enabled: true
     config:
       languages:
-        javascript:
+      - javascript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
 ratings:
   paths:
-    - "src/**/*.js"
+  - "src/**/*.css"
+  - "src/**/*.js"
+  - "src/**/*.jsx"
+exclude_paths:
+- coverage/
+- dist/
+- test/
+- node_modules/

@@ -1,0 +1,19 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "chrome": 58,
+        "opera": 45
+      },
+      "modules": "umd"
+    }]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul",
+        "rewire"
+      ]
+    }
+  }
+}
