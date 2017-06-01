@@ -40,8 +40,7 @@ gulp.task('watch-tests', (done) => {
   new karma.Server({
     configFile: `${__dirname}/karma.conf.js`,
     autoWatch: true,
-    singleRun: false,
-    browsers: ['Chrome']
+    singleRun: false
   }, done).start()
 })
 
