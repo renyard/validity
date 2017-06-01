@@ -7,13 +7,5 @@
       },
       "modules": "umd"
     }]
-  ],
-  "env": {
-    "test": {
-      "plugins": [
-        "istanbul",
-        "rewire"
-      ]
-    }
-  }
+  ]
 }

@@ -36,6 +36,15 @@ gulp.task('test', (done) => {
   }, done).start()
 })
 
+gulp.task('watch-tests', (done) => {
+  new karma.Server({
+    configFile: `${__dirname}/karma.conf.js`,
+    autoWatch: true,
+    singleRun: false,
+    browsers: ['Chrome']
+  }, done).start()
+})
+
 gulp.task('build', ['clean', 'lint', 'test'], () => {
   let js = gulp.src('src/**/*.js')
     .pipe(sourcemaps.init())

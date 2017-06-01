@@ -20,7 +20,7 @@
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 	"background": {
 		"scripts": [
-      "app.js"
+      "**/*.js"
 		]
 	},
 	"manifest_version": 2

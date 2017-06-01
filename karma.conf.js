@@ -30,6 +30,16 @@ module.exports = function (config) {
       'test/**/*.js': ['babel']
     },
 
+    babelPreprocessor: {
+      options: {
+        plugins: [
+          'istanbul',
+          'rewire'
+        ],
+        sourceMap: 'inline'
+      }
+    },
+
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
