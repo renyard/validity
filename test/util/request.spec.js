@@ -38,6 +38,16 @@ describe('request', function () {
     requests[0].respond(200, {'Content-Type': 'text/html'}, '<!doctype html>')
   })
 
+  it('sends form data', function () {
+    let formData = new FormData()
+
+    request('http://test/url', 'POST', formData)
+      .then(() => {
+        assert.isTrue(xhrMock.send.called)
+        assert.isTrue(xhrMock.send.calledWith(formData))
+      })
+  })
+
   it('catches error on non 2xx response', function (done) {
     request('http://test/url')
       .then(() => {

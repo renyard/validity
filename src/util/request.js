@@ -1,4 +1,4 @@
-export default async function (url, method = 'GET') {
+export default async function (url, method = 'GET', formData) {
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest()
 
@@ -16,6 +16,6 @@ export default async function (url, method = 'GET') {
       reject(xhr.status, xhr.statusText)
     })
 
-    xhr.send()
+    xhr.send(formData)
   })
 }
