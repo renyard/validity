@@ -2,17 +2,20 @@ import request from '../../src/util/request'
 
 describe('request', function () {
   let xhrMock
+  let xhrSetRequestHeaderMock
   let requests = []
 
   beforeEach(function () {
     xhrMock = sinon.useFakeXMLHttpRequest()
     xhrMock.onCreate = (xhr) => {
+      xhrSetRequestHeaderMock = xhr.setRequestHeader = sinon.stub()
       requests.push(xhr)
     }
   })
 
   afterEach(function () {
     xhrMock.restore()
+    xhrSetRequestHeaderMock = undefined
     requests = []
   })
 
@@ -39,13 +42,27 @@ describe('request', function () {
   })
 
   it('sends form data', function () {
-    let formData = new FormData()
+    let payload = new FormData()
 
-    request('http://test/url', 'POST', formData)
+    request('http://test/url', 'POST', {}, payload)
       .then(() => {
         assert.isTrue(xhrMock.send.called)
-        assert.isTrue(xhrMock.send.calledWith(formData))
+        assert.isTrue(xhrMock.send.calledWith(payload))
+        assert.isFalse(xhrSetRequestHeaderMock.called)
       })
+  })
+
+  it('sets request headers', function () {
+    let headers = {
+      'Content-Type': 'text/html'
+    }
+
+    request('http://test/url', 'POST', headers)
+
+    assert.isTrue(xhrSetRequestHeaderMock.calledWith(
+      'Content-Type',
+      'text/html'
+    ))
   })
 
   it('catches error on non 2xx response', function (done) {
