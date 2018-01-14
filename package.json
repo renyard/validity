@@ -4,7 +4,7 @@
   "repository": "https://github.com/renyard/validity",
   "license": "Apache-2.0",
   "scripts": {
-    "test": "NODE_ENV=test gulp test",
+    "test": "NODE_ENV=test karma start",
     "lint": "gulp lint"
   },
   "devDependencies": {
