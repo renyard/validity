@@ -50,5 +50,9 @@ describe('nu', function () {
     it('is a function', function () {
       assert.isFunction(transformResults)
     })
+
+    it('returns results', function () {
+      assert(transformResults({}), {})
+    })
   })
 })
