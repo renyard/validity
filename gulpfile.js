@@ -9,7 +9,6 @@ const gulp = require('gulp')
 const merge = require('merge-stream')
 const rmdir = require('rmdir')
 const karma = require('karma')
-const eslint = require('gulp-eslint')
 const sourcemaps = require('gulp-sourcemaps')
 const babel = require('gulp-babel')
 const zip = require('gulp-zip')
@@ -20,13 +19,6 @@ gulp.task('clean', (done) => {
   } else {
     done()
   }
-})
-
-gulp.task('lint', () => {
-  return gulp.src('src/**/*.js')
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
 })
 
 gulp.task('test', (done) => {

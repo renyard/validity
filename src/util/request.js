@@ -7,7 +7,7 @@ export default async function (url, method = 'GET', headers = {}, payload) {
     Object.keys(headers)
       .forEach(
         (name) =>
-        xhr.setRequestHeader(name, headers[name])
+          xhr.setRequestHeader(name, headers[name])
       )
 
     xhr.addEventListener('load', () => {
