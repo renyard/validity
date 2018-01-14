@@ -2,12 +2,14 @@ import request from '../../src/util/request'
 
 describe('request', function () {
   let xhrMock
+  let xhrSendMock
   let xhrSetRequestHeaderMock
   let requests = []
 
   beforeEach(function () {
     xhrMock = sinon.useFakeXMLHttpRequest()
     xhrMock.onCreate = (xhr) => {
+      xhrSendMock = xhr.send = sinon.stub()
       xhrSetRequestHeaderMock = xhr.setRequestHeader = sinon.stub()
       requests.push(xhr)
     }
@@ -15,6 +17,7 @@ describe('request', function () {
 
   afterEach(function () {
     xhrMock.restore()
+    xhrSendMock = undefined
     xhrSetRequestHeaderMock = undefined
     requests = []
   })
@@ -41,15 +44,23 @@ describe('request', function () {
     requests[0].respond(200, {'Content-Type': 'text/html'}, '<!doctype html>')
   })
 
-  it('sends form data', function () {
+  it('sends form data', function (done) {
     let payload = new FormData()
 
     request('http://test/url', 'POST', {}, payload)
       .then(() => {
-        assert.isTrue(xhrMock.send.called)
-        assert.isTrue(xhrMock.send.calledWith(payload))
+        assert.isTrue(xhrSendMock.called)
+        assert.isTrue(xhrSendMock.calledWith(payload))
         assert.isFalse(xhrSetRequestHeaderMock.called)
+        done()
       })
+      .catch((err) => {
+        console.log(err)
+        assert.fail()
+        done()
+      })
+
+    requests[0].respond(200, {})
   })
 
   it('sets request headers', function () {
