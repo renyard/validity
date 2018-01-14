@@ -8,7 +8,7 @@ addons:
   code_climate:
     repo_token: 744997f3d4d04516af86d4adbcdb2ac8d3e14aac3086952bcf00902260f4e1e7
 node_js:
-  - stable
+  - 8
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
