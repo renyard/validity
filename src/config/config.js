@@ -1,25 +1,23 @@
 import storage from './storage'
+import request from 'superagent'
 
-let config
+let defaults
 
-function init () {
-  config = storage.get()
-}
-
-export function get (key) {
-  if (config === undefined) {
-    init()
+export async function get (key) {
+  if (defaults === undefined) {
+    let configs = await request('GET', '../../config.json')
+    defaults = JSON.parse(configs)
   }
 
-  return config[key]
+  let result = await storage.get(key)
+
+  if (result === undefined) {
+    return defaults[key]
+  } else {
+    return result
+  }
 }
 
-export function set (key, value) {
-  if (config === undefined) {
-    init()
-  }
-
-  config[key] = value
-
-  storage.set(config)
+export async function set (key, value) {
+  storage.set(defaults)
 }

@@ -1,16 +1,21 @@
-import {default as config, get, set} from 'config'
+import {assert} from 'chai'
+import sinon from 'sinon'
+import {get, set, __RewireAPI__ as config} from '../../src/config/config'
 
 describe('config', function () {
   let storageStub = {
-    get: sinon.stub().returns({foo: 'bar'}),
+    get: sinon.stub(),
     set: sinon.stub()
   }
-  let initSpy = sinon.spy(config.__get__('init'))
+
+  storageStub.get.returns(undefined)
+  storageStub.get.withArgs('userkey').returns('uservalue')
+
+  let defaults = '{"foo": "bar"}'
 
   beforeEach(() => {
     config.__set__('storage', storageStub)
-    config.__set__('init', initSpy)
-    config.__set__('config', undefined)
+    config.__set__('request', async () => defaults)
   })
 
   afterEach(() => {
@@ -18,20 +23,22 @@ describe('config', function () {
     config.__ResetDependency__('init')
   })
 
-  it('default', function () {
+  it('exports get and set functions', function () {
     assert.isFunction(get)
+    assert.isFunction(set)
   })
 
-  it('get', function () {
-    assert.equal(get('foo'), 'bar')
-    assert.equal(get('foo'), 'bar')
-    assert.equal(initSpy.callCount, 1)
+  it('get default', async function () {
+    assert.equal(await get('foo'), 'bar')
+  })
+
+  it('get user config', async () => {
+    assert.equal(await get('userkey'), 'uservalue')
   })
 
   it('set', function () {
-    set('key', 'value')
-    set('key', 'value')
+    set('newkey1', 'newvalue1')
+    set('newkey2', 'newvalue2')
     assert.equal(storageStub.set.callCount, 2)
-    assert.equal(config.__get__('config').key, 'value')
   })
 })

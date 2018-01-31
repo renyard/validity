@@ -1,3 +1,5 @@
+import {assert} from 'chai'
+import sinon from 'sinon'
 import {default as storage, get, set} from '../../src/config/storage'
 
 describe('storage', function () {
