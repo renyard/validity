@@ -1,4 +1,4 @@
-import request from '../../util/request'
+import request from 'superagent'
 import config from '../../config/config'
 
 export default async function (htmlFile) {

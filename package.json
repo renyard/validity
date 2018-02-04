@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run test:unit",
     "lint": "standard",
-    "test:unit": "NODE_ENV=test mocha --compilers babel-core/register test/**/*.spec.js"
+    "test:coverage": "nyc npm run test:unit",
+    "test:unit": "cross-env NODE_ENV=test karma start'"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -16,6 +17,7 @@
     "babel-plugin-rewire": "^1.1.0",
     "babel-preset-env": "^1.5.1",
     "chai": "^4.0.0",
+    "cross-env": "^5.1.3",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.3.0",
@@ -37,8 +39,12 @@
     "karma-mocha": "^1.3.0",
     "karma-opera-launcher": "^1.0.0",
     "karma-sinon": "^1.0.5",
+    "karma-webpack": "^2.0.9",
     "merge-stream": "^1.0.1",
     "mocha": "^5.0.0",
+    "nyc": "^11.4.1",
+    "rewire": "^3.0.2",
+    "rewire-webpack": "^1.0.1",
     "rmdir": "^1.2.0",
     "sinon": "^4.1.5",
     "standard": "^10.0.3",

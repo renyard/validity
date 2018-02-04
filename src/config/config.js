@@ -21,3 +21,5 @@ export async function get (key) {
 export async function set (key, value) {
   storage.set(defaults)
 }
+
+export default {get, set}

@@ -19,3 +19,5 @@ export function set (key, value) {
 
   return provider.set(key, value)
 }
+
+export default {get, set}
