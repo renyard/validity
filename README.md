@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/renyard/validity.svg?branch=develop)](https://travis-ci.org/renyard/validity)
 [![Code Climate](https://codeclimate.com/github/renyard/validity/badges/gpa.svg)](https://codeclimate.com/github/renyard/validity)
 [![Test Coverage](https://codeclimate.com/github/renyard/validity/badges/coverage.svg)](https://codeclimate.com/github/renyard/validity/coverage)
+[![Open Source Helpers](https://www.codetriage.com/renyard/validity/badges/users.svg)](https://www.codetriage.com/renyard/validity)
 
 # Validity
 
