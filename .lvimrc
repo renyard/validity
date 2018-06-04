@@ -1,0 +1,2 @@
+let b:ale_linters = {'javascript': ['standard']}
+let g:coverage_json_report_path = 'coverage/coverage-final.json'

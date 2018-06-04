@@ -1,4 +1,4 @@
-import storage from './provider/chromiumStorage'
+const storage = require('./provider/chromiumStorage')
 
 let provider
 
@@ -8,16 +8,16 @@ function init () {
   }
 }
 
-export function get (key) {
+const get = (key) => {
   init()
 
   return provider.get(key)
 }
 
-export function set (key, value) {
+const set = (key, value) => {
   init()
 
   return provider.set(key, value)
 }
 
-export default {get, set}
+module.exports = {get, set}

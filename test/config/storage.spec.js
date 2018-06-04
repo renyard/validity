@@ -1,45 +1,41 @@
-import {assert} from 'chai'
-import sinon from 'sinon'
-import {default as storage, get, set} from '../../src/config/storage'
+const td = require('testdouble')
 
 describe('storage', function () {
-  let providerStub = {
-    get: sinon.stub(),
-    set: sinon.stub()
-  }
+  let storage
+  let providerStub
 
   beforeEach(() => {
-    storage.__set__('storage', providerStub)
+    providerStub = td.replace('../../src/config/provider/chromiumStorage')
+    storage = require('../../src/config/storage')
   })
 
-  afterEach(() => {
-    storage.__ResetDependency__('chromium')
-    storage.__set__('provider', undefined)
-  })
+  afterEach(() => td.reset())
 
   it('get on single call', function () {
-    get('key')
-    assert.isTrue(providerStub.get.calledWith('key'))
+    storage.get('key')
+
+    td.verify(providerStub.get('key'))
   })
 
   it('get on multiple calls', function () {
-    get('key')
-    assert.isTrue(providerStub.get.calledWith('key'))
+    storage.get('key')
+    storage.get('key2')
 
-    get('key2')
-    assert.isTrue(providerStub.get.calledWith('key2'))
+    td.verify(providerStub.get('key'))
+    td.verify(providerStub.get('key2'))
   })
 
   it('set on single call', function () {
-    set('key', 'value')
-    assert.isTrue(providerStub.set.calledWith('key', 'value'))
+    storage.set('key', 'value')
+
+    td.verify(providerStub.set('key', 'value'))
   })
 
   it('set on multiple calls', function () {
-    set('key', 'value')
-    assert.isTrue(providerStub.set.calledWith('key', 'value'))
+    storage.set('key', 'value')
+    storage.set('key2', 'value2')
 
-    set('key2', 'value2')
-    assert.isTrue(providerStub.set.calledWith('key', 'value'))
+    td.verify(providerStub.set('key', 'value'))
+    td.verify(providerStub.set('key2', 'value2'))
   })
 })

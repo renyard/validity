@@ -1,44 +1,40 @@
-import {assert} from 'chai'
-import sinon from 'sinon'
-import {get, set, __RewireAPI__ as config} from '../../src/config/config'
+const assert = require('assert')
+const td = require('testdouble')
 
 describe('config', function () {
-  let storageStub = {
-    get: sinon.stub(),
-    set: sinon.stub()
-  }
-
-  storageStub.get.returns(undefined)
-  storageStub.get.withArgs('userkey').returns('uservalue')
-
-  let defaults = '{"foo": "bar"}'
+  let config
+  let storageStub
 
   beforeEach(() => {
-    config.__set__('storage', storageStub)
-    config.__set__('request', async () => defaults)
+    storageStub = td.replace('../../src/config/storage')
+    td.when(storageStub.get('userkey')).thenReturn('uservalue')
+    td.replace('../../src/config/defaults.json', {'foo': 'bar', 'baz': 'qux'})
+    config = require('../../src/config/config')
   })
 
   afterEach(() => {
-    config.__ResetDependency__('storage')
-    config.__ResetDependency__('init')
+    td.reset()
   })
 
   it('exports get and set functions', function () {
-    assert.isFunction(get)
-    assert.isFunction(set)
+    assert(typeof config.get === 'function')
+    assert(typeof config.set === 'function')
   })
 
   it('get default', async function () {
-    assert.equal(await get('foo'), 'bar')
+    assert.strictEqual(await config.get('foo'), 'bar')
+    assert.strictEqual(await config.get('baz'), 'qux')
   })
 
   it('get user config', async () => {
-    assert.equal(await get('userkey'), 'uservalue')
+    assert.strictEqual(await config.get('userkey'), 'uservalue')
   })
 
   it('set', function () {
-    set('newkey1', 'newvalue1')
-    set('newkey2', 'newvalue2')
-    assert.equal(storageStub.set.callCount, 2)
+    config.set('newkey1', 'newvalue1')
+    config.set('newkey2', 'newvalue2')
+
+    td.verify(storageStub.set('newkey1', 'newvalue1'))
+    td.verify(storageStub.set('newkey2', 'newvalue2'))
   })
 })

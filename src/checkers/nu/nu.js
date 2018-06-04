@@ -1,20 +1,24 @@
-import request from 'superagent'
-import config from '../../config/config'
+const request = require('superagent')
+const config = require('../../config/config')
 
-export default async function (htmlFile) {
+const transformResults = (results) => {
+  return results
+}
+
+module.exports = async function (htmlFile) {
   let results
-  let validatorUrl = config.get('validatorUrl')
+  let validatorUrl = await config.get('validatorUrl')
   let formData = new FormData()
 
   formData.append('file', htmlFile)
 
-  results = await request(validatorUrl, 'POST', {}, formData)
-  results = JSON.parse(results)
-  results = transformResults(results)
+  try {
+    let {body} = await request('POST', validatorUrl, {}, formData)
+    results = JSON.parse(body)
+    results = transformResults(results)
+  } catch (e) {
+    throw e
+  }
 
-  return results
-}
-
-function transformResults (results) {
   return results
 }

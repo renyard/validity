@@ -1,5 +1,5 @@
-module.exports ={
-  entry: './src/config/config.js',
+module.exports = {
+  entry: './src/app.js',
   output: {
     filename: 'dist/bundle.js'
   }

@@ -1,12 +1,10 @@
-import storage from './storage'
-import request from 'superagent'
+const storage = require('./storage')
 
 let defaults
 
-export async function get (key) {
+const get = async (key) => {
   if (defaults === undefined) {
-    let configs = await request('GET', '../../config.json')
-    defaults = JSON.parse(configs)
+    defaults = require('./defaults.json')
   }
 
   let result = await storage.get(key)
@@ -18,8 +16,6 @@ export async function get (key) {
   }
 }
 
-export async function set (key, value) {
-  storage.set(defaults)
-}
+const set = (key, value) => storage.set(key, value)
 
-export default {get, set}
+module.exports = {get, set}

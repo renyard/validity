@@ -2,15 +2,9 @@
   "presets": [
     ["env", {
       "targets": {
-        "chrome": 58,
-        "opera": 45
+        "chrome": 64
       },
       "modules": "umd"
     }]
-  ],
-  "env": {
-    "test": {
-      "plugins": ["istanbul", "rewire"]
-    }
-  }
+  ]
 }

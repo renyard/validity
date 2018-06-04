@@ -1,14 +1,15 @@
-import {assert} from 'chai'
-import app from '../src/app'
+const assert = require('assert')
+
+const app = require('../src/app')
 
 describe('app', () => {
   it('exists', () => {
-    assert.isOk(app)
+    assert.notEqual(app, undefined)
   })
 
   it('runs', () => {
     let result = app()
 
-    assert.isUndefined(result)
+    assert.strictEqual(result, undefined)
   })
 })

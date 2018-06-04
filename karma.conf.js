@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 // Karma configuration
 // Generated on Sat May 27 2017 16:55:20 GMT+0100 (BST)
 
@@ -15,8 +13,8 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/**/*.js',
-      'test/**/*.spec.js'
+      'src/config/config.js',
+      'test/config/config.spec.js'
     ],
 
     // list of files to exclude
@@ -26,18 +24,12 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['babel'],
-      'test/**/*.js': ['babel']
+      'src/config/config.js': ['webpack'],
+      'test/config/config.spec.js': ['webpack']
     },
 
-    babelPreprocessor: {
-      options: {
-        plugins: [
-          'istanbul',
-          'rewire'
-        ],
-        sourceMap: 'inline'
-      }
+    webpack: {
+      entry: './src/app.js'
     },
 
     // test results reporter to use
