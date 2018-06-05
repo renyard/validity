@@ -4,42 +4,67 @@ const FormData = require('form-data')
 const request = require('superagent')
 const mockSuperagent = require('superagent-mock')
 
+const assertThrowsAsync = async (func, args) => {
+  let f = () => {}
+
+  try {
+    await func(...args)
+  } catch (e) {
+    f = () => { throw e }
+  } finally {
+    assert.throws(f)
+  }
+}
+
 describe('nu', function () {
-  describe('api', function () {
-    let nu
-    let xhr
-    let configMock
-    let requestMock
+  let nu
+  let configMock
+  let requestMock
 
-    beforeEach(() => {
-      global.FormData = FormData
-      configMock = td.replace('../../../src/config/config')
+  beforeEach(() => {
+    global.FormData = FormData
+    configMock = td.replace('../../../src/config/config')
 
-      td.when(configMock.get('validatorUrl')).thenResolve('https://validator/url')
+    td.when(configMock.get('validatorUrl')).thenResolve('https://validator/url')
 
-      requestMock = mockSuperagent(request, [{
-        pattern: 'https://validator/url',
-        fixtures: (match, params, headers, context) => {
-          return '{}'
-        },
-        post: (match, data) => ({body: data})
-      }])
+    nu = require('../../../src/checkers/nu/nu.js')
+  })
 
-      nu = require('../../../src/checkers/nu/nu.js')
-    })
-
-    afterEach(() => {
-      delete global.FormData
+  afterEach(() => {
+    delete global.FormData
+    if (requestMock !== undefined) {
       requestMock.unset()
-    })
+    }
+  })
 
-    it('exports a function', () => {
-      assert(typeof nu === 'function')
-    })
+  it('exports a function', () => {
+    assert(typeof nu === 'function')
+  })
 
-    it('calls request with URL and form data', async () => {
-      const file = Buffer.from([''])
-      const results = await nu(file)
-    })
+  it('calls request with URL and form data', async () => {
+    requestMock = mockSuperagent(request, [{
+      pattern: 'https://validator/url',
+      fixtures: (match, params, headers, context) => {
+        return '{}'
+      },
+      post: (match, data) => ({body: data})
+    }])
+
+    const file = Buffer.from([''])
+    const results = await nu(file)
+
+    assert.deepEqual(results, {})
+  })
+
+  it('throws on failed request', async () => {
+    requestMock = mockSuperagent(request, [{
+      pattern: 'https://validator/url',
+      fixtures: (match, params, headers, context) => {
+        throw new Error(404)
+      }
+    }])
+
+    const file = Buffer.from([''])
+    await assertThrowsAsync(nu, [file])
   })
 })
