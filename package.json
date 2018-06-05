@@ -4,10 +4,8 @@
   "repository": "https://github.com/renyard/validity",
   "license": "Apache-2.0",
   "scripts": {
-    "test": "npm run test:unit",
-    "lint": "standard",
+    "test": "nyc --reporter=json --reporter=lcov --reporter=text npm run test:unit",
     "precommit": "lint-staged",
-    "test:coverage": "nyc --reporter=json --reporter=text npm run test:unit",
     "test:unit": "mocha 'test/**/*.spec.js'"
   },
   "devDependencies": {
@@ -59,7 +57,7 @@
     ]
   },
   "lint-staged": {
-    "*.{js,json,css,md}": [
+    "*.{js}": [
       "standard --fix",
       "git add"
     ]
