@@ -2,39 +2,29 @@ image: node:8
 
 cache:
   untracked: true
-  key: "$CI_COMMIT_REF_NAME"
+  key: "$CI_COMMIT_REF_SLUG"
   paths:
     - node_modules/
 
 stages:
-  - install
   - tests
   - tag
 
-"Install":
-  stage: install
-  script:
+before_script:
   - npm install
 
 "Unit Tests":
   stage: tests
-  dependencies:
-    - "Install"
   script:
     - npm test
 
 "Integration Tests":
   stage: tests
-  dependencies:
-    - "Install"
   script:
     - ":"
 
 "Tag Release":
   stage: tag
-  dependencies:
-    - "Unit Tests"
-    - "Integration Tests"
   only:
     - master
   script:
