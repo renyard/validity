@@ -1,0 +1,23 @@
+image: node:8
+
+cache:
+  untracked: true
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - node_modules/
+
+stages:
+  - install
+  - test
+
+install:
+  stage: install
+  script:
+  - npm install
+
+test:
+  stage: test
+  dependencies:
+    - install
+  script:
+    - npm test

@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/renyard/validity.svg?branch=develop)](https://travis-ci.org/renyard/validity)
-[![Code Climate](https://codeclimate.com/github/renyard/validity/badges/gpa.svg)](https://codeclimate.com/github/renyard/validity)
-[![Test Coverage](https://codeclimate.com/github/renyard/validity/badges/coverage.svg)](https://codeclimate.com/github/renyard/validity/coverage)
+[![pipeline status](https://gitlab.com/renyard/validity/badges/master/pipeline.svg)](https://gitlab.com/renyard/validity/commits/master)
+[![coverage report](https://gitlab.com/renyard/validity/badges/master/coverage.svg)](https://gitlab.com/renyard/validity/commits/master)
 
 # Validity
 
