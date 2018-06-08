@@ -9,7 +9,7 @@ describe('config', function () {
     storageStub = td.replace('../../src/config/storage')
     td.when(storageStub.get('userkey')).thenReturn('uservalue')
     td.replace('../../src/config/defaults.json', {'foo': 'bar', 'baz': 'qux'})
-    config = require('../../src/config/config')
+    config = require('../../src/config')
   })
 
   afterEach(() => {

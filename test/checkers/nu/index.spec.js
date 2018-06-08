@@ -16,18 +16,18 @@ const assertThrowsAsync = async (func, args) => {
   }
 }
 
-describe('nu', function () {
+describe('checkers/nu', function () {
   let nu
   let configMock
   let requestMock
 
   beforeEach(() => {
     global.FormData = FormData
-    configMock = td.replace('../../../src/config/config')
+    configMock = td.replace('../../../src/config')
 
     td.when(configMock.get('validatorUrl')).thenResolve('https://validator/url')
 
-    nu = require('../../../src/checkers/nu/nu.js')
+    nu = require('../../../src/checkers/nu')
   })
 
   afterEach(() => {

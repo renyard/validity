@@ -1,9 +1,6 @@
 const request = require('superagent')
-const config = require('../../config/config')
-
-const transformResults = (results) => {
-  return results
-}
+const config = require('../../config')
+const transform = require('./transform')
 
 module.exports = async function (htmlFile) {
   let results
@@ -15,7 +12,7 @@ module.exports = async function (htmlFile) {
   try {
     let {body} = await request('POST', validatorUrl, {}, formData)
     results = JSON.parse(body)
-    results = transformResults(results)
+    results = transform(results)
   } catch (e) {
     throw e
   }
