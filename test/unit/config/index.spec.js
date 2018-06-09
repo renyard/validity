@@ -6,10 +6,10 @@ describe('config', function () {
   let storageStub
 
   beforeEach(() => {
-    storageStub = td.replace('../../src/config/storage')
+    storageStub = td.replace('../../../src/config/storage')
     td.when(storageStub.get('userkey')).thenReturn('uservalue')
-    td.replace('../../src/config/defaults.json', {'foo': 'bar', 'baz': 'qux'})
-    config = require('../../src/config')
+    td.replace('../../../src/config/defaults.json', {'foo': 'bar', 'baz': 'qux'})
+    config = require('../../../src/config')
   })
 
   afterEach(() => {

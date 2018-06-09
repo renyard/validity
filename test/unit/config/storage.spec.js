@@ -5,8 +5,8 @@ describe('config/storage', function () {
   let providerStub
 
   beforeEach(() => {
-    providerStub = td.replace('../../src/config/provider/chromiumStorage')
-    storage = require('../../src/config/storage')
+    providerStub = td.replace('../../../src/config/provider/chromiumStorage')
+    storage = require('../../../src/config/storage')
   })
 
   afterEach(() => td.reset())

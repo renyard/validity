@@ -1,4 +1,6 @@
-// import config from './config/config.js'
-// import nu from './checkers/nu/nu.js'
+const checkers = require('./checkers')
 
-module.exports = () => {}
+module.exports = async (file) => {
+  const results = await checkers(file)
+  return results
+}

@@ -24,13 +24,13 @@ describe('checkers/nu', function () {
 
   beforeEach(() => {
     global.FormData = FormData
-    configMock = td.replace('../../../src/config')
-    transformMock = td.replace('../../../src/checkers/nu/transform')
+    configMock = td.replace('../../../../src/config')
+    transformMock = td.replace('../../../../src/checkers/nu/transform')
 
     td.when(configMock.get('validatorUrl')).thenResolve('https://validator/url')
     td.when(transformMock({messages: []})).thenReturn([])
 
-    nu = require('../../../src/checkers/nu')
+    nu = require('../../../../src/checkers/nu')
   })
 
   afterEach(() => {

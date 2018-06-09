@@ -4,7 +4,7 @@ describe('config/provider/chromiumStorage', () => {
   let chromiumStorage
 
   beforeEach(() => {
-    chromiumStorage = require('../../../src/config/provider/chromiumStorage')
+    chromiumStorage = require('../../../../src/config/provider/chromiumStorage')
   })
 
   it('exports get and set methods', () => {
