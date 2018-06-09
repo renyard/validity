@@ -1,3 +1,3 @@
 const console = require('./console')
 
-module.exports = (results) => Promise.all([console(results)])
+module.exports = (tabId, results) => Promise.all([console(tabId, results)])

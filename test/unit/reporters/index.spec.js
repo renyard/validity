@@ -14,7 +14,7 @@ describe('reporters', () => {
   })
 
   it('passes results to reporters', () => {
-    reporters([])
-    td.verify(consoleStub([]))
+    reporters(1, [])
+    td.verify(consoleStub(1, []))
   })
 })
