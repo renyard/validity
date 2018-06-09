@@ -1,6 +1,6 @@
 const assert = require('assert')
 
-describe('chromiumStorage', () => {
+describe('config/provider/chromiumStorage', () => {
   let chromiumStorage
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
 const td = require('testdouble')
 
-describe('storage', function () {
+describe('config/storage', function () {
   let storage
   let providerStub
 

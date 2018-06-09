@@ -18,19 +18,23 @@ const assertThrowsAsync = async (func, args) => {
 
 describe('checkers/nu', function () {
   let nu
-  let configMock
   let requestMock
+  let configMock
+  let transformMock
 
   beforeEach(() => {
     global.FormData = FormData
     configMock = td.replace('../../../src/config')
+    transformMock = td.replace('../../../src/checkers/nu/transform')
 
     td.when(configMock.get('validatorUrl')).thenResolve('https://validator/url')
+    td.when(transformMock({messages: []})).thenReturn([])
 
     nu = require('../../../src/checkers/nu')
   })
 
   afterEach(() => {
+    td.reset()
     delete global.FormData
     if (requestMock !== undefined) {
       requestMock.unset()
@@ -45,7 +49,7 @@ describe('checkers/nu', function () {
     requestMock = mockSuperagent(request, [{
       pattern: 'https://validator/url',
       fixtures: (match, params, headers, context) => {
-        return '{}'
+        return '{"messages": []}'
       },
       post: (match, data) => ({body: data})
     }])
