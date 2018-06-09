@@ -7,25 +7,33 @@ cache:
     - node_modules/
 
 stages:
-  - tests
-  - tag
+  - Tests
+  - Tag
+  - Package
 
 before_script:
   - npm install
 
 "Unit Tests":
-  stage: tests
+  stage: Tests
   script:
     - npm test
 
 "Integration Tests":
-  stage: tests
+  stage: Tests
   script:
     - ":"
 
 "Tag Release":
-  stage: tag
+  stage: Tag
   only:
     - master
   script:
     - VER=$(node -p -e "require('./package.json').version") git rev-parse v$VER || git tag v$VER
+
+"Package":
+  stage: Package
+  only: master
+  script:
+    - npm install
+    - npm package

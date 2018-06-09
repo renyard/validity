@@ -1,8 +1,8 @@
 {
-	"extn_name": {
+	"EXTN_NAME": {
 		"message": "Validity"
 	},
-	"extn_description": {
+	"EXTN_DESCRIPTION": {
 		"message": "Click the icon in the address bar or press Alt+Shift+V to validate the current page.  Results can be seen in Chrome's JS console."
 	}
 }
