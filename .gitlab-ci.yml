@@ -33,7 +33,9 @@ before_script:
 
 "Package":
   stage: Package
-  only: master
   script:
     - npm install
-    - npm package
+    - npm run package
+  artifacts:
+    paths:
+      - dist/validity*.zip

@@ -5,6 +5,7 @@ const DIST = 'dist/'
 
 const gulp = require('gulp')
 const es = require('event-stream')
+const git = require('git-rev-sync')
 const jsoneditor = require('gulp-json-editor')
 const merge = require('merge-stream')
 const rename = require('gulp-rename')
@@ -44,8 +45,9 @@ gulp.task('build', ['clean'], () => {
 })
 
 gulp.task('package', ['build'], () => {
+  const commit = git.short()
   gulp.src('dist/*')
-    .pipe(zip(`validity-${pkg.version}.zip`))
+    .pipe(zip(`validity-${pkg.version}-${commit}.zip`))
     .pipe(gulp.dest(DIST))
 })
 
