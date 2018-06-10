@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp build",
     "package": "gulp package",
-    "precommit": "lint-staged",
+    "precommit": "npm test && lint-staged",
     "test": "nyc --reporter=json --reporter=lcov --reporter=text npm run test:unit",
     "test:unit": "mocha 'test/**/*.spec.js'"
   },
