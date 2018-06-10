@@ -17,11 +17,17 @@ before_script:
   stage: Tests
   script:
     - npm test
+  coverage: '/All files\s*\|\s*([0-9.]+)/'
 
 "Integration Tests":
   stage: Tests
   script:
     - ":"
+
+"Mutation Tests":
+  stage: Tests
+  script:
+    - npm run test:mutation
 
 "Tag Release":
   stage: Package

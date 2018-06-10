@@ -8,13 +8,16 @@
     "package": "gulp package",
     "precommit": "npm test && lint-staged",
     "test": "nyc --reporter=json --reporter=lcov --reporter=text npm run test:unit",
+    "test:mutation": "stryker run",
     "test:unit": "mocha 'test/**/*.spec.js'"
   },
   "devDependencies": {
     "event-stream": "^3.3.4",
     "file-api": "^0.10.4",
     "form-data": "^2.3.2",
+    "git-rev-sync": "^1.12.0",
     "gulp": "^3.9.1",
+    "gulp-json-editor": "^2.4.1",
     "gulp-rename": "^1.2.3",
     "gulp-zip": "^4.1.0",
     "husky": "^0.14.3",
@@ -24,13 +27,15 @@
     "nyc": "^12.0.1",
     "rmdir": "^1.2.0",
     "standard": "^11.0.1",
+    "stryker": "^0.24.1",
+    "stryker-api": "^0.17.2",
+    "stryker-javascript-mutator": "^0.7.2",
+    "stryker-mocha-runner": "^0.12.2",
     "superagent-mock": "^3.7.0",
     "testdouble": "^3.8.1",
     "webpack-stream": "^4.0.3"
   },
   "dependencies": {
-    "git-rev-sync": "^1.12.0",
-    "gulp-json-editor": "^2.4.1",
     "superagent": "^3.8.2"
   },
   "standard": {
