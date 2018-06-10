@@ -6,7 +6,9 @@
   "scripts": {
     "build": "gulp build",
     "package": "gulp package",
-    "precommit": "npm test && lint-staged",
+    "precommit": "lint-staged && npm test",
+    "start": "npm run start:firefox",
+    "start:firefox": "npm run build && web-ext run -s dist/ --browser-console --verbose",
     "test": "nyc --reporter=json --reporter=lcov --reporter=text npm run test:unit",
     "test:mutation": "stryker run",
     "test:unit": "mocha 'test/**/*.spec.js'"
@@ -33,6 +35,7 @@
     "stryker-mocha-runner": "^0.12.2",
     "superagent-mock": "^3.7.0",
     "testdouble": "^3.8.1",
+    "web-ext": "^2.7.0",
     "webpack-stream": "^4.0.3"
   },
   "dependencies": {

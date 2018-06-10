@@ -4,5 +4,8 @@
 	},
 	"EXTN_DESCRIPTION": {
 		"message": "Click the icon in the address bar or press Alt+Shift+V to validate the current page.  Results can be seen in Chrome's JS console."
-	}
+	},
+  "EXTN_BA_TITLE": {
+    "message": "Validate document"
+  }
 }

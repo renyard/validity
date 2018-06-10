@@ -1,9 +1,15 @@
 {
   "name": "__MSG_EXTN_NAME__",
-  "version": "",
+  "version": "0.0.0",
   "description": "__MSG_EXTN_DESCRIPTION__",
   "default_locale": "en_GB",
   "minimum_chrome_version": "67",
+  "applications": {
+    "gecko": {
+      "id": "gecko@validity.org.uk",
+      "strict_min_version": "60.0.0"
+    }
+  },
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "permissions": [
     "http://*/*",
@@ -11,6 +17,16 @@
     "tabs",
     "storage"
   ],
+  "background": {
+    "scripts": ["bundle.js"]
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    },
+    "default_title": "__MSG_EXTN_BA_TITLE__"
+  },
 	"icons": {
 		"16": "icons/16.png",
 		"32": "icons/32.png",
@@ -18,8 +34,5 @@
 		"64": "icons/64.png",
 		"128": "icons/128.png"
 	},
-  "background": {
-    "scripts": ["bundle.js"]
-  },
 	"manifest_version": 2
 }

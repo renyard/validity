@@ -30,8 +30,7 @@ gulp.task('build', ['clean'], () => {
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest(DIST))
 
-  let manifest = gulp.src(['manifest/chrome.json'])
-    .pipe(rename('manifest.json'))
+  let manifest = gulp.src(['manifest.json'])
     .pipe(jsoneditor({
       version: pkg.version
     }))
