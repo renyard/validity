@@ -6,7 +6,7 @@ describe('reporters/console', () => {
     console = require('../../../../src/reporters/console')
   })
 
-  it('does not throw', () => {
+  xit('does not throw', () => {
     assert.doesNotThrow(console)
   })
 })

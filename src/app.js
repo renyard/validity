@@ -1,8 +1,12 @@
+const { tabs } = require('./util/browser')()
 const source = require('./source')
 const checkers = require('./checkers')
+const reporters = require('./reporters')
 
-module.exports = async (tabId, url) => {
-  const input = await source(url)
+module.exports = async () => {
+  const [ tab ] = await tabs.query({active: true, currentWindow: true})
+  const input = await source(tab.url)
   const results = await checkers(input)
-  return results
+
+  reporters(tab.id, results)
 }

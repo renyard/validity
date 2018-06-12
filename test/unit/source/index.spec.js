@@ -22,7 +22,7 @@ describe('source', () => {
       fixtures: (match, params, headers, context) => {
         return '<!doctype html>'
       },
-      get: (match, data) => ({body: data})
+      get: (match, data) => ({text: data})
     }])
 
     const result = await source('https://host/file.html')

@@ -28,7 +28,7 @@ describe('checkers/nu', function () {
     transformMock = td.replace('../../../../src/checkers/nu/transform')
 
     td.when(configMock.get('validatorUrl')).thenResolve('https://validator/url')
-    td.when(transformMock({messages: []})).thenReturn([])
+    td.when(transformMock([])).thenReturn([])
 
     nu = require('../../../../src/checkers/nu')
   })
@@ -51,7 +51,7 @@ describe('checkers/nu', function () {
       fixtures: (match, params, headers, context) => {
         return '{"messages": []}'
       },
-      post: (match, data) => ({body: data})
+      post: (match, data) => ({text: data})
     }])
 
     const file = Buffer.from([''])

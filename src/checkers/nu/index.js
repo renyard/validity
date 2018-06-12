@@ -10,8 +10,12 @@ module.exports = async function (htmlFile) {
   formData.append('file', htmlFile)
 
   try {
-    let {body} = await request('POST', validatorUrl, {}, formData)
-    results = JSON.parse(body)
+    let { text } = await request.post(validatorUrl)
+      .query({out: 'json'})
+      .set('Content-type', 'text/html')
+      .send(htmlFile)
+
+    results = JSON.parse(text).messages
     results = transform(results)
   } catch (e) {
     throw e

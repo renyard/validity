@@ -1,15 +1,25 @@
-const assert = require('assert')
 const td = require('testdouble')
 
 describe('app', () => {
   let app
+  let tabQueryStub
   let sourceStub
   let checkersStub
+  let reportersStub
 
   beforeEach(() => {
+    tabQueryStub = td.func()
+    td.replace('../../src/util/browser', () => ({
+      tabs: {query: tabQueryStub}
+    }))
     sourceStub = td.replace('../../src/source')
     checkersStub = td.replace('../../src/checkers')
+    reportersStub = td.replace('../../src/reporters')
 
+    td.when(tabQueryStub({active: true, currentWindow: true})).thenResolve([{
+      url: 'https://host/file.html',
+      id: 1
+    }])
     td.when(sourceStub('https://host/file.html')).thenResolve('<!doctype html>')
     td.when(checkersStub('<!doctype html>')).thenResolve([])
 
@@ -21,8 +31,7 @@ describe('app', () => {
   })
 
   it('returns result of checkers', async () => {
-    let result = await app(1, 'https://host/file.html')
-
-    assert.deepEqual(result, [])
+    await app()
+    td.verify(reportersStub(1, []))
   })
 })

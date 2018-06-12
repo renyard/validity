@@ -1,4 +1,4 @@
-module.exports = (results) => results.messages.map((item) => ({
+module.exports = (results) => results.map((item) => ({
   type: item.type,
   message: item.message,
   line: item.lastLine,

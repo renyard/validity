@@ -8,7 +8,6 @@ const es = require('event-stream')
 const git = require('git-rev-sync')
 const jsoneditor = require('gulp-json-editor')
 const merge = require('merge-stream')
-const rename = require('gulp-rename')
 const rmdir = require('rmdir')
 const webpack = require('webpack-stream')
 const zip = require('gulp-zip')
@@ -36,7 +35,7 @@ gulp.task('build', ['clean'], () => {
     }))
     .pipe(gulp.dest(DIST))
 
-  let other = gulp.src(['src/**/*', '!src/**/*.js'])
+  let other = gulp.src(['src/**/*', '!src/**/*.js', '!src/!(_locales)/**/*.json'])
     .pipe(filterDirs())
     .pipe(gulp.dest(DIST))
 
