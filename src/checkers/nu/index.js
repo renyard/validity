@@ -10,8 +10,7 @@ module.exports = async function (htmlFile) {
   formData.append('file', htmlFile)
 
   try {
-    let { text } = await request.post(validatorUrl)
-      .query({out: 'json'})
+    let { text } = await request.post(`${validatorUrl}?out=json`)
       .set('Content-type', 'text/html')
       .send(htmlFile)
 

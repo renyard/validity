@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  validator:
+    networks:
+      "integration-tests":
+        aliases:
+          - validator.w3.org
+    image: "validator/validator"
+
+  validity:
+    build: "./"
+    networks:
+      - "integration-tests"
+    command: "npm run test:integration"
+
+networks:
+  integration-tests:
+    external: false
