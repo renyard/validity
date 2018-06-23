@@ -14,8 +14,8 @@ module.exports = async function (htmlFile) {
       .set('Content-type', 'text/html')
       .send(htmlFile)
 
-    results = JSON.parse(text).messages
-    results = transform(results)
+    const { messages } = JSON.parse(text)
+    results = transform(messages)
   } catch (e) {
     throw e
   }

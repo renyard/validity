@@ -48,9 +48,7 @@ describe('checkers/nu', function () {
   it('calls request with URL and form data', async () => {
     requestMock = mockSuperagent(request, [{
       pattern: 'https://validator/url',
-      fixtures: (match, params, headers, context) => {
-        return '{"messages": []}'
-      },
+      fixtures: () => '{"messages": []}',
       post: (match, data) => ({text: data})
     }])
 
@@ -63,7 +61,7 @@ describe('checkers/nu', function () {
   it('throws on failed request', async () => {
     requestMock = mockSuperagent(request, [{
       pattern: 'https://validator/url',
-      fixtures: (match, params, headers, context) => {
+      fixtures: () => {
         throw new Error(404)
       }
     }])

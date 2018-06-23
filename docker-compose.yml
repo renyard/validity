@@ -4,14 +4,17 @@ services:
   validator:
     networks:
       "integration-tests":
-        aliases:
-          - validator.w3.org
     image: "validator/validator"
+    ports:
+      - "80:80"
+      - "443:443"
 
   validity:
     build: "./"
     networks:
       - "integration-tests"
+    links:
+      - "validator:validator.w3.org"
     command: "npm run test:integration"
 
 networks:

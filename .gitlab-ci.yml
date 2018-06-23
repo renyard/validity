@@ -7,21 +7,21 @@ cache:
     - node_modules/
 
 stages:
-  - Build
+  # - Build
   - Tests
   - Package
 
-"Build Docker Container":
-  stage: Build
-  image: docker:git
-  services:
-    - docker:dind
-  before_script:
-    - ":"
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-    - docker build -t registry.gitlab.com/renyard/validity:${CI_JOB_ID}_${CI_COMMIT_SHA} ./
-    - docker push registry.gitlab.com/renyard/validity:${CI_JOB_ID}_${CI_COMMIT_SHA}
+# "Build Docker Container":
+#   stage: Build
+#   image: docker:git
+#   services:
+#     - docker:dind
+#   before_script:
+#     - ":"
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+#     - docker build -t registry.gitlab.com/renyard/validity:${CI_JOB_ID}_${CI_COMMIT_SHA} ./
+#     - docker push registry.gitlab.com/renyard/validity:${CI_JOB_ID}_${CI_COMMIT_SHA}
 
 "Unit Tests":
   stage: Tests
@@ -33,14 +33,23 @@ stages:
 
 "Integration Tests":
   stage: Tests
-  image: docker:git
-  services:
-    - docker:dind
+  image: ubuntu:18.04
   before_script:
-    - apk add --no-cache py-pip
-    - pip install docker-compose
+    - apt update -y && apt install -y firefox nodejs npm
+    - npm install
   script:
-    - docker-compose up --build --abort-on-container-exit --exit-code-from validity
+    - npm run test:integration
+
+# "Integration Tests":
+#   stage: Tests
+#   image: docker:git
+#   services:
+#     - docker:dind
+#   before_script:
+#     - apk add --no-cache py-pip
+#     - pip install docker-compose
+#   script:
+#     - docker-compose up --build --abort-on-container-exit --exit-code-from validity
 
 
 "Mutation Tests":

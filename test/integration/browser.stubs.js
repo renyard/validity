@@ -1,20 +1,20 @@
 const td = require('testdouble')
 
-module.exports = ({tabId, tabUrl}) => {
-  const browserAction = {
-    onClicked: {
-      addListener: td.func()
-    }
+const browserAction = {
+  onClicked: {
+    addListener: td.func()
   }
+}
 
+const tabs = {
+  query: td.func(),
+  executeScript: td.func()
+}
+
+module.exports = ({tabId, tabUrl}) => {
   const tab = {
     id: tabId,
     url: tabUrl
-  }
-
-  const tabs = {
-    query: td.func(),
-    executeScript: td.func()
   }
 
   td.when(tabs.query({active: true, currentWindow: true}))
