@@ -52,12 +52,12 @@ stages:
 #     - docker-compose up --build --abort-on-container-exit --exit-code-from validity
 
 
-"Mutation Tests":
-  stage: Tests
-  before_script:
-    - npm install
-  script:
-    - npm run test:mutation
+# "Mutation Tests":
+#   stage: Tests
+#   before_script:
+#     - npm install
+#   script:
+#     - npm run test:mutation
 
 "Tag Release":
   stage: Package
