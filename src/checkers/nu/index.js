@@ -1,6 +1,7 @@
 const request = require('superagent')
 const config = require('../../config')
 const transform = require('./transform')
+const ERRORS = require('../../error/constants.json')
 
 module.exports = async function (htmlFile) {
   let results
@@ -17,7 +18,7 @@ module.exports = async function (htmlFile) {
     const { messages } = JSON.parse(text)
     results = transform(messages)
   } catch (e) {
-    throw e
+    throw new Error(ERRORS.VALIDATOR_ERROR)
   }
 
   return results

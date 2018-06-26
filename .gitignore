@@ -1,6 +1,7 @@
-.DS_Store
-.nyc_output/
 node_modules/
 dist/
 *.zip
 coverage/
+.DS_Store
+.nyc_output/
+.stryker-tmp/

@@ -6,6 +6,7 @@ describe('app', () => {
   let sourceStub
   let checkersStub
   let reportersStub
+  let errorsStub
 
   beforeEach(() => {
     tabQueryStub = td.func()
@@ -15,6 +16,7 @@ describe('app', () => {
     sourceStub = td.replace('../../src/source')
     checkersStub = td.replace('../../src/checkers')
     reportersStub = td.replace('../../src/reporters')
+    errorsStub = td.replace('../../src/error')
 
     td.when(tabQueryStub({active: true, currentWindow: true})).thenResolve([{
       url: 'https://host/file.html',
@@ -33,5 +35,13 @@ describe('app', () => {
   it('returns result of checkers', async () => {
     await app()
     td.verify(reportersStub(1, []))
+  })
+
+  it('calls error handler with error', async () => {
+    const err = new Error('validator_error')
+    td.when(checkersStub('<!doctype html>')).thenThrow(err)
+
+    await app()
+    td.verify(errorsStub(err))
   })
 })

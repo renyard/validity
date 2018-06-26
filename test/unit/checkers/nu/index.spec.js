@@ -4,15 +4,12 @@ const FormData = require('form-data')
 const request = require('superagent')
 const mockSuperagent = require('superagent-mock')
 
-const assertThrowsAsync = async (func, args) => {
-  let f = () => {}
-
+const assertThrowsAsync = async (func, args, expectedMessage) => {
   try {
     await func(...args)
+    assert.fail('Did not throw')
   } catch (e) {
-    f = () => { throw e }
-  } finally {
-    assert.throws(f)
+    assert(e.message, expectedMessage)
   }
 }
 
@@ -62,11 +59,11 @@ describe('checkers/nu', function () {
     requestMock = mockSuperagent(request, [{
       pattern: 'https://validator/url',
       fixtures: () => {
-        throw new Error(404)
+        throw new Error(500)
       }
     }])
 
     const file = Buffer.from([''])
-    await assertThrowsAsync(nu, [file])
+    await assertThrowsAsync(nu, [file], 'validator_error')
   })
 })
