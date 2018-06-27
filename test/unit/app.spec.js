@@ -42,6 +42,6 @@ describe('app', () => {
     td.when(checkersStub('<!doctype html>')).thenThrow(err)
 
     await app()
-    td.verify(errorsStub(err))
+    td.verify(errorsStub.handler(err))
   })
 })

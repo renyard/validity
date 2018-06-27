@@ -1,10 +1,7 @@
 const ERRORS = require('./constants.json')
+const handler = require('./handler')
 
-module.exports = (err) => {
-  const errors = Object.values(ERRORS)
-  if (errors.includes(err.message)) {
-    // Report error
-  } else {
-    throw err
-  }
+module.exports = {
+  ERRORS,
+  handler
 }
