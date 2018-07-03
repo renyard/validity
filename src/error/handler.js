@@ -7,10 +7,10 @@ module.exports = (err) => {
   if (errors.includes(err.message)) {
     const i18nKey = err.message.toUpperCase()
 
-    return [{
+    return [[{
       type: 'error',
       message: i18n.getMessage(`ERR_${i18nKey}`)
-    }]
+    }]]
   } else {
     throw err
   }

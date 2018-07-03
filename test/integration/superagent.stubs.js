@@ -16,7 +16,8 @@ const docs = {
     </head>
     <body>
     </body>
-    </html>`
+    </html>`,
+  validatorError: 'ERROR'
 }
 
 module.exports = [{
@@ -30,6 +31,19 @@ module.exports = [{
   get: (match, data) => ({ text: data })
 },
 {
+  pattern: 'https://network/error',
+  fixtures: () => {
+    let error = new Error()
+    error.status = undefined
+    throw error
+  }
+},
+{
+  pattern: 'https://validator/error',
+  fixtures: () => docs.validatorError,
+  get: (match, data) => ({ text: data })
+},
+{
   pattern: 'https://validator.w3.org/nu/',
   fixtures: (match, params, headers, context) => {
     if (params.trim() === docs.valid.trim()) {
@@ -37,6 +51,11 @@ module.exports = [{
     }
     if (params.trim() === docs.invalid.trim()) {
       return '{"messages":[{"type":"error","lastLine":5,"lastColumn":19,"firstColumn":12,"message":"Element “title” must not be empty.","extract":"   <title></title>\\n    <","hiliteStart":10,"hiliteLength":8}]}'
+    }
+    if (params.trim() === docs.validatorError.trim()) {
+      let error = new Error()
+      error.status = undefined
+      throw error
     }
   },
   post: (match, data) => ({ text: data })

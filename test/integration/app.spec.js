@@ -38,4 +38,26 @@ describe('validity', () => {
       code: 'console.error("Element “title” must not be empty. (line 5)")'
     }))
   })
+
+  it('source network error', async () => {
+    browserStubs = stubBrowser({tabId: 1, tabUrl: 'https://network/error'})
+    validate = require('../../src/app')
+
+    await validate()
+
+    td.verify(browserStubs.tabs.executeScript(1, {
+      code: 'console.error("ERR_SOURCE_ERROR")'
+    }))
+  })
+
+  it('validator network error', async () => {
+    browserStubs = stubBrowser({tabId: 1, tabUrl: 'https://validator/error'})
+    validate = require('../../src/app')
+
+    await validate()
+
+    td.verify(browserStubs.tabs.executeScript(1, {
+      code: 'console.error("ERR_VALIDATOR_ERROR")'
+    }))
+  })
 })
