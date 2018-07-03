@@ -3,8 +3,15 @@ const td = require('testdouble')
 
 describe('error handler', () => {
   let handler
+  let getMessageStub
 
   beforeEach(() => {
+    getMessageStub = td.func()
+    td.replace('../../../src/util/browser', () => ({
+      i18n: {
+        getMessage: getMessageStub
+      }
+    }))
     td.replace('../../../src/error/constants.json')
 
     handler = require('../../../src/error/handler')
@@ -14,20 +21,14 @@ describe('error handler', () => {
     td.reset()
   })
 
-  it('reports known errors', () => {
+  it('returns string for known error', () => {
     let err = new Error()
     err.message = 'source_error'
 
-    try {
-      handler(err)
-      assert.ok(true)
-    } catch (e) {
-      if (e === err) {
-        assert.fail('threw known error')
-      } else {
-        assert.fail(e)
-      }
-    }
+    td.when(getMessageStub('ERR_SOURCE_ERROR')).thenReturn('expected message')
+
+    const result = handler(err)
+    assert.deepEqual(result, [{type: 'error', message: 'expected message'}])
   })
 
   it('throws unknown error', () => {

@@ -14,7 +14,7 @@ module.exports = async () => {
     const input = await source(tab.url)
     results = await checkers(input)
   } catch (err) {
-    error.handler(err)
+    results = error.handler(err)
   }
 
   reporters(tab.id, results)

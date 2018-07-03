@@ -7,7 +7,7 @@ describe('error', () => {
 
   beforeEach(() => {
     constantsStub = td.replace('../../../src/error/constants.json')
-    handlerStub = td.replace('../../../src/error/handler')
+    handlerStub = td.replace('../../../src/error/handler', td.func())
   })
 
   afterEach(() => {
