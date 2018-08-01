@@ -28,7 +28,7 @@ describe('error handler', () => {
     td.when(getMessageStub('ERR_SOURCE_ERROR')).thenReturn('expected message')
 
     const result = handler(err)
-    assert.deepEqual(result, [[{type: 'error', message: 'expected message'}]])
+    assert.deepEqual(result, [[{type: 'network', message: 'expected message'}]])
   })
 
   it('throws unknown error', () => {

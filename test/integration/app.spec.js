@@ -46,7 +46,7 @@ describe('validity', () => {
     await validate()
 
     td.verify(browserStubs.tabs.executeScript(1, {
-      code: 'console.error("ERR_SOURCE_ERROR")'
+      code: 'console.info("ERR_SOURCE_ERROR")'
     }))
   })
 
@@ -57,7 +57,7 @@ describe('validity', () => {
     await validate()
 
     td.verify(browserStubs.tabs.executeScript(1, {
-      code: 'console.error("ERR_VALIDATOR_ERROR")'
+      code: 'console.info("ERR_VALIDATOR_ERROR")'
     }))
   })
 })

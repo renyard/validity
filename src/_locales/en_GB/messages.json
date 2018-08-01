@@ -9,9 +9,9 @@
     "message": "Validate document"
   },
   "ERR_SOURCE_ERROR": {
-    "message": "Could not get source"
+    "message": "Validity: Could not get source"
   },
   "ERR_VALIDATOR_ERROR": {
-    "message": "Could not contact validator"
+    "message": "Validity: Could not contact validator"
   }
 }

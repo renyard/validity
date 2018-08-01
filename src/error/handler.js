@@ -8,7 +8,7 @@ module.exports = (err) => {
     const i18nKey = err.message.toUpperCase()
 
     return [[{
-      type: 'error',
+      type: 'network',
       message: i18n.getMessage(`ERR_${i18nKey}`)
     }]]
   } else {
