@@ -16,6 +16,7 @@ describe('app', () => {
     sourceStub = td.replace('../../src/source')
     checkersStub = td.replace('../../src/checkers')
     reportersStub = td.replace('../../src/reporters')
+    td.replace('../../src/util/actions')
     errorsStub = td.replace('../../src/error')
 
     td.when(tabQueryStub({active: true, currentWindow: true})).thenResolve([{

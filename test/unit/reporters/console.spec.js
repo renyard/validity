@@ -12,12 +12,12 @@ describe('reporters/console', () => {
       }
     }
     executeScriptStub = td.func()
-    td.replace('../../../../src/util/browser', () => ({
+    td.replace('../../../src/util/browser', () => ({
       tabs: {
         executeScript: executeScriptStub
       }
     }))
-    cons = require('../../../../src/reporters/console')
+    cons = require('../../../src/reporters/console')
   })
 
   afterEach(() => {

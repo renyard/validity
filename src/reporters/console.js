@@ -1,4 +1,4 @@
-const { tabs } = require('../../util/browser')()
+const { tabs } = require('../util/browser')()
 
 const escapeMessage = (message) =>
   message.replace(/(\r\n|\n|\r)/g, ' ').replace(/(['"])/g, '\\$1')

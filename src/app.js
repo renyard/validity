@@ -1,6 +1,7 @@
 const source = require('./source')
 const checkers = require('./checkers')
 const reporters = require('./reporters')
+const setBrowserAction = require('./util/actions')
 const error = require('./error')
 
 module.exports = async () => {
@@ -8,6 +9,8 @@ module.exports = async () => {
 
   const tabsResult = await tabs.query({active: true, currentWindow: true})
   const [ tab ] = tabsResult
+
+  setBrowserAction(tab.id, {}, tab)
 
   let results
   try {

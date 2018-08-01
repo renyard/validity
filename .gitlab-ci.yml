@@ -10,6 +10,7 @@ stages:
   # - Build
   - Tests
   - Package
+  - Release
 
 # "Build Docker Container":
 #   stage: Build
@@ -74,4 +75,11 @@ stages:
     - npm run package
   artifacts:
     paths:
-      - dist/validity*.zip
+      - web-ext-artifacts/validity*.zip
+
+"Release":
+  stage: Release
+  before_script:
+    - npm install
+  script:
+    - npm run release

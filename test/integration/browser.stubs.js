@@ -3,7 +3,11 @@ const td = require('testdouble')
 const browserAction = {
   onClicked: {
     addListener: td.func()
-  }
+  },
+  enable: td.func(),
+  disable: td.func(),
+  setBadgeText: td.func(),
+  setBadgeBackgroundColor: td.func()
 }
 
 const i18n = {
@@ -11,6 +15,9 @@ const i18n = {
 }
 
 const tabs = {
+  onUpdated: {
+    addListener: td.func()
+  },
   query: td.func(),
   executeScript: td.func()
 }
