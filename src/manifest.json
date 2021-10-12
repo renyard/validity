@@ -11,20 +11,14 @@
 		"64": "icons/64.png",
 		"128": "icons/128.png"
 	},
-	"permissions": [
-		"http://*/*",
-		"https://*/*",
-		"tabs",
-		"storage"
-	],
+	"permissions": ["http://*/*", "https://*/*", "storage"],
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-	"content_scripts": [{
-		"matches": [
-			"http://*/*",
-			"https://*/*"
-		],
-		"js": ["validity.js"]
-	}],
+	"content_scripts": [
+		{
+			"matches": ["http://*/*", "https://*/*"],
+			"js": ["validity.js"]
+		}
+	],
 	"background": {
 		"scripts": [
 			"background/controller.js",

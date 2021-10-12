@@ -1,87 +1,108 @@
-4.0.1 (07/11/2016)
-* Fixed analytics ID.
+4.0.2 (12/10/2021)
 
-4.0.0 (06/11/2016)
-* Validity now uses the Nu Validator (https://validator.w3.org/nu/) by default.
-* Added option to use legacy W3C Validator for custom instances.
+-   Removed unused permission.
 
-3.3.1 (29/09/2016)
-* Added developer info to options dialog.
+    4.0.1 (07/11/2016)
 
-3.3.0 (28/09/2016)
-* Warnings are now shown for valid documents. (#70)
+-   Fixed analytics ID.
 
-3.2.2 (23/08/2016)
-* Changed default validator, due to breaking change in W3C hosted instance.
+    4.0.0 (06/11/2016)
 
-3.2.1 (07/08/2016)
-* Corrected the default validator in the options UI.
+-   Validity now uses the Nu Validator (https://validator.w3.org/nu/) by default.
+-   Added option to use legacy W3C Validator for custom instances.
 
-3.2.0 (31/07/2016)
-* Changed default validator to W3C hosted instance.
-* Fixed #68 error pages (response other then 200) cannot be validated.
+    3.3.1 (29/09/2016)
 
-3.1.0 (17/01/2016)
-* Suppressed the "This interface to HTML5 document checking is obsolete." message.
+-   Added developer info to options dialog.
 
-3.0.1 (26/04/2015)
-* Changed the default validator to an instance run specifically for Validity.
-* The validator uses SSL encryption by default, scoring an A on SSL Check (https://sslcheck.globalsign.com/en_GB/sslcheck/?host=html.validity.org.uk).
-* The new validator instance should also fix the "Bad Gateway" errors, which are believed to be due to rate limiting on the W3C Validator.
+    3.3.0 (28/09/2016)
 
-2.0.2 (14/07/2014)
-* Fixed a bug in loading the custom validator value on the options page.
+-   Warnings are now shown for valid documents. (#70)
 
-2.0.1 (11/07/2014)
-* Fixed a bug when the validator message contains a quote.
+    3.2.2 (23/08/2016)
 
-2.0.0 (09/07/2014)
-* Support for Retina & high dpi displays.
-* Regular expressions are now supported for host matching in options.
-* The keyboard shortcut can now be changed via the "Keyboard shortcuts" dialog on the extension management page.
-* Options are now synced via your Google or Opera Sync account.
-* Regular expressions can now be used to match hosts.
-* Rewrote the build script to use Grunt and include unit tests and linting.
+-   Changed default validator, due to breaking change in W3C hosted instance.
 
-1.3.0 (23/05/2013)
-* Wildcards are now supported in specified and automatically validated hosts.
-  (Thanks to David Godfrey - https://github.com/ReactiveRaven)
+    3.2.1 (07/08/2016)
 
-1.2.4 (23/03/2012)
-* Fixed bug with keyboard shortcut, introduced in 1.2.3.
-* Restored default of true to collapse result option.
+-   Corrected the default validator in the options UI.
 
-1.2.3 (14/03/2012)
-* Collapse results option is now honoured.
+    3.2.0 (31/07/2016)
 
-1.2.2 (22/09/2011)
-* No line is given when an error is not specific to a line.
-* When one error is found, console output is no longer plural.
-* An error is no longer thrown when a message contains a line break.
-  (Thanks to Mathieu Turcotte - https://github.com/MathieuTurcotte)
+-   Changed default validator to W3C hosted instance.
+-   Fixed #68 error pages (response other then 200) cannot be validated.
 
-1.2.1 (17/08/2011):
+    3.1.0 (17/01/2016)
 
-* Fixed a bug where domains with hyphens were not recognised for auto validation and enabling for specific hosts.
-  (Thanks to Luke Armstrong - https://github.com/lukearmstrong)
+-   Suppressed the "This interface to HTML5 document checking is obsolete." message.
 
-1.2.0 (19/07/2011):
+    3.0.1 (26/04/2015)
 
-* HTTPS pages are now supported.
-* More improvements to the Options UI.
-* Reduced memory and CPU footprint.
+-   Changed the default validator to an instance run specifically for Validity.
+-   The validator uses SSL encryption by default, scoring an A on SSL Check (https://sslcheck.globalsign.com/en_GB/sslcheck/?host=html.validity.org.uk).
+-   The new validator instance should also fix the "Bad Gateway" errors, which are believed to be due to rate limiting on the W3C Validator.
 
-1.1.0 (23/01/2011):
+    2.0.2 (14/07/2014)
 
-* Validator warnings are now displayed with errors in the console.
-* Improvements to the options UI.
+-   Fixed a bug in loading the custom validator value on the options page.
 
-1.0.0 (13/11/2010):
+    2.0.1 (11/07/2014)
 
-* Complete rewrite.
-* Supports installs of legacy versions of the W3C Validator commonly found in software repositories.
-* Source code is now hosted on GitHub (https://github.com/renyard/validity).
+-   Fixed a bug when the validator message contains a quote.
 
-0.3:
-* Pages are now sent to the validator as a fragment, meaning that pages are not required to be accessible to the validator.
-* Validation errors are now detailed in the Javascript console.
+    2.0.0 (09/07/2014)
+
+-   Support for Retina & high dpi displays.
+-   Regular expressions are now supported for host matching in options.
+-   The keyboard shortcut can now be changed via the "Keyboard shortcuts" dialog on the extension management page.
+-   Options are now synced via your Google or Opera Sync account.
+-   Regular expressions can now be used to match hosts.
+-   Rewrote the build script to use Grunt and include unit tests and linting.
+
+    1.3.0 (23/05/2013)
+
+-   Wildcards are now supported in specified and automatically validated hosts.
+    (Thanks to David Godfrey - https://github.com/ReactiveRaven)
+
+    1.2.4 (23/03/2012)
+
+-   Fixed bug with keyboard shortcut, introduced in 1.2.3.
+-   Restored default of true to collapse result option.
+
+    1.2.3 (14/03/2012)
+
+-   Collapse results option is now honoured.
+
+    1.2.2 (22/09/2011)
+
+-   No line is given when an error is not specific to a line.
+-   When one error is found, console output is no longer plural.
+-   An error is no longer thrown when a message contains a line break.
+    (Thanks to Mathieu Turcotte - https://github.com/MathieuTurcotte)
+
+    1.2.1 (17/08/2011):
+
+-   Fixed a bug where domains with hyphens were not recognised for auto validation and enabling for specific hosts.
+    (Thanks to Luke Armstrong - https://github.com/lukearmstrong)
+
+    1.2.0 (19/07/2011):
+
+-   HTTPS pages are now supported.
+-   More improvements to the Options UI.
+-   Reduced memory and CPU footprint.
+
+    1.1.0 (23/01/2011):
+
+-   Validator warnings are now displayed with errors in the console.
+-   Improvements to the options UI.
+
+    1.0.0 (13/11/2010):
+
+-   Complete rewrite.
+-   Supports installs of legacy versions of the W3C Validator commonly found in software repositories.
+-   Source code is now hosted on GitHub (https://github.com/renyard/validity).
+
+    0.3:
+
+-   Pages are now sent to the validator as a fragment, meaning that pages are not required to be accessible to the validator.
+-   Validation errors are now detailed in the Javascript console.
