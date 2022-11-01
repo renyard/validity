@@ -46,6 +46,7 @@
 			line,
 			errorCount = response.errorCount,
 			warningCount = response.warningCount,
+			infoCount = response.infoCount,
 			toEval = '';
 
 		messages = response.messages;
@@ -57,7 +58,7 @@
 			return;
 		}
 
-		if (errorCount > 0 || warningCount > 0) {
+		if (errorCount > 0 || warningCount > 0 || infoCount > 0) {
 			//	Collapse results based on option
 			if (console.groupCollapsed && opts.collapseResults) {
 				toEval += 'console.groupCollapsed';
@@ -76,7 +77,10 @@
 				toEval += '(\'Document is valid with ' + warningCount + ' warning' +
 					//	Add s for plural
 					(warningCount > 1?'s':'') +
-					'\');';
+					' and ' + infoCount + ' info message' +
+					//	Add s for plural
+					(infoCount > 1?'s':'') +
+					 '\');';
 			}
 
 			for(var i in messages) {
@@ -115,7 +119,7 @@
 							opts = options;
 							_logMessages(results);
 						});
-					});	
+					});
 				}
 			});
 		});
