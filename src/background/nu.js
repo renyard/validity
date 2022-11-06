@@ -17,6 +17,7 @@ var validity = (function(validity) {
 		var data = JSON.parse(response),
 			errors = 0,
 			warnings = 0,
+			infos = 0,
 			messages = [];
 
 		data.messages.forEach(m => messages.push({
@@ -25,10 +26,10 @@ var validity = (function(validity) {
 				lastLine: m.lastLine,
 				message: m.message,
 				messageid: '',
-				type: m.subType === 'warning'?'warn':'error'
+				type: m.type === 'info' && m.subType === 'warning' ? 'warn' : m.type === 'info' ? 'info' : 'error'
 		}));
 
-		// Count errors and warnings.
+		// Count errors, warnings and info messages.
 		messages.forEach((m) => {
 			switch (m.type) {
 				case 'error':
@@ -36,6 +37,9 @@ var validity = (function(validity) {
 					break;
 				case 'warn':
 					warnings++;
+					break;
+				case 'info':
+					infos++;
 					break;
 			}
 		});
@@ -45,6 +49,7 @@ var validity = (function(validity) {
 			url: data.url,
 			errorCount: errors,
 			warningCount: warnings,
+			infoCount: infos,
 			messages: messages
 		};
 	};

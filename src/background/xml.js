@@ -25,6 +25,7 @@ var validity = (function(validity) {
 				"doctype": undefined,
 				"errorCount": undefined,
 				"warningCount": undefined,
+				"infoCount": undefined,
 				"messages": undefined,
 				"source": {
 					"encoding": undefined,
@@ -33,9 +34,11 @@ var validity = (function(validity) {
 			},
 			errors = [],
 			warnings = [],
+			infos = [],
 			messages = [],
 			errorNodes,
 			warningNodes;
+			infoNodes;
 
 		response.url = _getFirstTagName(xmlDom, 'uri').textContent;
 		response.doctype = _getFirstTagName(xmlDom, 'doctype').textContent;
@@ -43,6 +46,7 @@ var validity = (function(validity) {
 
 		errorNodes = _getFirstTagName(xmlDom, 'errorlist').getElementsByTagName('error');
 		warningNodes = _getFirstTagName(xmlDom, 'warninglist').getElementsByTagName('warning');
+		infoNodes = _getFirstTagName(xmlDom, 'infolist').getElementsByTagName('info');
 
 		//	Loop through errors
 		for (var i = 0; i < errorNodes.length; i++) {
@@ -70,16 +74,31 @@ var validity = (function(validity) {
 			warnings[j].type = 'warn';
 		}
 
+		//	Loop through infos
+		for (var j = 0; j < infoNodes.length; j++) {
+			//	Create object for info messages
+			infos[j] = {};
+
+			infos[j].lastLine = parseInt(_getFirstTagName(infoNodes[j], 'line').textContent, 10);
+			infos[j].lastColumn = parseInt(_getFirstTagName(infoNodes[j], 'col').textContent, 10);
+			infos[j].message = _getFirstTagName(infoNodes[j], 'message').textContent;
+			infos[j].messageid = _getFirstTagName(infoNodes[j], 'messageid').textContent;
+			infos[j].explanation = '';
+			infos[j].type = 'info';
+		}
+
 		// Filter out suppressed messages.
 		errors = errors.filter(_filterSuppressed);
 		warnings = warnings.filter(_filterSuppressed);
+		infos = infos.filter(_filterSuppressed);
 
-		// Count errors and warnings.
+		// Count errors, warnings and info messages.
 		response.errorCount = errors.length;
 		response.warningCount = warnings.length;
+		response.infoCount = infos.length;
 
-		//	Concatenate errors and warnings onto messages array
-		messages = messages.concat(errors, warnings);
+		//	Concatenate errors, warnings and info messages onto messages array
+		messages = messages.concat(errors, warnings, infos);
 
 		//	Sort messages by line
 		messages.sort(function(a, b) {
@@ -119,7 +138,7 @@ var validity = (function(validity) {
 		return !suppressed.some(function(v, i, a) {
 			return id === v;
 		});
-	
+
 	}
 
 	/**
